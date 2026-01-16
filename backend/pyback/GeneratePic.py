@@ -10,7 +10,7 @@ import requests
 
 # ======================== 全局配置 ========================
 dashscope.base_http_api_url = 'https://dashscope.aliyuncs.com/api/v1'
-API_KEY = "sk-8eb3cf8f28ab454ba7c84819e7cac905"
+API_KEY = 
 
 
 # ======================== 工具函数 ========================

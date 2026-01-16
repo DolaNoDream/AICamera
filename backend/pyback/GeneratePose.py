@@ -110,7 +110,7 @@ def generate_pose_suggestions(
     def call_llm(prompt: str) -> str:
         from openai import OpenAI
         client = OpenAI(
-            api_key="sk-8eb3cf8f28ab454ba7c84819e7cac905",  # 替换为真实API Key
+            api_key=
             base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
         )
 
