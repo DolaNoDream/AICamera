@@ -4,10 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TtsRequest {
+public class PoseSugResponse {
     private String sessionId;
-    private String text;
+    private String poseImageUrl;
+    private String guideText;
+    private String voiceAudioText;
+    private List<PoseSuggestion> poseSuggestions;
 }
