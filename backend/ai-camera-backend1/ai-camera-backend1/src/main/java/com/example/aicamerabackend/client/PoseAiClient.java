@@ -1,6 +1,6 @@
 package com.example.aicamerabackend.client;
 
-import com.example.aicamerabackend.dto.FrameAnalyzeResponse;
+import com.example.aicamerabackend.dto.PoseSugResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
@@ -22,11 +22,10 @@ public class PoseAiClient {
     @Value("${ai.pose.base-url}")
     private String baseUrl;
 
-    public FrameAnalyzeResponse analyze(MultipartFile image, String sessionId) {
+    public PoseSugResponse poseSug(MultipartFile image, String sessionId, String userIntent, String meta) {
         try {
             MultipartBodyBuilder builder = new MultipartBodyBuilder();
 
-            // image 需要以资源形式塞进 multipart
             ByteArrayResource imageResource = new ByteArrayResource(image.getBytes()) {
                 @Override
                 public String getFilename() {
@@ -35,22 +34,27 @@ public class PoseAiClient {
             };
 
             builder.part("sessionId", sessionId);
-            builder.part("image", imageResource)
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM);
+            builder.part("image", imageResource).contentType(MediaType.APPLICATION_OCTET_STREAM);
+
+            if (userIntent != null && !userIntent.isBlank()) {
+                builder.part("userIntent", userIntent);
+            }
+            if (meta != null && !meta.isBlank()) {
+                builder.part("meta", meta);
+            }
 
             return webClient.post()
-                    .uri(baseUrl + "/analyze")
+                    .uri(baseUrl + "/posesug")
                     .contentType(MediaType.MULTIPART_FORM_DATA)
                     .body(BodyInserters.fromMultipartData(builder.build()))
                     .retrieve()
-                    .bodyToMono(FrameAnalyzeResponse.class)
-                    .timeout(Duration.ofSeconds(2))
-                    .onErrorResume(e -> Mono.error(new RuntimeException("Pose AI service call failed: " + e.getMessage(), e)))
+                    .bodyToMono(PoseSugResponse.class)
+                    .timeout(Duration.ofSeconds(3))
+                    .onErrorResume(e -> Mono.error(new RuntimeException("Pose AI call failed: " + e.getMessage(), e)))
                     .block();
 
         } catch (Exception e) {
-            throw new RuntimeException("Pose AI service call failed: " + e.getMessage(), e);
+            throw new RuntimeException("Pose AI call failed: " + e.getMessage(), e);
         }
     }
-
 }
