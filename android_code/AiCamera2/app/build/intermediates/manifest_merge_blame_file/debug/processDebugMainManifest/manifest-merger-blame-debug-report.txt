@@ -1,0 +1,204 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.aicamera"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="36"
+9        android:targetSdkVersion="36" />
+10
+11    <!-- 必需权限 -->
+12    <uses-permission android:name="android.permission.CAMERA" />
+12-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:6:5-65
+12-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:6:22-62
+13    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+13-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:7:5-76
+13-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:7:22-73
+14    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+14-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:8:5-75
+14-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:8:22-72
+15    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+15-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:9:5-81
+15-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:9:22-78
+16    <uses-permission android:name="android.permission.INTERNET" />
+16-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:11:5-67
+16-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:11:22-64
+17    <!-- 录音权限 -->
+18    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+18-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:13:5-71
+18-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:13:22-68
+19
+20    <!-- 硬件特性声明 -->
+21    <uses-feature
+21-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:17:5-19:36
+22        android:name="android.hardware.camera"
+22-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:18:9-47
+23        android:required="false" />
+23-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:19:9-33
+24
+25    <!-- 后续预留权限 -->
+26    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+26-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:13:5-71
+26-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:13:22-68
+27
+28    <!-- 网络权限（后续AI功能预留） -->
+29    <uses-permission android:name="android.permission.INTERNET" />
+29-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:11:5-67
+29-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:11:22-64
+30
+31    <permission
+31-->[androidx.core:core:1.17.0] C:\Users\luyao\.gradle\caches\8.13\transforms\341e05987f24a0eee7e2342bf173415a\transformed\core-1.17.0\AndroidManifest.xml:22:5-24:47
+32        android:name="com.example.aicamera.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+32-->[androidx.core:core:1.17.0] C:\Users\luyao\.gradle\caches\8.13\transforms\341e05987f24a0eee7e2342bf173415a\transformed\core-1.17.0\AndroidManifest.xml:23:9-81
+33        android:protectionLevel="signature" />
+33-->[androidx.core:core:1.17.0] C:\Users\luyao\.gradle\caches\8.13\transforms\341e05987f24a0eee7e2342bf173415a\transformed\core-1.17.0\AndroidManifest.xml:24:9-44
+34
+35    <uses-permission android:name="com.example.aicamera.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+35-->[androidx.core:core:1.17.0] C:\Users\luyao\.gradle\caches\8.13\transforms\341e05987f24a0eee7e2342bf173415a\transformed\core-1.17.0\AndroidManifest.xml:26:5-97
+35-->[androidx.core:core:1.17.0] C:\Users\luyao\.gradle\caches\8.13\transforms\341e05987f24a0eee7e2342bf173415a\transformed\core-1.17.0\AndroidManifest.xml:26:22-94
+36
+37    <application
+37-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:27:5-48:19
+38        android:name="com.example.aicamera.MyApplication"
+38-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:28:9-38
+39        android:allowBackup="true"
+39-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:29:9-35
+40        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+40-->[androidx.core:core:1.17.0] C:\Users\luyao\.gradle\caches\8.13\transforms\341e05987f24a0eee7e2342bf173415a\transformed\core-1.17.0\AndroidManifest.xml:28:18-86
+41        android:dataExtractionRules="@xml/data_extraction_rules"
+41-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:30:9-65
+42        android:debuggable="true"
+43        android:extractNativeLibs="false"
+44        android:fullBackupContent="@xml/backup_rules"
+44-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:31:9-54
+45        android:icon="@mipmap/ic_launcher"
+45-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:32:9-43
+46        android:label="@string/app_name"
+46-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:33:9-41
+47        android:roundIcon="@mipmap/ic_launcher_round"
+47-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:34:9-54
+48        android:supportsRtl="true"
+48-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:35:9-35
+49        android:testOnly="true"
+50        android:theme="@style/Theme.AiCamera"
+50-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:36:9-46
+51        android:usesCleartextTraffic="true" >
+51-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:37:9-44
+52        <activity
+52-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:38:9-47:20
+53            android:name="com.example.aicamera.MainActivity"
+53-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:39:13-41
+54            android:exported="true"
+54-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:40:13-36
+55            android:screenOrientation="portrait" >
+55-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:41:13-49
+56            <intent-filter>
+56-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:42:13-46:29
+57                <action android:name="android.intent.action.MAIN" />
+57-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:43:17-69
+57-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:43:25-66
+58
+59                <category android:name="android.intent.category.LAUNCHER" />
+59-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:45:17-77
+59-->E:\Code\gitRepo\AICamera\android_code\AiCamera2\app\src\main\AndroidManifest.xml:45:27-74
+60            </intent-filter>
+61        </activity>
+62
+63        <service
+63-->[androidx.camera:camera-camera2:1.5.2] C:\Users\luyao\.gradle\caches\8.13\transforms\333a56225c97e0501eacb3d07db8841f\transformed\camera-camera2-1.5.2\AndroidManifest.xml:24:9-33:19
+64            android:name="androidx.camera.core.impl.MetadataHolderService"
+64-->[androidx.camera:camera-camera2:1.5.2] C:\Users\luyao\.gradle\caches\8.13\transforms\333a56225c97e0501eacb3d07db8841f\transformed\camera-camera2-1.5.2\AndroidManifest.xml:25:13-75
+65            android:enabled="false"
+65-->[androidx.camera:camera-camera2:1.5.2] C:\Users\luyao\.gradle\caches\8.13\transforms\333a56225c97e0501eacb3d07db8841f\transformed\camera-camera2-1.5.2\AndroidManifest.xml:26:13-36
+66            android:exported="false" >
+66-->[androidx.camera:camera-camera2:1.5.2] C:\Users\luyao\.gradle\caches\8.13\transforms\333a56225c97e0501eacb3d07db8841f\transformed\camera-camera2-1.5.2\AndroidManifest.xml:27:13-37
+67            <meta-data
+67-->[androidx.camera:camera-camera2:1.5.2] C:\Users\luyao\.gradle\caches\8.13\transforms\333a56225c97e0501eacb3d07db8841f\transformed\camera-camera2-1.5.2\AndroidManifest.xml:30:13-32:89
+68                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+68-->[androidx.camera:camera-camera2:1.5.2] C:\Users\luyao\.gradle\caches\8.13\transforms\333a56225c97e0501eacb3d07db8841f\transformed\camera-camera2-1.5.2\AndroidManifest.xml:31:17-103
+69                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+69-->[androidx.camera:camera-camera2:1.5.2] C:\Users\luyao\.gradle\caches\8.13\transforms\333a56225c97e0501eacb3d07db8841f\transformed\camera-camera2-1.5.2\AndroidManifest.xml:32:17-86
+70        </service>
+71
+72        <uses-library
+72-->[androidx.window:window:1.5.0] C:\Users\luyao\.gradle\caches\8.13\transforms\80a293beedb967dd47d21698d8950fd6\transformed\window-1.5.0\AndroidManifest.xml:23:9-25:40
+73            android:name="androidx.window.extensions"
+73-->[androidx.window:window:1.5.0] C:\Users\luyao\.gradle\caches\8.13\transforms\80a293beedb967dd47d21698d8950fd6\transformed\window-1.5.0\AndroidManifest.xml:24:13-54
+74            android:required="false" />
+74-->[androidx.window:window:1.5.0] C:\Users\luyao\.gradle\caches\8.13\transforms\80a293beedb967dd47d21698d8950fd6\transformed\window-1.5.0\AndroidManifest.xml:25:13-37
+75        <uses-library
+75-->[androidx.window:window:1.5.0] C:\Users\luyao\.gradle\caches\8.13\transforms\80a293beedb967dd47d21698d8950fd6\transformed\window-1.5.0\AndroidManifest.xml:26:9-28:40
+76            android:name="androidx.window.sidecar"
+76-->[androidx.window:window:1.5.0] C:\Users\luyao\.gradle\caches\8.13\transforms\80a293beedb967dd47d21698d8950fd6\transformed\window-1.5.0\AndroidManifest.xml:27:13-51
+77            android:required="false" />
+77-->[androidx.window:window:1.5.0] C:\Users\luyao\.gradle\caches\8.13\transforms\80a293beedb967dd47d21698d8950fd6\transformed\window-1.5.0\AndroidManifest.xml:28:13-37
+78
+79        <provider
+79-->[androidx.emoji2:emoji2:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\a2af4fc60e3526ae4bd26145d381c103\transformed\emoji2-1.4.0\AndroidManifest.xml:24:9-32:20
+80            android:name="androidx.startup.InitializationProvider"
+80-->[androidx.emoji2:emoji2:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\a2af4fc60e3526ae4bd26145d381c103\transformed\emoji2-1.4.0\AndroidManifest.xml:25:13-67
+81            android:authorities="com.example.aicamera.androidx-startup"
+81-->[androidx.emoji2:emoji2:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\a2af4fc60e3526ae4bd26145d381c103\transformed\emoji2-1.4.0\AndroidManifest.xml:26:13-68
+82            android:exported="false" >
+82-->[androidx.emoji2:emoji2:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\a2af4fc60e3526ae4bd26145d381c103\transformed\emoji2-1.4.0\AndroidManifest.xml:27:13-37
+83            <meta-data
+83-->[androidx.emoji2:emoji2:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\a2af4fc60e3526ae4bd26145d381c103\transformed\emoji2-1.4.0\AndroidManifest.xml:29:13-31:52
+84                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+84-->[androidx.emoji2:emoji2:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\a2af4fc60e3526ae4bd26145d381c103\transformed\emoji2-1.4.0\AndroidManifest.xml:30:17-75
+85                android:value="androidx.startup" />
+85-->[androidx.emoji2:emoji2:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\a2af4fc60e3526ae4bd26145d381c103\transformed\emoji2-1.4.0\AndroidManifest.xml:31:17-49
+86            <meta-data
+86-->[androidx.lifecycle:lifecycle-process:2.9.4] C:\Users\luyao\.gradle\caches\8.13\transforms\f551a749ea3afdd3469e8cb40cfac1b5\transformed\lifecycle-process-2.9.4\AndroidManifest.xml:29:13-31:52
+87                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+87-->[androidx.lifecycle:lifecycle-process:2.9.4] C:\Users\luyao\.gradle\caches\8.13\transforms\f551a749ea3afdd3469e8cb40cfac1b5\transformed\lifecycle-process-2.9.4\AndroidManifest.xml:30:17-78
+88                android:value="androidx.startup" />
+88-->[androidx.lifecycle:lifecycle-process:2.9.4] C:\Users\luyao\.gradle\caches\8.13\transforms\f551a749ea3afdd3469e8cb40cfac1b5\transformed\lifecycle-process-2.9.4\AndroidManifest.xml:31:17-49
+89            <meta-data
+89-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:29:13-31:52
+90                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+90-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:30:17-85
+91                android:value="androidx.startup" />
+91-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:31:17-49
+92        </provider>
+93
+94        <receiver
+94-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:34:9-52:20
+95            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+95-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:35:13-76
+96            android:directBootAware="false"
+96-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:36:13-44
+97            android:enabled="true"
+97-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:37:13-35
+98            android:exported="true"
+98-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:38:13-36
+99            android:permission="android.permission.DUMP" >
+99-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:39:13-57
+100            <intent-filter>
+100-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:40:13-42:29
+101                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+101-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:17-91
+101-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:25-88
+102            </intent-filter>
+103            <intent-filter>
+103-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:43:13-45:29
+104                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+104-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:17-85
+104-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:25-82
+105            </intent-filter>
+106            <intent-filter>
+106-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:46:13-48:29
+107                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+107-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:17-88
+107-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:25-85
+108            </intent-filter>
+109            <intent-filter>
+109-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:49:13-51:29
+110                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+110-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:17-95
+110-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\luyao\.gradle\caches\8.13\transforms\b418bfbbe192bb8cdd8704b1cdda8e21\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:25-92
+111            </intent-filter>
+112        </receiver>
+113    </application>
+114
+115</manifest>

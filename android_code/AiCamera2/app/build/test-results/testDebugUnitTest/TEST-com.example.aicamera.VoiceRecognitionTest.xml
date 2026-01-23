@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.aicamera.VoiceRecognitionTest" tests="9" skipped="0" failures="1" errors="0" timestamp="2026-01-17T10:12:03.375Z" hostname="Y" time="17.251">
+  <properties/>
+  <testcase name="test start listening without voice guide enabled" classname="com.example.aicamera.VoiceRecognitionTest" time="14.521"/>
+  <testcase name="test stop listening" classname="com.example.aicamera.VoiceRecognitionTest" time="0.417"/>
+  <testcase name="test speech recognizer not available" classname="com.example.aicamera.VoiceRecognitionTest" time="0.271"/>
+  <testcase name="test start listening with voice guide enabled" classname="com.example.aicamera.VoiceRecognitionTest" time="0.277">
+    <failure message="java.lang.AssertionError: Verification failed: call 1 of 1: SpeechRecognizer(#19).startListening(any())) was not called" type="java.lang.AssertionError">java.lang.AssertionError: Verification failed: call 1 of 1: SpeechRecognizer(#19).startListening(any())) was not called
+	at io.mockk.impl.recording.states.VerifyingState.failIfNotPassed(VerifyingState.kt:63)
+	at io.mockk.impl.recording.states.VerifyingState.recordingDone(VerifyingState.kt:42)
+	at io.mockk.impl.recording.CommonCallRecorder.done(CommonCallRecorder.kt:47)
+	at io.mockk.impl.eval.RecordedBlockEvaluator.record(RecordedBlockEvaluator.kt:63)
+	at io.mockk.impl.eval.VerifyBlockEvaluator.verify(VerifyBlockEvaluator.kt:30)
+	at io.mockk.MockKDsl.internalVerify(API.kt:120)
+	at io.mockk.MockKKt.verify(MockK.kt:218)
+	at io.mockk.MockKKt.verify$default(MockK.kt:209)
+	at com.example.aicamera.VoiceRecognitionTest.test start listening with voice guide enabled(VoiceRecognitionTest.kt:99)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.robolectric.RobolectricTestRunner$HelperTestRunner$1.evaluate(RobolectricTestRunner.java:489)
+	at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:290)
+	at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+</failure>
+  </testcase>
+  <testcase name="test speech recognizer initialization" classname="com.example.aicamera.VoiceRecognitionTest" time="0.251"/>
+  <testcase name="test voice recognition result handling" classname="com.example.aicamera.VoiceRecognitionTest" time="0.56"/>
+  <testcase name="test voice recognition error handling" classname="com.example.aicamera.VoiceRecognitionTest" time="0.38"/>
+  <testcase name="test resource release" classname="com.example.aicamera.VoiceRecognitionTest" time="0.298"/>
+  <testcase name="test voice guide toggle" classname="com.example.aicamera.VoiceRecognitionTest" time="0.271"/>
+  <system-out><![CDATA[WARNING: No manifest file found at .\AndroidManifest.xml.
+Falling back to the Android OS resources only.
+To remove this warning, annotate your test class with @Config(manifest=Config.NONE).
+If you're using Android Gradle Plugin, add testOptions.unitTests.includeAndroidResources = true to your build.gradle
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

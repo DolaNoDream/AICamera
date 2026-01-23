@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.aicamera.app-mergeReleaseResources-2:/values-v18/values-v18.xml",
+            "map": [
+                {
+                    "source": "D:\\application2\\GradleRepository\\caches\\8.13\\transforms\\dacadcd76056337b75a4746169e9fd32\\transformed\\appcompat-1.6.1\\res\\values-v18\\values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                }
+            ]
+        }
+    ]
+}

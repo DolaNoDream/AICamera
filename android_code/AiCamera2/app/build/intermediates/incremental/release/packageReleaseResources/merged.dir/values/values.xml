@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="control_padding">16dp</dimen>
+    <dimen name="corner_radius">8dp</dimen>
+    <dimen name="shutter_button_size">64dp</dimen>
+    <dimen name="spacing_large">16dp</dimen>
+    <dimen name="spacing_medium">12dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="text_size_large">16sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_title">18sp</dimen>
+    <string name="ai_suggestion">AI建议</string>
+    <string name="app_name">AiCamera</string>
+    <string name="camera_initialization_error">相机初始化失败</string>
+    <string name="camera_not_available">设备不支持相机功能</string>
+    <string name="camera_permission_denied">需要相机权限才能使用此功能</string>
+    <string name="camera_permission_request">请授予相机权限</string>
+    <string name="cancel">取消</string>
+    <string name="error">错误</string>
+    <string name="focus">点击对焦</string>
+    <string name="no_suggestion">暂无建议</string>
+    <string name="ok">确定</string>
+    <string name="photo_save_error">照片保存失败</string>
+    <string name="photo_taken">照片已保存</string>
+    <string name="reset_zoom">重置</string>
+    <string name="retry">重试</string>
+    <string name="switch_camera">切换摄像头</string>
+    <string name="take_photo">拍照</string>
+    <string name="voice_guide_toggle">语音引导</string>
+    <string name="zoom_in">放大</string>
+    <string name="zoom_out">缩小</string>
+    <string name="zoom_value">变焦: %.1fx</string>
+    <style name="Base.Theme.AiCamera" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+    </style>
+    <style name="Theme.AiCamera" parent="Base.Theme.AiCamera"/>
+</resources>

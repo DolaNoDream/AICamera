@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.aicamera.ExampleUnitTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-01-17T10:12:20.646Z" hostname="Y" time="0.0">
+  <properties/>
+  <testcase name="addition_isCorrect" classname="com.example.aicamera.ExampleUnitTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
