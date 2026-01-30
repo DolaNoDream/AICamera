@@ -4,7 +4,7 @@
             "outputFile": "com.example.aicamera.app-mergeDebugResources-56:/values-v23/values-v23.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\luyao\\.gradle\\caches\\8.13\\transforms\\8f6148d08a6162a5964d39e8fdbb2098\\transformed\\cardview-1.0.0\\res\\values-v23\\values-v23.xml",
+                    "source": "D:\\application2\\GradleRepository\\caches\\8.13\\transforms\\8f6148d08a6162a5964d39e8fdbb2098\\transformed\\cardview-1.0.0\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\luyao\\.gradle\\caches\\8.13\\transforms\\8b836b26b66836efcde984e6babeb342\\transformed\\material-1.10.0\\res\\values-v23\\values-v23.xml",
+                    "source": "D:\\application2\\GradleRepository\\caches\\8.13\\transforms\\8b836b26b66836efcde984e6babeb342\\transformed\\material-1.10.0\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2,5,9,13,16,21,25,28,31,34,39,42,46",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -42,7 +42,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\luyao\\.gradle\\caches\\8.13\\transforms\\a6742994d036206732745fb28ddaef55\\transformed\\appcompat-1.6.1\\res\\values-v23\\values-v23.xml",
+                    "source": "D:\\application2\\GradleRepository\\caches\\8.13\\transforms\\a6742994d036206732745fb28ddaef55\\transformed\\appcompat-1.6.1\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,20,34,35,36,39,43,44,45,46",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",

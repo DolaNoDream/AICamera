@@ -1,11 +1,14 @@
 package com.example.aicamera.ui
 
+import android.graphics.Bitmap
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -40,6 +43,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -62,8 +66,13 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.LifecycleOwner
 import com.example.aicamera.R
 import com.example.aicamera.camera.CameraController
+import com.example.aicamera.camera.ImageDownloadHelper
 import com.google.android.material.snackbar.Snackbar
 import kotlin.math.sqrt
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * 相机页面 UI
@@ -78,7 +87,6 @@ fun CameraScreen(
     val uiState = viewModel.uiState.collectAsState().value
     val errorMessage = viewModel.errorMessage.collectAsState().value
     val aiAdvice = viewModel.aiAdvice.collectAsState().value
-    val voiceGuideEnabled = viewModel.voiceGuideEnabled.collectAsState().value
     val currentZoom = viewModel.currentZoom.collectAsState().value
     val zoomRangeInfo = viewModel.zoomRangeInfo.collectAsState().value
     val focusState = viewModel.focusState.collectAsState().value
@@ -86,6 +94,14 @@ fun CameraScreen(
     val focusPointY = viewModel.focusPointY.collectAsState().value
     val voiceRecognitionResult = viewModel.voiceRecognitionResult.collectAsState().value
     val isListening = viewModel.isListening.collectAsState().value
+    val poseGuideText = viewModel.poseGuideText.collectAsState().value
+    val poseSuggestionText = viewModel.poseSuggestionText.collectAsState().value
+    val poseImageUrl = viewModel.poseImageUrl.collectAsState().value
+    val poseLoading = viewModel.poseLoading.collectAsState().value
+    val poseErrorMessage = viewModel.poseErrorMessage.collectAsState().value
+    val aiPoseModeName = stringResource(id = R.string.camera_mode_ai_pose)
+    val aiSuggestionModeName = stringResource(id = R.string.camera_mode_ai_suggestion)
+    val standardModeName = stringResource(id = R.string.camera_mode_standard)
 
     val context = LocalContext.current
     val lifecycleOwnerRef = lifecycleOwner
@@ -94,6 +110,18 @@ fun CameraScreen(
     // 状态变量
     val isMenuExpanded = remember { mutableStateOf(false) }
     val isLeftPanelExpanded = remember { mutableStateOf(false) }
+
+    val cameraModes = listOf(
+        CameraMode(standardModeName),
+        CameraMode(aiSuggestionModeName),
+        CameraMode(aiPoseModeName)
+    )
+    val selectedMode = remember(cameraModes) { mutableStateOf(cameraModes[0]) }
+    val isAiVoiceBoxVisible = (selectedMode.value.name == aiSuggestionModeName || selectedMode.value.name == aiPoseModeName)
+
+    LaunchedEffect(selectedMode.value) {
+        isLeftPanelExpanded.value = selectedMode.value.name == aiPoseModeName
+    }
 
     LaunchedEffect(errorMessage) {
         if (!errorMessage.isNullOrEmpty()) {
@@ -141,6 +169,18 @@ fun CameraScreen(
         LeftHiddenMenu(
             isExpanded = isLeftPanelExpanded.value,
             onToggle = { isLeftPanelExpanded.value = !isLeftPanelExpanded.value },
+            poseGuideText = poseGuideText,
+            poseSuggestionText = poseSuggestionText,
+            poseImageUrl = poseImageUrl,
+            isLoading = poseLoading,
+            errorMessage = poseErrorMessage,
+            showConfirmButton = selectedMode.value.name == aiPoseModeName,
+            onConfirm = {
+                viewModel.requestPoseGuidance(lifecycleOwnerRef)
+            },
+            onClear = {
+                viewModel.clearPoseGuidanceText()
+            },
             modifier = Modifier.align(Alignment.CenterStart)
         )
 
@@ -156,7 +196,20 @@ fun CameraScreen(
         }
 
         // 语音识别结果显示
-        if (voiceRecognitionResult.isNotEmpty()) {
+        if (isAiVoiceBoxVisible) {
+            AiSuggestionStatusBox(
+                recognizedText = voiceRecognitionResult,
+                guideText = poseGuideText,
+                onClear = {
+                    viewModel.clearVoiceRecognitionText()
+                    viewModel.clearPoseGuidanceText()
+                },
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .padding(top = 80.dp)
+                    .fillMaxWidth(0.9f)
+            )
+        } else if (!isAiVoiceBoxVisible && voiceRecognitionResult.isNotEmpty()) {
             VoiceRecognitionResultBox(
                 result = voiceRecognitionResult,
                 modifier = Modifier
@@ -182,13 +235,6 @@ fun CameraScreen(
                 modifier = Modifier.fillMaxSize()
             )
         }
-
-//        // 实时滤镜预览条
-//        FilterBar(
-//            modifier = Modifier
-//                .align(Alignment.BottomCenter)
-//                .padding(bottom = 140.dp)
-//        )
 
 
 
@@ -222,7 +268,6 @@ fun CameraScreen(
             CameraControlsLayer(
                 viewModel = viewModel,
                 uiState = uiState,
-                voiceGuideEnabled = voiceGuideEnabled,
                 isListening = isListening,
                 onTakePicture = { viewModel.takePicture() },
                 onToggleVoiceGuide = { viewModel.toggleVoiceGuide() },
@@ -231,6 +276,16 @@ fun CameraScreen(
                 onSwitchCamera = {
                     previewViewRef.value?.let { previewView ->
                         viewModel.switchCamera(lifecycleOwnerRef, previewView)
+                    }
+                },
+                selectedMode = selectedMode.value,
+                modes = cameraModes,
+                onModeSelected = { mode ->
+                    selectedMode.value = mode
+                    if (mode.name == aiPoseModeName) {
+                        isLeftPanelExpanded.value = true
+                    } else {
+                        isLeftPanelExpanded.value = false
                     }
                 },
                 modifier = Modifier
@@ -273,13 +328,12 @@ fun CameraScreen(
  * 相机模式切换标签栏
  */
 @Composable
-private fun CameraModeTabs(modifier: Modifier = Modifier) {
-    val modes = listOf(
-        CameraMode("AI建议文本显示"),
-        CameraMode("AI姿势指导"),
-    )
-    val selectedMode = remember { mutableStateOf(modes[0]) }
-
+private fun CameraModeTabs(
+    modes: List<CameraMode>,
+    selectedMode: CameraMode,
+    onModeSelected: (CameraMode) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Box(
         modifier = modifier
             .background(
@@ -296,12 +350,12 @@ private fun CameraModeTabs(modifier: Modifier = Modifier) {
                 Box(
                     modifier = Modifier
                         .background(
-                            color = if (it == selectedMode.value) Color.Transparent else Color.Transparent,
+                            color = if (it == selectedMode) Color.Transparent else Color.Transparent,
                             shape = RoundedCornerShape(12.dp)
                         )
                         .padding(horizontal = 12.dp, vertical = 6.dp)
                         .clickable {
-                            selectedMode.value = it
+                            onModeSelected(it)
                         },
                     contentAlignment = Alignment.Center
                 ) {
@@ -311,7 +365,7 @@ private fun CameraModeTabs(modifier: Modifier = Modifier) {
                     ) {
                         Text(
                             text = it.name,
-                            color = if (it == selectedMode.value) Color(0xFFFF9800) else Color.White,
+                            color = if (it == selectedMode) Color(0xFFFF9800) else Color.White,
                             fontSize = 12.sp,
                             fontFamily = FontFamily.SansSerif
                         )
@@ -331,73 +385,6 @@ data class CameraMode(val name: String)
  * 滤镜数据类
  */
 data class Filter(val name: String, val previewColor: Color)
-
-/**
- * 实时滤镜预览条
- */
-@Composable
-private fun FilterBar(modifier: Modifier = Modifier) {
-    val filters = listOf(
-        Filter("原图", Color.Transparent),
-        Filter("清新", Color(0xFFE1F5FE)),
-        Filter("复古", Color(0xFFF5F5DC)),
-        Filter("黑白", Color(0xFFE0E0E0)),
-        Filter("暖色", Color(0xFFFFF3E0)),
-        Filter("冷色", Color(0xFFE0F7FA))
-    )
-    val selectedFilter = remember { mutableStateOf(filters[0]) }
-
-    Box(
-        modifier = modifier
-            .background(
-                color = Color.Black.copy(alpha = 0.5f),
-                shape = RoundedCornerShape(16.dp)
-            )
-            .padding(8.dp)
-    ) {
-        androidx.compose.foundation.lazy.LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            modifier = Modifier.padding(8.dp)
-        ) {
-            items(filters) {
-                Box(
-                    modifier = Modifier
-                        .size(60.dp)
-                        .background(
-                            color = it.previewColor,
-                            shape = RoundedCornerShape(12.dp)
-                        )
-                        .border(
-                            width = if (it == selectedFilter.value) 2.dp else 0.dp,
-                            color = Color(0xFF81C784)
-                        )
-                        .clickable {
-                            selectedFilter.value = it
-                        },
-                    contentAlignment = Alignment.BottomCenter
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(
-                                color = Color.Black.copy(alpha = 0.5f),
-                                shape = RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)
-                            )
-                            .padding(4.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = it.name,
-                            color = Color.White,
-                            fontSize = 10.sp,
-                            fontFamily = FontFamily.SansSerif
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
 
 /**
  * 时间显示（半透明悬浮样式，1秒后自动隐藏）
@@ -623,13 +610,15 @@ private fun FocusIndicator(
 private fun CameraControlsLayer(
     viewModel: CameraViewModel,
     uiState: CameraUIState,
-    voiceGuideEnabled: Boolean,
     isListening: Boolean,
     onTakePicture: () -> Unit,
     onToggleVoiceGuide: () -> Unit,
     onStartListening: () -> Unit,
     onStopListening: () -> Unit,
     onSwitchCamera: () -> Unit,
+    selectedMode: CameraMode,
+    modes: List<CameraMode>,
+    onModeSelected: (CameraMode) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val isVoicePanelExpanded = remember { mutableStateOf(false) }
@@ -646,6 +635,9 @@ private fun CameraControlsLayer(
 
         // 模式切换标签栏
         CameraModeTabs(
+            modes = modes,
+            selectedMode = selectedMode,
+            onModeSelected = onModeSelected,
             modifier = Modifier.padding(0.dp)
         )
 
@@ -1147,8 +1139,25 @@ private fun TopControllerBar(
 private fun LeftHiddenMenu(
     isExpanded: Boolean,
     onToggle: () -> Unit,
+    poseGuideText: String,
+    poseSuggestionText: String,
+    poseImageUrl: String,
+    isLoading: Boolean,
+    errorMessage: String?,
+    showConfirmButton: Boolean,
+    onConfirm: () -> Unit,
+    onClear: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+    val poseImageBitmap = produceState<Bitmap?>(initialValue = null, poseImageUrl) {
+        value = null
+        if (poseImageUrl.isNotBlank()) {
+            val file = ImageDownloadHelper.downloadToCache(context, poseImageUrl)
+            value = file?.let { ImageDownloadHelper.decodeBitmap(it) }
+        }
+    }.value
+
     Row(modifier = modifier.padding(start = 10.dp)) {
         // 细横线提示
         Box(
@@ -1159,7 +1168,7 @@ private fun LeftHiddenMenu(
                 .clip(RoundedCornerShape(7.dp)) // 添加圆角边框
                 .clickable(onClick = onToggle)
         )
-        
+
         // 展开的面板（使用固定高度的Box包裹，避免布局偏移）
         Box(
             modifier = Modifier
@@ -1178,13 +1187,167 @@ private fun LeftHiddenMenu(
                         .padding(16.dp)
                         .clickable(onClick = onToggle) // 点击关闭
                 ) {
-                    Text(
-                        text = "当前还未生成AI建议~",
-                        color = Color.White,
-                        fontSize = 14.sp
-                    )
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier
+                            .verticalScroll(rememberScrollState())
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.pose_guide_title),
+                                color = Color(0xFFFFC107),
+                                fontSize = 14.sp
+                            )
+                            Text(
+                                text = stringResource(id = R.string.clear),
+                                color = Color.White,
+                                fontSize = 12.sp,
+                                modifier = Modifier.clickable { onClear() }
+                            )
+                        }
+
+                        when {
+                            isLoading -> {
+                                Text(
+                                    text = stringResource(id = R.string.pose_guide_loading),
+                                    color = Color.White,
+                                    fontSize = 12.sp
+                                )
+                            }
+                            !errorMessage.isNullOrBlank() -> {
+                                Text(
+                                    text = stringResource(id = R.string.pose_guide_error, errorMessage),
+                                    color = Color(0xFFFF5252),
+                                    fontSize = 12.sp
+                                )
+                            }
+                            poseSuggestionText.isBlank() && poseImageUrl.isBlank() -> {
+                                Text(
+                                    text = stringResource(id = R.string.pose_guide_empty),
+                                    color = Color.White,
+                                    fontSize = 12.sp
+                                )
+                            }
+                            else -> {
+                                if (poseImageBitmap != null) {
+                                    AndroidView(
+                                        factory = { ctx ->
+                                            ImageView(ctx).apply {
+                                                scaleType = ImageView.ScaleType.CENTER_CROP
+                                            }
+                                        },
+                                        update = { imageView ->
+                                            imageView.setImageBitmap(poseImageBitmap)
+                                        },
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(120.dp)
+                                    )
+                                } else if (poseImageUrl.isNotBlank()) {
+                                    Text(
+                                        text = stringResource(id = R.string.pose_guide_image_loading),
+                                        color = Color.White,
+                                        fontSize = 10.sp
+                                    )
+                                }
+                                if (poseSuggestionText.isNotBlank()) {
+                                    Text(
+                                        text = poseSuggestionText,
+                                        color = Color.White,
+                                        fontSize = 11.sp
+                                    )
+                                }
+                            }
+                        }
+
+                        if (showConfirmButton) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(
+                                        color = Color(0xFF81C784),
+                                        shape = RoundedCornerShape(8.dp)
+                                    )
+                                    .clickable { onConfirm() }
+                                    .padding(vertical = 8.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = stringResource(id = R.string.pose_confirm),
+                                    color = Color.White,
+                                    fontSize = 12.sp
+                                )
+                            }
+                        }
+                    }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun AiSuggestionStatusBox(
+    recognizedText: String,
+    guideText: String,
+    onClear: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .background(
+                color = Color.Black.copy(alpha = 0.7f),
+                shape = RoundedCornerShape(8.dp)
+            )
+            .padding(12.dp)
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(id = R.string.ai_suggestion_header),
+                    color = Color(0xFF81C784),
+                    fontSize = 12.sp
+                )
+                Text(
+                    text = stringResource(id = R.string.clear),
+                    color = Color.White,
+                    fontSize = 12.sp,
+                    modifier = Modifier.clickable { onClear() }
+                )
+            }
+
+            val voiceText = if (recognizedText.isNotBlank()) {
+                recognizedText
+            } else {
+                stringResource(id = R.string.voice_empty_hint)
+            }
+            val guideHint = if (guideText.isNotBlank()) {
+                guideText
+            } else {
+                stringResource(id = R.string.guide_empty_hint)
+            }
+
+            Text(
+                text = stringResource(id = R.string.voice_label_prefix, voiceText),
+                color = Color.White,
+                fontSize = 12.sp
+            )
+            Text(
+                text = stringResource(id = R.string.guide_label_prefix, guideHint),
+                color = Color.White,
+                fontSize = 12.sp
+            )
         }
     }
 }

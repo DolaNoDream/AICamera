@@ -1,6 +1,12 @@
 <dependencies>
   <compile
-      roots=":@@:app::debug,androidx.databinding:viewbinding:8.13.2@aar,com.google.android.material:material:1.10.0@aar,androidx.appcompat:appcompat:1.6.1@aar,androidx.activity:activity-compose:1.12.2@aar,androidx.viewpager2:viewpager2:1.0.0@aar,androidx.fragment:fragment:1.3.6@aar,androidx.fragment:fragment:1.3.6@aar,androidx.activity:activity:1.12.2@aar,androidx.camera:camera-video:1.5.2@aar,androidx.camera:camera-view:1.5.2@aar,androidx.camera:camera-lifecycle:1.5.2@aar,androidx.camera:camera-camera2:1.5.2@aar,androidx.camera:camera-core:1.5.2@aar,androidx.appcompat:appcompat-resources:1.6.1@aar,androidx.drawerlayout:drawerlayout:1.1.1@aar,androidx.coordinatorlayout:coordinatorlayout:1.1.0@aar,androidx.dynamicanimation:dynamicanimation:1.0.0@aar,androidx.recyclerview:recyclerview:1.1.0@aar,androidx.transition:transition:1.2.0@aar,androidx.vectordrawable:vectordrawable-animated:1.1.0@aar,androidx.vectordrawable:vectordrawable:1.1.0@aar,androidx.viewpager:viewpager:1.0.0@aar,androidx.customview:customview:1.1.0@aar,androidx.legacy:legacy-support-core-utils:1.0.0@aar,androidx.loader:loader:1.0.0@aar,androidx.core:core:1.17.0@aar,androidx.core:core:1.17.0@aar,androidx.compose.material3:material3-android:1.2.1@aar,androidx.compose.ui:ui-util-android:1.9.2@aar,androidx.compose.ui:ui-unit-android:1.9.2@aar,androidx.compose.ui:ui-text-android:1.9.2@aar,androidx.compose.foundation:foundation-layout-android:1.7.0@aar,androidx.compose.material:material-icons-core-android:1.6.6@aar,androidx.compose.material:material-ripple-android:1.6.6@aar,androidx.compose.foundation:foundation-android:1.7.0@aar,androidx.compose.animation:animation-core-android:1.7.0@aar,androidx.compose.animation:animation-android:1.7.0@aar,androidx.compose.ui:ui-geometry-android:1.9.2@aar,androidx.compose.ui:ui-tooling-preview-android:1.9.2@aar,androidx.compose.ui:ui-graphics-android:1.9.2@aar,androidx.compose.ui:ui-android:1.9.2@aar,androidx.lifecycle:lifecycle-runtime-compose-android:2.9.4@aar,androidx.lifecycle:lifecycle-livedata-core-ktx:2.9.4@aar,androidx.lifecycle:lifecycle-viewmodel:2.9.4@aar,androidx.lifecycle:lifecycle-viewmodel-android:2.9.4@aar,androidx.lifecycle:lifecycle-common-jvm:2.9.4@jar,androidx.lifecycle:lifecycle-runtime-android:2.9.4@aar,androidx.lifecycle:lifecycle-runtime-ktx-android:2.9.4@aar,androidx.lifecycle:lifecycle-livedata-core:2.9.4@aar,androidx.lifecycle:lifecycle-livedata:2.9.4@aar,androidx.lifecycle:lifecycle-livedata:2.9.4@aar,androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.4@aar,androidx.lifecycle:lifecycle-viewmodel-savedstate-android:2.9.4@aar,androidx.core:core-ktx:1.17.0@aar,org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:1.9.0@jar,androidx.navigationevent:navigationevent-android:1.0.1@aar,androidx.navigationevent:navigationevent-compose-android:1.0.1@aar,androidx.compose.runtime:runtime-annotation-android:1.9.2@aar,androidx.compose.runtime:runtime-android:1.9.2@aar,androidx.compose.runtime:runtime-saveable-android:1.9.2@aar,androidx.savedstate:savedstate-compose-android:1.3.3@aar,androidx.savedstate:savedstate-android:1.3.3@aar,org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0@jar,org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0@jar,androidx.annotation:annotation-experimental:1.4.1@aar,androidx.core:core-viewtree:1.0.0@aar,org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.7.3@jar,org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.7.3@jar,androidx.cursoradapter:cursoradapter:1.0.0@aar,androidx.cardview:cardview:1.0.0@aar,androidx.arch.core:core-runtime:2.2.0@aar,androidx.arch.core:core-common:2.2.0@jar,androidx.versionedparcelable:versionedparcelable:1.1.1@aar,androidx.interpolator:interpolator:1.0.0@aar,androidx.collection:collection-jvm:1.5.0@jar,androidx.documentfile:documentfile:1.0.0@aar,androidx.localbroadcastmanager:localbroadcastmanager:1.0.0@aar,androidx.print:print:1.0.0@aar,androidx.annotation:annotation-jvm:1.9.1@jar,io.mockk:mockk-jvm:1.13.10@jar,io.mockk:mockk-dsl-jvm:1.13.10@jar,io.mockk:mockk-agent-jvm:1.13.10@jar,io.mockk:mockk-agent-api-jvm:1.13.10@jar,io.mockk:mockk-core-jvm:1.13.10@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10@jar,org.jetbrains.kotlin:kotlin-stdlib:2.0.21@jar,androidx.constraintlayout:constraintlayout:2.1.4@aar,junit:junit:4.13.2@jar,org.robolectric:robolectric:4.12.1@jar,org.hamcrest:hamcrest-core:1.3@jar,org.robolectric:junit:4.12.1@jar,org.robolectric:shadows-framework:4.12.1@jar,org.robolectric:resources:4.12.1@jar,org.robolectric:sandbox:4.12.1@jar,org.robolectric:nativeruntime:4.12.1@jar,org.robolectric:utils-reflector:4.12.1@jar,org.robolectric:plugins-maven-dependency-resolver:4.12.1@jar,org.robolectric:shadows-versioning:4.12.1@jar,org.robolectric:shadowapi:4.12.1@jar,org.robolectric:utils:4.12.1@jar,org.robolectric:pluginapi:4.12.1@jar,org.robolectric:annotations:4.12.1@jar,com.google.guava:guava:31.1-jre@jar,com.google.guava:failureaccess:1.0.1@jar,com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava@jar,com.google.code.findbugs:jsr305:3.0.2@jar,org.checkerframework:checker-qual:3.12.0@jar,com.google.errorprone:error_prone_annotations:2.15.0@jar,com.google.j2objc:j2objc-annotations:1.3@jar,javax.inject:javax.inject:1@jar,javax.annotation:javax.annotation-api:1.3.2@jar,org.ow2.asm:asm-commons:9.7@jar,org.ow2.asm:asm-util:9.7@jar,org.ow2.asm:asm-analysis:9.7@jar,org.ow2.asm:asm-tree:9.7@jar,org.ow2.asm:asm:9.7@jar,com.google.auto.value:auto-value-annotations:1.10.4@jar,androidx.test:monitor:1.6.1@aar,com.almworks.sqlite4java:sqlite4java:1.0.392@jar,com.ibm.icu:icu4j:74.2@jar,org.bouncycastle:bcprov-jdk18on:1.77@jar,org.jetbrains:annotations:23.0.0@jar,org.objenesis:objenesis:3.3@jar,net.bytebuddy:byte-buddy:1.14.6@jar,net.bytebuddy:byte-buddy-agent:1.14.6@jar,org.jspecify:jspecify:1.0.0@jar,androidx.resourceinspection:resourceinspection-annotation:1.0.1@jar">
+      roots="__local_aars__:D:\gitProjects\AICamera\android_code\AiCamera2\app\libs\SparkChain.aar:unspecified@jar,__local_aars__:D:\gitProjects\AICamera\android_code\AiCamera2\app\libs\Codec.aar:unspecified@jar,:@@:app::debug,androidx.databinding:viewbinding:8.13.2@aar,com.google.android.material:material:1.10.0@aar,androidx.appcompat:appcompat:1.6.1@aar,androidx.activity:activity-compose:1.12.2@aar,androidx.viewpager2:viewpager2:1.0.0@aar,androidx.fragment:fragment:1.3.6@aar,androidx.fragment:fragment:1.3.6@aar,androidx.activity:activity:1.12.2@aar,androidx.camera:camera-video:1.5.2@aar,androidx.camera:camera-view:1.5.2@aar,androidx.camera:camera-lifecycle:1.5.2@aar,androidx.camera:camera-camera2:1.5.2@aar,androidx.camera:camera-core:1.5.2@aar,androidx.appcompat:appcompat-resources:1.6.1@aar,androidx.drawerlayout:drawerlayout:1.1.1@aar,androidx.coordinatorlayout:coordinatorlayout:1.1.0@aar,androidx.dynamicanimation:dynamicanimation:1.0.0@aar,androidx.recyclerview:recyclerview:1.1.0@aar,androidx.transition:transition:1.6.0@aar,androidx.vectordrawable:vectordrawable-animated:1.1.0@aar,androidx.vectordrawable:vectordrawable:1.1.0@aar,androidx.viewpager:viewpager:1.0.0@aar,androidx.customview:customview:1.1.0@aar,androidx.legacy:legacy-support-core-utils:1.0.0@aar,androidx.loader:loader:1.0.0@aar,androidx.core:core:1.17.0@aar,androidx.core:core:1.17.0@aar,androidx.compose.material3:material3-android:1.2.1@aar,androidx.compose.ui:ui-util-android:1.10.1@aar,androidx.compose.ui:ui-unit-android:1.10.1@aar,androidx.compose.ui:ui-text-android:1.10.1@aar,androidx.compose.foundation:foundation-layout-android:1.10.1@aar,androidx.compose.material:material-icons-core-android:1.6.6@aar,androidx.compose.material:material-ripple-android:1.6.6@aar,androidx.compose.foundation:foundation-android:1.10.1@aar,androidx.compose.animation:animation-core-android:1.10.1@aar,androidx.compose.animation:animation-android:1.10.1@aar,androidx.compose.ui:ui-geometry-android:1.10.1@aar,androidx.compose.ui:ui-tooling-preview-android:1.10.1@aar,androidx.compose.ui:ui-graphics-android:1.10.1@aar,androidx.compose.ui:ui-android:1.10.1@aar,androidx.lifecycle:lifecycle-runtime-compose-android:2.9.4@aar,androidx.lifecycle:lifecycle-livedata-core-ktx:2.9.4@aar,androidx.lifecycle:lifecycle-viewmodel:2.9.4@aar,androidx.lifecycle:lifecycle-viewmodel-android:2.9.4@aar,androidx.lifecycle:lifecycle-common-jvm:2.9.4@jar,androidx.lifecycle:lifecycle-runtime-android:2.9.4@aar,androidx.lifecycle:lifecycle-runtime-ktx-android:2.9.4@aar,androidx.lifecycle:lifecycle-livedata-core:2.9.4@aar,androidx.lifecycle:lifecycle-livedata:2.9.4@aar,androidx.lifecycle:lifecycle-livedata:2.9.4@aar,androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.4@aar,androidx.lifecycle:lifecycle-viewmodel-savedstate-android:2.9.4@aar,androidx.core:core-ktx:1.17.0@aar,org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:1.9.0@jar,androidx.navigationevent:navigationevent-android:1.0.1@aar,androidx.navigationevent:navigationevent-compose-android:1.0.1@aar,androidx.compose.runtime:runtime-annotation-android:1.10.1@aar,androidx.compose.runtime:runtime-retain-android:1.10.1@aar,androidx.compose.runtime:runtime-android:1.10.1@aar,androidx.compose.runtime:runtime-saveable-android:1.10.1@aar,androidx.savedstate:savedstate-compose-android:1.3.2@aar,androidx.savedstate:savedstate-android:1.3.2@aar,org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0@jar,org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0@jar,androidx.annotation:annotation-experimental:1.4.1@aar,androidx.core:core-viewtree:1.0.0@aar,org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.7.3@jar,org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.7.3@jar,com.squareup.okhttp3:logging-interceptor:4.12.0@jar,com.squareup.retrofit2:converter-gson:2.9.0@jar,com.squareup.retrofit2:retrofit:2.9.0@jar,com.squareup.okhttp3:okhttp:4.12.0@jar,io.mockk:mockk-jvm:1.13.10@jar,com.squareup.okio:okio-jvm:3.6.0@jar,io.mockk:mockk-dsl-jvm:1.13.10@jar,io.mockk:mockk-agent-jvm:1.13.10@jar,io.mockk:mockk-agent-api-jvm:1.13.10@jar,io.mockk:mockk-core-jvm:1.13.10@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10@jar,androidx.cursoradapter:cursoradapter:1.0.0@aar,androidx.cardview:cardview:1.0.0@aar,androidx.arch.core:core-runtime:2.2.0@aar,androidx.arch.core:core-common:2.2.0@jar,androidx.versionedparcelable:versionedparcelable:1.1.1@aar,androidx.interpolator:interpolator:1.0.0@aar,androidx.collection:collection-jvm:1.5.0@jar,androidx.documentfile:documentfile:1.0.0@aar,androidx.localbroadcastmanager:localbroadcastmanager:1.0.0@aar,androidx.print:print:1.0.0@aar,androidx.annotation:annotation-jvm:1.9.1@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10@jar,org.jetbrains.kotlin:kotlin-stdlib:2.0.21@jar,androidx.constraintlayout:constraintlayout:2.1.4@aar,com.google.code.gson:gson:2.10.1@jar,junit:junit:4.13.2@jar,org.robolectric:robolectric:4.12.1@jar,org.hamcrest:hamcrest-core:1.3@jar,org.robolectric:junit:4.12.1@jar,org.robolectric:shadows-framework:4.12.1@jar,org.robolectric:resources:4.12.1@jar,org.robolectric:sandbox:4.12.1@jar,org.robolectric:nativeruntime:4.12.1@jar,org.robolectric:utils-reflector:4.12.1@jar,org.robolectric:plugins-maven-dependency-resolver:4.12.1@jar,org.robolectric:shadows-versioning:4.12.1@jar,org.robolectric:shadowapi:4.12.1@jar,org.robolectric:utils:4.12.1@jar,org.robolectric:pluginapi:4.12.1@jar,org.robolectric:annotations:4.12.1@jar,com.google.guava:guava:31.1-jre@jar,com.google.guava:failureaccess:1.0.1@jar,com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava@jar,com.google.code.findbugs:jsr305:3.0.2@jar,org.checkerframework:checker-qual:3.12.0@jar,com.google.errorprone:error_prone_annotations:2.15.0@jar,com.google.j2objc:j2objc-annotations:1.3@jar,javax.inject:javax.inject:1@jar,javax.annotation:javax.annotation-api:1.3.2@jar,org.ow2.asm:asm-commons:9.7@jar,org.ow2.asm:asm-util:9.7@jar,org.ow2.asm:asm-analysis:9.7@jar,org.ow2.asm:asm-tree:9.7@jar,org.ow2.asm:asm:9.7@jar,com.google.auto.value:auto-value-annotations:1.10.4@jar,androidx.test:monitor:1.6.1@aar,com.almworks.sqlite4java:sqlite4java:1.0.392@jar,com.ibm.icu:icu4j:74.2@jar,org.bouncycastle:bcprov-jdk18on:1.77@jar,org.jetbrains:annotations:23.0.0@jar,org.objenesis:objenesis:3.3@jar,net.bytebuddy:byte-buddy:1.14.6@jar,net.bytebuddy:byte-buddy-agent:1.14.6@jar,org.jspecify:jspecify:1.0.0@jar,androidx.resourceinspection:resourceinspection-annotation:1.0.1@jar">
+    <dependency
+        name="__local_aars__:D:\gitProjects\AICamera\android_code\AiCamera2\app\libs\SparkChain.aar:unspecified@jar"
+        simpleName="__local_aars__:D:\gitProjects\AICamera\android_code\AiCamera2\app\libs\SparkChain.aar"/>
+    <dependency
+        name="__local_aars__:D:\gitProjects\AICamera\android_code\AiCamera2\app\libs\Codec.aar:unspecified@jar"
+        simpleName="__local_aars__:D:\gitProjects\AICamera\android_code\AiCamera2\app\libs\Codec.aar"/>
     <dependency
         name=":@@:app::debug"
         simpleName="artifacts::app"/>
@@ -56,7 +62,7 @@
         name="androidx.recyclerview:recyclerview:1.1.0@aar"
         simpleName="androidx.recyclerview:recyclerview"/>
     <dependency
-        name="androidx.transition:transition:1.2.0@aar"
+        name="androidx.transition:transition:1.6.0@aar"
         simpleName="androidx.transition:transition"/>
     <dependency
         name="androidx.vectordrawable:vectordrawable-animated:1.1.0@aar"
@@ -83,16 +89,16 @@
         name="androidx.compose.material3:material3-android:1.2.1@aar"
         simpleName="androidx.compose.material3:material3-android"/>
     <dependency
-        name="androidx.compose.ui:ui-util-android:1.9.2@aar"
+        name="androidx.compose.ui:ui-util-android:1.10.1@aar"
         simpleName="androidx.compose.ui:ui-util-android"/>
     <dependency
-        name="androidx.compose.ui:ui-unit-android:1.9.2@aar"
+        name="androidx.compose.ui:ui-unit-android:1.10.1@aar"
         simpleName="androidx.compose.ui:ui-unit-android"/>
     <dependency
-        name="androidx.compose.ui:ui-text-android:1.9.2@aar"
+        name="androidx.compose.ui:ui-text-android:1.10.1@aar"
         simpleName="androidx.compose.ui:ui-text-android"/>
     <dependency
-        name="androidx.compose.foundation:foundation-layout-android:1.7.0@aar"
+        name="androidx.compose.foundation:foundation-layout-android:1.10.1@aar"
         simpleName="androidx.compose.foundation:foundation-layout-android"/>
     <dependency
         name="androidx.compose.material:material-icons-core-android:1.6.6@aar"
@@ -101,25 +107,25 @@
         name="androidx.compose.material:material-ripple-android:1.6.6@aar"
         simpleName="androidx.compose.material:material-ripple-android"/>
     <dependency
-        name="androidx.compose.foundation:foundation-android:1.7.0@aar"
+        name="androidx.compose.foundation:foundation-android:1.10.1@aar"
         simpleName="androidx.compose.foundation:foundation-android"/>
     <dependency
-        name="androidx.compose.animation:animation-core-android:1.7.0@aar"
+        name="androidx.compose.animation:animation-core-android:1.10.1@aar"
         simpleName="androidx.compose.animation:animation-core-android"/>
     <dependency
-        name="androidx.compose.animation:animation-android:1.7.0@aar"
+        name="androidx.compose.animation:animation-android:1.10.1@aar"
         simpleName="androidx.compose.animation:animation-android"/>
     <dependency
-        name="androidx.compose.ui:ui-geometry-android:1.9.2@aar"
+        name="androidx.compose.ui:ui-geometry-android:1.10.1@aar"
         simpleName="androidx.compose.ui:ui-geometry-android"/>
     <dependency
-        name="androidx.compose.ui:ui-tooling-preview-android:1.9.2@aar"
+        name="androidx.compose.ui:ui-tooling-preview-android:1.10.1@aar"
         simpleName="androidx.compose.ui:ui-tooling-preview-android"/>
     <dependency
-        name="androidx.compose.ui:ui-graphics-android:1.9.2@aar"
+        name="androidx.compose.ui:ui-graphics-android:1.10.1@aar"
         simpleName="androidx.compose.ui:ui-graphics-android"/>
     <dependency
-        name="androidx.compose.ui:ui-android:1.9.2@aar"
+        name="androidx.compose.ui:ui-android:1.10.1@aar"
         simpleName="androidx.compose.ui:ui-android"/>
     <dependency
         name="androidx.lifecycle:lifecycle-runtime-compose-android:2.9.4@aar"
@@ -167,19 +173,22 @@
         name="androidx.navigationevent:navigationevent-compose-android:1.0.1@aar"
         simpleName="androidx.navigationevent:navigationevent-compose-android"/>
     <dependency
-        name="androidx.compose.runtime:runtime-annotation-android:1.9.2@aar"
+        name="androidx.compose.runtime:runtime-annotation-android:1.10.1@aar"
         simpleName="androidx.compose.runtime:runtime-annotation-android"/>
     <dependency
-        name="androidx.compose.runtime:runtime-android:1.9.2@aar"
+        name="androidx.compose.runtime:runtime-retain-android:1.10.1@aar"
+        simpleName="androidx.compose.runtime:runtime-retain-android"/>
+    <dependency
+        name="androidx.compose.runtime:runtime-android:1.10.1@aar"
         simpleName="androidx.compose.runtime:runtime-android"/>
     <dependency
-        name="androidx.compose.runtime:runtime-saveable-android:1.9.2@aar"
+        name="androidx.compose.runtime:runtime-saveable-android:1.10.1@aar"
         simpleName="androidx.compose.runtime:runtime-saveable-android"/>
     <dependency
-        name="androidx.savedstate:savedstate-compose-android:1.3.3@aar"
+        name="androidx.savedstate:savedstate-compose-android:1.3.2@aar"
         simpleName="androidx.savedstate:savedstate-compose-android"/>
     <dependency
-        name="androidx.savedstate:savedstate-android:1.3.3@aar"
+        name="androidx.savedstate:savedstate-android:1.3.2@aar"
         simpleName="androidx.savedstate:savedstate-android"/>
     <dependency
         name="org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0@jar"
@@ -199,6 +208,39 @@
     <dependency
         name="org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.7.3@jar"
         simpleName="org.jetbrains.kotlinx:kotlinx-serialization-json-jvm"/>
+    <dependency
+        name="com.squareup.okhttp3:logging-interceptor:4.12.0@jar"
+        simpleName="com.squareup.okhttp3:logging-interceptor"/>
+    <dependency
+        name="com.squareup.retrofit2:converter-gson:2.9.0@jar"
+        simpleName="com.squareup.retrofit2:converter-gson"/>
+    <dependency
+        name="com.squareup.retrofit2:retrofit:2.9.0@jar"
+        simpleName="com.squareup.retrofit2:retrofit"/>
+    <dependency
+        name="com.squareup.okhttp3:okhttp:4.12.0@jar"
+        simpleName="com.squareup.okhttp3:okhttp"/>
+    <dependency
+        name="io.mockk:mockk-jvm:1.13.10@jar"
+        simpleName="io.mockk:mockk-jvm"/>
+    <dependency
+        name="com.squareup.okio:okio-jvm:3.6.0@jar"
+        simpleName="com.squareup.okio:okio-jvm"/>
+    <dependency
+        name="io.mockk:mockk-dsl-jvm:1.13.10@jar"
+        simpleName="io.mockk:mockk-dsl-jvm"/>
+    <dependency
+        name="io.mockk:mockk-agent-jvm:1.13.10@jar"
+        simpleName="io.mockk:mockk-agent-jvm"/>
+    <dependency
+        name="io.mockk:mockk-agent-api-jvm:1.13.10@jar"
+        simpleName="io.mockk:mockk-agent-api-jvm"/>
+    <dependency
+        name="io.mockk:mockk-core-jvm:1.13.10@jar"
+        simpleName="io.mockk:mockk-core-jvm"/>
+    <dependency
+        name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10@jar"
+        simpleName="org.jetbrains.kotlin:kotlin-stdlib-jdk8"/>
     <dependency
         name="androidx.cursoradapter:cursoradapter:1.0.0@aar"
         simpleName="androidx.cursoradapter:cursoradapter"/>
@@ -233,24 +275,6 @@
         name="androidx.annotation:annotation-jvm:1.9.1@jar"
         simpleName="androidx.annotation:annotation-jvm"/>
     <dependency
-        name="io.mockk:mockk-jvm:1.13.10@jar"
-        simpleName="io.mockk:mockk-jvm"/>
-    <dependency
-        name="io.mockk:mockk-dsl-jvm:1.13.10@jar"
-        simpleName="io.mockk:mockk-dsl-jvm"/>
-    <dependency
-        name="io.mockk:mockk-agent-jvm:1.13.10@jar"
-        simpleName="io.mockk:mockk-agent-jvm"/>
-    <dependency
-        name="io.mockk:mockk-agent-api-jvm:1.13.10@jar"
-        simpleName="io.mockk:mockk-agent-api-jvm"/>
-    <dependency
-        name="io.mockk:mockk-core-jvm:1.13.10@jar"
-        simpleName="io.mockk:mockk-core-jvm"/>
-    <dependency
-        name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10@jar"
-        simpleName="org.jetbrains.kotlin:kotlin-stdlib-jdk8"/>
-    <dependency
         name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10@jar"
         simpleName="org.jetbrains.kotlin:kotlin-stdlib-jdk7"/>
     <dependency
@@ -259,6 +283,9 @@
     <dependency
         name="androidx.constraintlayout:constraintlayout:2.1.4@aar"
         simpleName="androidx.constraintlayout:constraintlayout"/>
+    <dependency
+        name="com.google.code.gson:gson:2.10.1@jar"
+        simpleName="com.google.code.gson:gson"/>
     <dependency
         name="junit:junit:4.13.2@jar"
         simpleName="junit:junit"/>
@@ -381,7 +408,13 @@
         simpleName="androidx.resourceinspection:resourceinspection-annotation"/>
   </compile>
   <package
-      roots="io.mockk:mockk-jvm:1.13.10@jar,junit:junit:4.13.2@jar,org.robolectric:robolectric:4.12.1@jar,com.google.android.material:material:1.10.0@aar,androidx.constraintlayout:constraintlayout:2.1.4@aar,androidx.camera:camera-video:1.5.2@aar,androidx.camera:camera-camera2:1.5.2@aar,androidx.camera:camera-lifecycle:1.5.2@aar,androidx.camera:camera-core:1.5.2@aar,androidx.camera:camera-view:1.5.2@aar,androidx.appcompat:appcompat-resources:1.6.1@aar,androidx.appcompat:appcompat:1.6.1@aar,androidx.viewpager2:viewpager2:1.0.0@aar,androidx.fragment:fragment:1.3.6@aar,androidx.fragment:fragment:1.3.6@aar,androidx.compose.material3:material3-android:1.2.1@aar,androidx.navigationevent:navigationevent-android:1.0.1@aar,androidx.navigationevent:navigationevent-compose-android:1.0.1@aar,androidx.compose.material:material-ripple-android:1.6.6@aar,androidx.compose.material:material-icons-core-android:1.6.6@aar,androidx.compose.ui:ui-tooling-preview-android:1.9.2@aar,androidx.compose.animation:animation-core-android:1.7.0@aar,androidx.compose.animation:animation-android:1.7.0@aar,androidx.compose.foundation:foundation-layout-android:1.7.0@aar,androidx.compose.foundation:foundation-android:1.7.0@aar,androidx.compose.ui:ui-util-android:1.9.2@aar,androidx.compose.ui:ui-unit-android:1.9.2@aar,androidx.compose.ui:ui-text-android:1.9.2@aar,androidx.compose.ui:ui-graphics-android:1.9.2@aar,androidx.compose.ui:ui-geometry-android:1.9.2@aar,androidx.compose.ui:ui-android:1.9.2@aar,androidx.activity:activity-ktx:1.12.2@aar,androidx.activity:activity-compose:1.12.2@aar,androidx.activity:activity:1.12.2@aar,androidx.dynamicanimation:dynamicanimation:1.0.0@aar,androidx.legacy:legacy-support-core-utils:1.0.0@aar,androidx.loader:loader:1.0.0@aar,androidx.emoji2:emoji2-views-helper:1.4.0@aar,androidx.emoji2:emoji2:1.4.0@aar,androidx.lifecycle:lifecycle-process:2.9.4@aar,androidx.lifecycle:lifecycle-runtime-ktx-android:2.9.4@aar,androidx.lifecycle:lifecycle-livedata-core-ktx:2.9.4@aar,androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.4@aar,androidx.lifecycle:lifecycle-livedata-core:2.9.4@aar,androidx.lifecycle:lifecycle-livedata:2.9.4@aar,androidx.lifecycle:lifecycle-livedata:2.9.4@aar,androidx.lifecycle:lifecycle-common-java8:2.9.4@jar,androidx.compose.runtime:runtime-annotation-android:1.9.2@aar,androidx.savedstate:savedstate-android:1.3.3@aar,androidx.savedstate:savedstate-ktx:1.3.3@aar,androidx.savedstate:savedstate-compose-android:1.3.3@aar,androidx.compose.runtime:runtime-android:1.9.2@aar,androidx.compose.runtime:runtime-saveable-android:1.9.2@aar,androidx.lifecycle:lifecycle-runtime-compose-android:2.9.4@aar,androidx.lifecycle:lifecycle-viewmodel:2.9.4@aar,androidx.lifecycle:lifecycle-viewmodel-android:2.9.4@aar,androidx.lifecycle:lifecycle-runtime-android:2.9.4@aar,androidx.lifecycle:lifecycle-common-jvm:2.9.4@jar,androidx.lifecycle:lifecycle-viewmodel-savedstate-android:2.9.4@aar,androidx.customview:customview-poolingcontainer:1.0.0@aar,androidx.core:core-ktx:1.17.0@aar,androidx.drawerlayout:drawerlayout:1.1.1@aar,androidx.coordinatorlayout:coordinatorlayout:1.1.0@aar,androidx.transition:transition:1.2.0@aar,androidx.vectordrawable:vectordrawable-animated:1.1.0@aar,androidx.vectordrawable:vectordrawable:1.1.0@aar,androidx.viewpager:viewpager:1.0.0@aar,androidx.recyclerview:recyclerview:1.1.0@aar,androidx.customview:customview:1.1.0@aar,androidx.autofill:autofill:1.0.0@aar,androidx.graphics:graphics-path:1.0.1@aar,androidx.core:core:1.17.0@aar,androidx.core:core:1.17.0@aar,androidx.concurrent:concurrent-futures-ktx:1.1.0@jar,org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0@jar,io.mockk:mockk-dsl-jvm:1.13.10@jar,org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:1.9.0@jar,org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0@jar,androidx.databinding:viewbinding:8.13.2@aar,androidx.core:core-viewtree:1.0.0@aar,androidx.annotation:annotation-experimental:1.4.1@aar,io.mockk:mockk-agent-jvm:1.13.10@jar,io.mockk:mockk-agent-api-jvm:1.13.10@jar,io.mockk:mockk-core-jvm:1.13.10@jar,androidx.profileinstaller:profileinstaller:1.4.0@aar,androidx.startup:startup-runtime:1.1.1@aar,androidx.tracing:tracing:1.2.0@aar,androidx.tracing:tracing-ktx:1.2.0@aar,androidx.cursoradapter:cursoradapter:1.0.0@aar,androidx.resourceinspection:resourceinspection-annotation:1.0.1@jar,androidx.cardview:cardview:1.0.0@aar,androidx.arch.core:core-runtime:2.2.0@aar,androidx.arch.core:core-common:2.2.0@jar,androidx.interpolator:interpolator:1.0.0@aar,androidx.versionedparcelable:versionedparcelable:1.1.1@aar,androidx.concurrent:concurrent-futures:1.1.0@jar,androidx.exifinterface:exifinterface:1.3.2@aar,androidx.camera.featurecombinationquery:featurecombinationquery:1.5.2@aar,androidx.documentfile:documentfile:1.0.0@aar,androidx.localbroadcastmanager:localbroadcastmanager:1.0.0@aar,androidx.print:print:1.0.0@aar,androidx.collection:collection-ktx:1.5.0@jar,androidx.collection:collection-jvm:1.5.0@jar,androidx.annotation:annotation-jvm:1.9.1@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10@jar,org.jetbrains.kotlin:kotlin-reflect:1.9.10@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10@jar,org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.7.3@jar,org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.7.3@jar,org.jetbrains.kotlin:kotlin-stdlib:2.0.21@jar,org.hamcrest:hamcrest-core:1.3@jar,org.conscrypt:conscrypt-openjdk-uber:2.5.2@jar,androidx.test.espresso:espresso-idling-resource:3.5.1@aar,org.robolectric:junit:4.12.1@jar,org.robolectric:shadows-framework:4.12.1@jar,org.robolectric:resources:4.12.1@jar,org.robolectric:sandbox:4.12.1@jar,org.robolectric:nativeruntime:4.12.1@jar,org.robolectric:utils-reflector:4.12.1@jar,org.robolectric:plugins-maven-dependency-resolver:4.12.1@jar,org.robolectric:shadows-versioning:4.12.1@jar,org.robolectric:shadowapi:4.12.1@jar,org.robolectric:utils:4.12.1@jar,org.robolectric:pluginapi:4.12.1@jar,org.robolectric:annotations:4.12.1@jar,javax.inject:javax.inject:1@jar,javax.annotation:javax.annotation-api:1.3.2@jar,org.bouncycastle:bcprov-jdk18on:1.77@jar,androidx.test:monitor:1.6.1@aar,org.jetbrains:annotations:23.0.0@jar,com.google.errorprone:error_prone_annotation:2.19.1@jar,com.google.guava:guava:31.1-jre@jar,com.google.errorprone:error_prone_annotations:2.15.0@jar,androidx.constraintlayout:constraintlayout-core:1.0.4@jar,com.google.auto.value:auto-value-annotations:1.10.4@jar,com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava@jar,org.jspecify:jspecify:1.0.0@jar,org.ow2.asm:asm-commons:9.7@jar,org.ow2.asm:asm-util:9.7@jar,org.ow2.asm:asm-analysis:9.7@jar,org.ow2.asm:asm-tree:9.7@jar,org.ow2.asm:asm:9.7@jar,com.almworks.sqlite4java:sqlite4java:1.0.392@jar,com.ibm.icu:icu4j:74.2@jar,org.junit.jupiter:junit-jupiter-params:5.8.2@jar,org.junit.jupiter:junit-jupiter-engine:5.8.2@jar,org.junit.jupiter:junit-jupiter-api:5.8.2@jar,org.junit.platform:junit-platform-engine:1.8.2@jar,org.junit.platform:junit-platform-commons:1.8.2@jar,org.junit.jupiter:junit-jupiter:5.8.2@jar,com.google.guava:failureaccess:1.0.1@jar,com.google.code.findbugs:jsr305:3.0.2@jar,org.checkerframework:checker-qual:3.12.0@jar,com.google.j2objc:j2objc-annotations:1.3@jar,org.robolectric:nativeruntime-dist-compat:1.0.9@jar,org.objenesis:objenesis:3.3@jar,net.bytebuddy:byte-buddy:1.14.6@jar,net.bytebuddy:byte-buddy-agent:1.14.6@jar,org.opentest4j:opentest4j:1.2.0@jar">
+      roots="__local_aars__:D:\gitProjects\AICamera\android_code\AiCamera2\app\libs\SparkChain.aar:unspecified@jar,__local_aars__:D:\gitProjects\AICamera\android_code\AiCamera2\app\libs\Codec.aar:unspecified@jar,io.mockk:mockk-jvm:1.13.10@jar,junit:junit:4.13.2@jar,org.robolectric:robolectric:4.12.1@jar,com.google.android.material:material:1.10.0@aar,androidx.constraintlayout:constraintlayout:2.1.4@aar,androidx.camera:camera-video:1.5.2@aar,androidx.camera:camera-camera2:1.5.2@aar,androidx.camera:camera-lifecycle:1.5.2@aar,androidx.camera:camera-core:1.5.2@aar,androidx.camera:camera-view:1.5.2@aar,androidx.appcompat:appcompat-resources:1.6.1@aar,androidx.appcompat:appcompat:1.6.1@aar,androidx.viewpager2:viewpager2:1.0.0@aar,androidx.fragment:fragment:1.3.6@aar,androidx.fragment:fragment:1.3.6@aar,androidx.compose.material3:material3-android:1.2.1@aar,androidx.compose.material:material-icons-core-android:1.6.6@aar,androidx.compose.material:material-ripple-android:1.6.6@aar,androidx.compose.foundation:foundation-layout-android:1.10.1@aar,androidx.compose.foundation:foundation-android:1.10.1@aar,androidx.compose.animation:animation-android:1.10.1@aar,androidx.compose.animation:animation-core-android:1.10.1@aar,androidx.navigationevent:navigationevent-android:1.0.1@aar,androidx.navigationevent:navigationevent-compose-android:1.0.1@aar,androidx.compose.ui:ui-geometry-android:1.10.1@aar,androidx.compose.ui:ui-tooling-preview-android:1.10.1@aar,androidx.compose.ui:ui-text-android:1.10.1@aar,androidx.compose.ui:ui-unit-android:1.10.1@aar,androidx.compose.ui:ui-util-android:1.10.1@aar,androidx.compose.ui:ui-graphics-android:1.10.1@aar,androidx.compose.ui:ui-android:1.10.1@aar,androidx.activity:activity-ktx:1.12.2@aar,androidx.activity:activity-compose:1.12.2@aar,androidx.activity:activity:1.12.2@aar,androidx.customview:customview-poolingcontainer:1.0.0@aar,androidx.transition:transition:1.6.0@aar,androidx.dynamicanimation:dynamicanimation:1.0.0@aar,androidx.legacy:legacy-support-core-utils:1.0.0@aar,androidx.loader:loader:1.0.0@aar,androidx.emoji2:emoji2-views-helper:1.4.0@aar,androidx.emoji2:emoji2:1.4.0@aar,androidx.lifecycle:lifecycle-process:2.9.4@aar,androidx.lifecycle:lifecycle-runtime-ktx-android:2.9.4@aar,androidx.lifecycle:lifecycle-livedata-core-ktx:2.9.4@aar,androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.4@aar,androidx.lifecycle:lifecycle-livedata-core:2.9.4@aar,androidx.lifecycle:lifecycle-livedata:2.9.4@aar,androidx.lifecycle:lifecycle-livedata:2.9.4@aar,androidx.lifecycle:lifecycle-common-java8:2.9.4@jar,androidx.compose.runtime:runtime-retain-android:1.10.1@aar,androidx.compose.runtime:runtime-annotation-android:1.10.1@aar,androidx.savedstate:savedstate-android:1.3.2@aar,androidx.savedstate:savedstate-ktx:1.3.2@aar,androidx.savedstate:savedstate-compose-android:1.3.2@aar,androidx.compose.runtime:runtime-android:1.10.1@aar,androidx.compose.runtime:runtime-saveable-android:1.10.1@aar,androidx.lifecycle:lifecycle-runtime-compose-android:2.9.4@aar,androidx.lifecycle:lifecycle-viewmodel:2.9.4@aar,androidx.lifecycle:lifecycle-viewmodel-android:2.9.4@aar,androidx.lifecycle:lifecycle-runtime-android:2.9.4@aar,androidx.lifecycle:lifecycle-common-jvm:2.9.4@jar,androidx.lifecycle:lifecycle-viewmodel-savedstate-android:2.9.4@aar,androidx.core:core-ktx:1.17.0@aar,androidx.drawerlayout:drawerlayout:1.1.1@aar,androidx.coordinatorlayout:coordinatorlayout:1.1.0@aar,androidx.vectordrawable:vectordrawable-animated:1.1.0@aar,androidx.vectordrawable:vectordrawable:1.1.0@aar,androidx.viewpager:viewpager:1.0.0@aar,androidx.recyclerview:recyclerview:1.1.0@aar,androidx.customview:customview:1.1.0@aar,androidx.autofill:autofill:1.0.0@aar,androidx.window:window-core-android:1.5.0@aar,androidx.window:window:1.5.0@aar,androidx.graphics:graphics-path:1.0.1@aar,androidx.core:core:1.17.0@aar,androidx.core:core:1.17.0@aar,androidx.concurrent:concurrent-futures-ktx:1.1.0@jar,org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0@jar,io.mockk:mockk-dsl-jvm:1.13.10@jar,org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:1.9.0@jar,org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0@jar,androidx.databinding:viewbinding:8.13.2@aar,androidx.core:core-viewtree:1.0.0@aar,androidx.annotation:annotation-experimental:1.4.1@aar,com.squareup.retrofit2:converter-gson:2.9.0@jar,com.squareup.retrofit2:retrofit:2.9.0@jar,com.squareup.okhttp3:logging-interceptor:4.12.0@jar,com.squareup.okhttp3:okhttp:4.12.0@jar,com.squareup.okio:okio-jvm:3.6.0@jar,io.mockk:mockk-agent-jvm:1.13.10@jar,io.mockk:mockk-agent-api-jvm:1.13.10@jar,io.mockk:mockk-core-jvm:1.13.10@jar,androidx.profileinstaller:profileinstaller:1.4.0@aar,androidx.startup:startup-runtime:1.1.1@aar,androidx.tracing:tracing:1.2.0@aar,androidx.tracing:tracing-ktx:1.2.0@aar,androidx.versionedparcelable:versionedparcelable:1.1.1@aar,androidx.collection:collection-ktx:1.5.0@jar,androidx.collection:collection-jvm:1.5.0@jar,androidx.cursoradapter:cursoradapter:1.0.0@aar,androidx.resourceinspection:resourceinspection-annotation:1.0.1@jar,androidx.cardview:cardview:1.0.0@aar,androidx.arch.core:core-runtime:2.2.0@aar,androidx.arch.core:core-common:2.2.0@jar,androidx.interpolator:interpolator:1.0.0@aar,androidx.concurrent:concurrent-futures:1.1.0@jar,androidx.exifinterface:exifinterface:1.3.2@aar,androidx.camera.featurecombinationquery:featurecombinationquery:1.5.2@aar,androidx.documentfile:documentfile:1.0.0@aar,androidx.localbroadcastmanager:localbroadcastmanager:1.0.0@aar,androidx.print:print:1.0.0@aar,androidx.annotation:annotation-jvm:1.9.1@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10@jar,org.jetbrains.kotlin:kotlin-reflect:1.9.10@jar,org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10@jar,org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.7.3@jar,org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.7.3@jar,org.jetbrains.kotlin:kotlin-stdlib:2.0.21@jar,com.google.code.gson:gson:2.10.1@jar,org.hamcrest:hamcrest-core:1.3@jar,org.conscrypt:conscrypt-openjdk-uber:2.5.2@jar,androidx.test.espresso:espresso-idling-resource:3.5.1@aar,org.robolectric:junit:4.12.1@jar,org.robolectric:shadows-framework:4.12.1@jar,org.robolectric:resources:4.12.1@jar,org.robolectric:sandbox:4.12.1@jar,org.robolectric:nativeruntime:4.12.1@jar,org.robolectric:utils-reflector:4.12.1@jar,org.robolectric:plugins-maven-dependency-resolver:4.12.1@jar,org.robolectric:shadows-versioning:4.12.1@jar,org.robolectric:shadowapi:4.12.1@jar,org.robolectric:utils:4.12.1@jar,org.robolectric:pluginapi:4.12.1@jar,org.robolectric:annotations:4.12.1@jar,javax.inject:javax.inject:1@jar,javax.annotation:javax.annotation-api:1.3.2@jar,org.bouncycastle:bcprov-jdk18on:1.77@jar,androidx.test:monitor:1.6.1@aar,org.jetbrains:annotations:23.0.0@jar,com.google.errorprone:error_prone_annotation:2.19.1@jar,com.google.guava:guava:31.1-jre@jar,com.google.errorprone:error_prone_annotations:2.15.0@jar,androidx.constraintlayout:constraintlayout-core:1.0.4@jar,com.google.auto.value:auto-value-annotations:1.10.4@jar,com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava@jar,org.jspecify:jspecify:1.0.0@jar,org.ow2.asm:asm-commons:9.7@jar,org.ow2.asm:asm-util:9.7@jar,org.ow2.asm:asm-analysis:9.7@jar,org.ow2.asm:asm-tree:9.7@jar,org.ow2.asm:asm:9.7@jar,com.almworks.sqlite4java:sqlite4java:1.0.392@jar,com.ibm.icu:icu4j:74.2@jar,org.junit.jupiter:junit-jupiter-params:5.8.2@jar,org.junit.jupiter:junit-jupiter-engine:5.8.2@jar,org.junit.jupiter:junit-jupiter-api:5.8.2@jar,org.junit.platform:junit-platform-engine:1.8.2@jar,org.junit.platform:junit-platform-commons:1.8.2@jar,org.junit.jupiter:junit-jupiter:5.8.2@jar,com.google.guava:failureaccess:1.0.1@jar,com.google.code.findbugs:jsr305:3.0.2@jar,org.checkerframework:checker-qual:3.12.0@jar,com.google.j2objc:j2objc-annotations:1.3@jar,org.robolectric:nativeruntime-dist-compat:1.0.9@jar,org.objenesis:objenesis:3.3@jar,net.bytebuddy:byte-buddy:1.14.6@jar,net.bytebuddy:byte-buddy-agent:1.14.6@jar,org.opentest4j:opentest4j:1.2.0@jar">
+    <dependency
+        name="__local_aars__:D:\gitProjects\AICamera\android_code\AiCamera2\app\libs\SparkChain.aar:unspecified@jar"
+        simpleName="__local_aars__:D:\gitProjects\AICamera\android_code\AiCamera2\app\libs\SparkChain.aar"/>
+    <dependency
+        name="__local_aars__:D:\gitProjects\AICamera\android_code\AiCamera2\app\libs\Codec.aar:unspecified@jar"
+        simpleName="__local_aars__:D:\gitProjects\AICamera\android_code\AiCamera2\app\libs\Codec.aar"/>
     <dependency
         name="io.mockk:mockk-jvm:1.13.10@jar"
         simpleName="io.mockk:mockk-jvm"/>
@@ -428,49 +461,49 @@
         name="androidx.compose.material3:material3-android:1.2.1@aar"
         simpleName="androidx.compose.material3:material3-android"/>
     <dependency
+        name="androidx.compose.material:material-icons-core-android:1.6.6@aar"
+        simpleName="androidx.compose.material:material-icons-core-android"/>
+    <dependency
+        name="androidx.compose.material:material-ripple-android:1.6.6@aar"
+        simpleName="androidx.compose.material:material-ripple-android"/>
+    <dependency
+        name="androidx.compose.foundation:foundation-layout-android:1.10.1@aar"
+        simpleName="androidx.compose.foundation:foundation-layout-android"/>
+    <dependency
+        name="androidx.compose.foundation:foundation-android:1.10.1@aar"
+        simpleName="androidx.compose.foundation:foundation-android"/>
+    <dependency
+        name="androidx.compose.animation:animation-android:1.10.1@aar"
+        simpleName="androidx.compose.animation:animation-android"/>
+    <dependency
+        name="androidx.compose.animation:animation-core-android:1.10.1@aar"
+        simpleName="androidx.compose.animation:animation-core-android"/>
+    <dependency
         name="androidx.navigationevent:navigationevent-android:1.0.1@aar"
         simpleName="androidx.navigationevent:navigationevent-android"/>
     <dependency
         name="androidx.navigationevent:navigationevent-compose-android:1.0.1@aar"
         simpleName="androidx.navigationevent:navigationevent-compose-android"/>
     <dependency
-        name="androidx.compose.material:material-ripple-android:1.6.6@aar"
-        simpleName="androidx.compose.material:material-ripple-android"/>
-    <dependency
-        name="androidx.compose.material:material-icons-core-android:1.6.6@aar"
-        simpleName="androidx.compose.material:material-icons-core-android"/>
-    <dependency
-        name="androidx.compose.ui:ui-tooling-preview-android:1.9.2@aar"
-        simpleName="androidx.compose.ui:ui-tooling-preview-android"/>
-    <dependency
-        name="androidx.compose.animation:animation-core-android:1.7.0@aar"
-        simpleName="androidx.compose.animation:animation-core-android"/>
-    <dependency
-        name="androidx.compose.animation:animation-android:1.7.0@aar"
-        simpleName="androidx.compose.animation:animation-android"/>
-    <dependency
-        name="androidx.compose.foundation:foundation-layout-android:1.7.0@aar"
-        simpleName="androidx.compose.foundation:foundation-layout-android"/>
-    <dependency
-        name="androidx.compose.foundation:foundation-android:1.7.0@aar"
-        simpleName="androidx.compose.foundation:foundation-android"/>
-    <dependency
-        name="androidx.compose.ui:ui-util-android:1.9.2@aar"
-        simpleName="androidx.compose.ui:ui-util-android"/>
-    <dependency
-        name="androidx.compose.ui:ui-unit-android:1.9.2@aar"
-        simpleName="androidx.compose.ui:ui-unit-android"/>
-    <dependency
-        name="androidx.compose.ui:ui-text-android:1.9.2@aar"
-        simpleName="androidx.compose.ui:ui-text-android"/>
-    <dependency
-        name="androidx.compose.ui:ui-graphics-android:1.9.2@aar"
-        simpleName="androidx.compose.ui:ui-graphics-android"/>
-    <dependency
-        name="androidx.compose.ui:ui-geometry-android:1.9.2@aar"
+        name="androidx.compose.ui:ui-geometry-android:1.10.1@aar"
         simpleName="androidx.compose.ui:ui-geometry-android"/>
     <dependency
-        name="androidx.compose.ui:ui-android:1.9.2@aar"
+        name="androidx.compose.ui:ui-tooling-preview-android:1.10.1@aar"
+        simpleName="androidx.compose.ui:ui-tooling-preview-android"/>
+    <dependency
+        name="androidx.compose.ui:ui-text-android:1.10.1@aar"
+        simpleName="androidx.compose.ui:ui-text-android"/>
+    <dependency
+        name="androidx.compose.ui:ui-unit-android:1.10.1@aar"
+        simpleName="androidx.compose.ui:ui-unit-android"/>
+    <dependency
+        name="androidx.compose.ui:ui-util-android:1.10.1@aar"
+        simpleName="androidx.compose.ui:ui-util-android"/>
+    <dependency
+        name="androidx.compose.ui:ui-graphics-android:1.10.1@aar"
+        simpleName="androidx.compose.ui:ui-graphics-android"/>
+    <dependency
+        name="androidx.compose.ui:ui-android:1.10.1@aar"
         simpleName="androidx.compose.ui:ui-android"/>
     <dependency
         name="androidx.activity:activity-ktx:1.12.2@aar"
@@ -481,6 +514,12 @@
     <dependency
         name="androidx.activity:activity:1.12.2@aar"
         simpleName="androidx.activity:activity"/>
+    <dependency
+        name="androidx.customview:customview-poolingcontainer:1.0.0@aar"
+        simpleName="androidx.customview:customview-poolingcontainer"/>
+    <dependency
+        name="androidx.transition:transition:1.6.0@aar"
+        simpleName="androidx.transition:transition"/>
     <dependency
         name="androidx.dynamicanimation:dynamicanimation:1.0.0@aar"
         simpleName="androidx.dynamicanimation:dynamicanimation"/>
@@ -518,22 +557,25 @@
         name="androidx.lifecycle:lifecycle-common-java8:2.9.4@jar"
         simpleName="androidx.lifecycle:lifecycle-common-java8"/>
     <dependency
-        name="androidx.compose.runtime:runtime-annotation-android:1.9.2@aar"
+        name="androidx.compose.runtime:runtime-retain-android:1.10.1@aar"
+        simpleName="androidx.compose.runtime:runtime-retain-android"/>
+    <dependency
+        name="androidx.compose.runtime:runtime-annotation-android:1.10.1@aar"
         simpleName="androidx.compose.runtime:runtime-annotation-android"/>
     <dependency
-        name="androidx.savedstate:savedstate-android:1.3.3@aar"
+        name="androidx.savedstate:savedstate-android:1.3.2@aar"
         simpleName="androidx.savedstate:savedstate-android"/>
     <dependency
-        name="androidx.savedstate:savedstate-ktx:1.3.3@aar"
+        name="androidx.savedstate:savedstate-ktx:1.3.2@aar"
         simpleName="androidx.savedstate:savedstate-ktx"/>
     <dependency
-        name="androidx.savedstate:savedstate-compose-android:1.3.3@aar"
+        name="androidx.savedstate:savedstate-compose-android:1.3.2@aar"
         simpleName="androidx.savedstate:savedstate-compose-android"/>
     <dependency
-        name="androidx.compose.runtime:runtime-android:1.9.2@aar"
+        name="androidx.compose.runtime:runtime-android:1.10.1@aar"
         simpleName="androidx.compose.runtime:runtime-android"/>
     <dependency
-        name="androidx.compose.runtime:runtime-saveable-android:1.9.2@aar"
+        name="androidx.compose.runtime:runtime-saveable-android:1.10.1@aar"
         simpleName="androidx.compose.runtime:runtime-saveable-android"/>
     <dependency
         name="androidx.lifecycle:lifecycle-runtime-compose-android:2.9.4@aar"
@@ -554,9 +596,6 @@
         name="androidx.lifecycle:lifecycle-viewmodel-savedstate-android:2.9.4@aar"
         simpleName="androidx.lifecycle:lifecycle-viewmodel-savedstate-android"/>
     <dependency
-        name="androidx.customview:customview-poolingcontainer:1.0.0@aar"
-        simpleName="androidx.customview:customview-poolingcontainer"/>
-    <dependency
         name="androidx.core:core-ktx:1.17.0@aar"
         simpleName="androidx.core:core-ktx"/>
     <dependency
@@ -565,9 +604,6 @@
     <dependency
         name="androidx.coordinatorlayout:coordinatorlayout:1.1.0@aar"
         simpleName="androidx.coordinatorlayout:coordinatorlayout"/>
-    <dependency
-        name="androidx.transition:transition:1.2.0@aar"
-        simpleName="androidx.transition:transition"/>
     <dependency
         name="androidx.vectordrawable:vectordrawable-animated:1.1.0@aar"
         simpleName="androidx.vectordrawable:vectordrawable-animated"/>
@@ -586,6 +622,12 @@
     <dependency
         name="androidx.autofill:autofill:1.0.0@aar"
         simpleName="androidx.autofill:autofill"/>
+    <dependency
+        name="androidx.window:window-core-android:1.5.0@aar"
+        simpleName="androidx.window:window-core-android"/>
+    <dependency
+        name="androidx.window:window:1.5.0@aar"
+        simpleName="androidx.window:window"/>
     <dependency
         name="androidx.graphics:graphics-path:1.0.1@aar"
         simpleName="androidx.graphics:graphics-path"/>
@@ -617,6 +659,21 @@
         name="androidx.annotation:annotation-experimental:1.4.1@aar"
         simpleName="androidx.annotation:annotation-experimental"/>
     <dependency
+        name="com.squareup.retrofit2:converter-gson:2.9.0@jar"
+        simpleName="com.squareup.retrofit2:converter-gson"/>
+    <dependency
+        name="com.squareup.retrofit2:retrofit:2.9.0@jar"
+        simpleName="com.squareup.retrofit2:retrofit"/>
+    <dependency
+        name="com.squareup.okhttp3:logging-interceptor:4.12.0@jar"
+        simpleName="com.squareup.okhttp3:logging-interceptor"/>
+    <dependency
+        name="com.squareup.okhttp3:okhttp:4.12.0@jar"
+        simpleName="com.squareup.okhttp3:okhttp"/>
+    <dependency
+        name="com.squareup.okio:okio-jvm:3.6.0@jar"
+        simpleName="com.squareup.okio:okio-jvm"/>
+    <dependency
         name="io.mockk:mockk-agent-jvm:1.13.10@jar"
         simpleName="io.mockk:mockk-agent-jvm"/>
     <dependency
@@ -638,6 +695,15 @@
         name="androidx.tracing:tracing-ktx:1.2.0@aar"
         simpleName="androidx.tracing:tracing-ktx"/>
     <dependency
+        name="androidx.versionedparcelable:versionedparcelable:1.1.1@aar"
+        simpleName="androidx.versionedparcelable:versionedparcelable"/>
+    <dependency
+        name="androidx.collection:collection-ktx:1.5.0@jar"
+        simpleName="androidx.collection:collection-ktx"/>
+    <dependency
+        name="androidx.collection:collection-jvm:1.5.0@jar"
+        simpleName="androidx.collection:collection-jvm"/>
+    <dependency
         name="androidx.cursoradapter:cursoradapter:1.0.0@aar"
         simpleName="androidx.cursoradapter:cursoradapter"/>
     <dependency
@@ -656,9 +722,6 @@
         name="androidx.interpolator:interpolator:1.0.0@aar"
         simpleName="androidx.interpolator:interpolator"/>
     <dependency
-        name="androidx.versionedparcelable:versionedparcelable:1.1.1@aar"
-        simpleName="androidx.versionedparcelable:versionedparcelable"/>
-    <dependency
         name="androidx.concurrent:concurrent-futures:1.1.0@jar"
         simpleName="androidx.concurrent:concurrent-futures"/>
     <dependency
@@ -676,12 +739,6 @@
     <dependency
         name="androidx.print:print:1.0.0@aar"
         simpleName="androidx.print:print"/>
-    <dependency
-        name="androidx.collection:collection-ktx:1.5.0@jar"
-        simpleName="androidx.collection:collection-ktx"/>
-    <dependency
-        name="androidx.collection:collection-jvm:1.5.0@jar"
-        simpleName="androidx.collection:collection-jvm"/>
     <dependency
         name="androidx.annotation:annotation-jvm:1.9.1@jar"
         simpleName="androidx.annotation:annotation-jvm"/>
@@ -703,6 +760,9 @@
     <dependency
         name="org.jetbrains.kotlin:kotlin-stdlib:2.0.21@jar"
         simpleName="org.jetbrains.kotlin:kotlin-stdlib"/>
+    <dependency
+        name="com.google.code.gson:gson:2.10.1@jar"
+        simpleName="com.google.code.gson:gson"/>
     <dependency
         name="org.hamcrest:hamcrest-core:1.3@jar"
         simpleName="org.hamcrest:hamcrest-core"/>

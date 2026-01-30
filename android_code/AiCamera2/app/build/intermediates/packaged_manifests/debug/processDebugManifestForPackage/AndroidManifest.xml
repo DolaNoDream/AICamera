@@ -9,24 +9,19 @@
         android:targetSdkVersion="36" />
 
     <!-- 必需权限 -->
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 录音权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 帧截取权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <!-- 硬件特性声明 -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-
-    <!-- 后续预留权限 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
-    <!-- 网络权限（后续AI功能预留） -->
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <permission
         android:name="com.example.aicamera.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"

@@ -1,6 +1,6 @@
 <lint-module
     format="1"
-    dir="D:\AndroidProjects\AiCamera2\app"
+    dir="D:\gitProjects\AICamera\android_code\AiCamera2\app"
     name=":app"
     type="APP"
     maven="AiCamera:app:unspecified"

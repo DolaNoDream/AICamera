@@ -3853,6 +3853,7 @@ string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
 string ai_suggestion
+string ai_suggestion_header
 string androidx_compose_foundation_autofill
 string androidx_compose_ui_autofill
 string androidx_startup
@@ -3872,6 +3873,9 @@ string call_notification_incoming_text
 string call_notification_ongoing_text
 string call_notification_screening_text
 string camera_initialization_error
+string camera_mode_ai_pose
+string camera_mode_ai_suggestion
+string camera_mode_standard
 string camera_not_available
 string camera_permission_denied
 string camera_permission_request
@@ -3879,6 +3883,7 @@ string cancel
 string character_counter_content_description
 string character_counter_overflowed_content_description
 string character_counter_pattern
+string clear
 string clear_text_end_icon_content_description
 string close_drawer
 string close_sheet
@@ -3892,6 +3897,8 @@ string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
 string focus
+string guide_empty_hint
+string guide_label_prefix
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
 string in_progress
@@ -4064,6 +4071,13 @@ string path_password_eye_mask_visible
 string path_password_strike_through
 string photo_save_error
 string photo_taken
+string pose_confirm
+string pose_guide_empty
+string pose_guide_error
+string pose_guide_image_loading
+string pose_guide_image_url
+string pose_guide_loading
+string pose_guide_title
 string range_end
 string range_start
 string reset_zoom
@@ -4087,7 +4101,9 @@ string take_photo
 string template_percent
 string tooltip_description
 string tooltip_label
+string voice_empty_hint
 string voice_guide_toggle
+string voice_label_prefix
 string zoom_in
 string zoom_out
 string zoom_value
