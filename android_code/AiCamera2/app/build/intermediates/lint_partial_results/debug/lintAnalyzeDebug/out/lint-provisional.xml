@@ -9,10 +9,10 @@
             file="${:app*debug*MAIN*sourceProvider*0*manifest*0}"
             line="9"
             column="36"
-            startOffset="438"
+            startOffset="408"
             endLine="9"
             endColumn="77"
-            endOffset="479"/>
+            endOffset="449"/>
         <map>
             <entry
                 name="maxSdkVersion"
@@ -36,12 +36,12 @@
             value="fullSensor"/>
         <location
             file="${:app*debug*MAIN*sourceProvider*0*manifest*0}"
-            line="34"
+            line="36"
             column="13"
-            startOffset="1318"
-            endLine="34"
+            startOffset="1425"
+            endLine="36"
             endColumn="49"
-            endOffset="1354"/>
+            endOffset="1461"/>
         <map>
             <condition library="false"/>
         </map>
@@ -53,12 +53,12 @@
         message="Using Configuration.screenWidthDp instead of LocalWindowInfo.current.containerSize">
         <location
             file="${:app*debug*MAIN*sourceProvider*0*javaDir*0}/com/example/aicamera/ui/CameraScreen.kt"
-            line="560"
+            line="569"
             column="27"
-            startOffset="18538"
-            endLine="560"
+            startOffset="20542"
+            endLine="569"
             endColumn="96"
-            endOffset="18607"/>
+            endOffset="20611"/>
     </incident>
 
     <incident
@@ -67,12 +67,12 @@
         message="Using Configuration.screenHeightDp instead of LocalWindowInfo.current.containerSize">
         <location
             file="${:app*debug*MAIN*sourceProvider*0*javaDir*0}/com/example/aicamera/ui/CameraScreen.kt"
-            line="561"
+            line="570"
             column="28"
-            startOffset="18638"
-            endLine="561"
+            startOffset="20642"
+            endLine="570"
             endColumn="98"
-            endOffset="18708"/>
+            endOffset="20712"/>
     </incident>
 
 </incidents>

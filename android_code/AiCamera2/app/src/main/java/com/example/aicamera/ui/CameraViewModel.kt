@@ -12,14 +12,18 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
 import com.example.aicamera.camera.CameraController
+import com.example.aicamera.camera.CameraStreamManager
+import com.example.aicamera.network.PoseRecommendationClient
+import com.example.aicamera.network.model.PoseResponse
 import com.example.aicamera.storage.FileManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.Locale
 import com.example.aicamera.STT.SparkAsrManager; //导入STT模块
-
+import com.example.aicamera.TTS.TTSManager
 
 /**
  * 相机页面 ViewModel
@@ -54,6 +58,26 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
     private val _aiAdvice = MutableStateFlow<String>("")
     val aiAdvice: StateFlow<String> = _aiAdvice.asStateFlow()
 
+    // AI姿势指导相关状态
+    private val poseClient = PoseRecommendationClient.getInstance()
+    private val cameraStreamManager = CameraStreamManager(application)
+    private var isStreamCameraStarted = false
+
+    private val _poseGuideText = MutableStateFlow("")
+    val poseGuideText: StateFlow<String> = _poseGuideText.asStateFlow()
+
+    private val _poseSuggestionText = MutableStateFlow("")
+    val poseSuggestionText: StateFlow<String> = _poseSuggestionText.asStateFlow()
+
+    private val _poseImageUrl = MutableStateFlow("")
+    val poseImageUrl: StateFlow<String> = _poseImageUrl.asStateFlow()
+
+    private val _poseLoading = MutableStateFlow(false)
+    val poseLoading: StateFlow<Boolean> = _poseLoading.asStateFlow()
+
+    private val _poseErrorMessage = MutableStateFlow<String?>(null)
+    val poseErrorMessage: StateFlow<String?> = _poseErrorMessage.asStateFlow()
+
     /**
      * 语音播报开关状态（预留接口）
      *
@@ -61,8 +85,14 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
      * - 用于控制是否启用语音播报
      * - 当此值为 true 且有新的 AI 建议时，触发 playVoiceAdvice()
      */
-    private val _voiceGuideEnabled = MutableStateFlow<Boolean>(false)
+    private val _voiceGuideEnabled = MutableStateFlow(false)
     val voiceGuideEnabled: StateFlow<Boolean> = _voiceGuideEnabled.asStateFlow()
+
+    private val _lastUserIntent = MutableStateFlow("")
+    val lastUserIntent: StateFlow<String> = _lastUserIntent.asStateFlow()
+
+    private var lastLifecycleOwner: androidx.lifecycle.LifecycleOwner? = null
+    private var isTtsInitialized = false
 
     // 最后拍摄的照片
     private val _lastPhoto = MutableStateFlow<Bitmap?>(null)
@@ -119,6 +149,7 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
         previewView: androidx.camera.view.PreviewView
     ) {
         _uiState.value = CameraUIState.Initializing
+        lastLifecycleOwner = lifecycleOwner
 
         // 检查设备是否有摄像头
         if (!cameraController.hasCameraDevice()) {
@@ -365,37 +396,113 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     /**
-     * 更新 AI 建议（供后端响应调用）
+     * 触发 AI 姿势指导分析
      *
-     * 扩展点：当后端返回 AI 建议时调用此方法
-     *
-     * @param advice AI 建议文本
+     * 扩展点：
+     * - 可在此处补充 userIntent / metaJson
+     * - 可根据镜头方向/拍摄模式生成更丰富的元数据
      */
-    fun updateAIAdvice(advice: String) {
-        _aiAdvice.value = advice
+    fun requestPoseGuidance(
+        lifecycleOwner: androidx.lifecycle.LifecycleOwner,
+        userIntent: String? = null,
+        metaJson: String? = null
+    ) {
+        if (_poseLoading.value) return
 
-        // 如果启用了语音播报，自动播报建议
-        if (_voiceGuideEnabled.value) {
-            playVoiceAdvice(advice)
+        val resolvedIntent = when {
+            !userIntent.isNullOrBlank() -> userIntent
+            _voiceGuideEnabled.value -> _lastUserIntent.value.takeIf { it.isNotBlank() }
+            else -> null
+        }
+
+        _poseLoading.value = true
+        _poseErrorMessage.value = null
+        _poseGuideText.value = ""
+        _poseSuggestionText.value = ""
+        _poseImageUrl.value = ""
+
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                ensureStreamCameraStarted(lifecycleOwner)
+
+                val focusOk = cameraStreamManager.triggerAutoFocus()
+                Log.d(TAG, "AI姿势指导对焦结果: $focusOk")
+
+                val bitmap = cameraStreamManager.captureSingleFrame()
+                val imageFile = cameraStreamManager.saveBitmapToJpg(bitmap)
+
+                poseClient.analyzePose(imageFile, resolvedIntent, metaJson, object : PoseRecommendationClient.PoseCallback {
+                    override fun onSuccess(response: PoseResponse) {
+                        viewModelScope.launch {
+                            _poseLoading.value = false
+                            _poseGuideText.value = response.guideText ?: ""
+                            _poseImageUrl.value = response.poseImageUrl ?: ""
+                            _poseSuggestionText.value = formatPoseSuggestions(response)
+
+                            if (_voiceGuideEnabled.value && !_poseGuideText.value.isNullOrBlank()) {
+                                playVoiceAdvice(_poseGuideText.value)
+                            }
+                        }
+                    }
+
+                    override fun onError(errorMessage: String) {
+                        viewModelScope.launch {
+                            _poseLoading.value = false
+                            _poseErrorMessage.value = errorMessage
+                        }
+                    }
+                })
+            } catch (e: Exception) {
+                Log.e(TAG, "AI姿势指导请求失败", e)
+                viewModelScope.launch {
+                    _poseLoading.value = false
+                    _poseErrorMessage.value = "AI姿势指导失败：${e.message}"
+                }
+            }
         }
     }
 
-    /**
-     * 语音播报 AI 建议（预留接口）
-     *
-     * 扩展点：
-     * - 使用文本转语音（TTS）API 进行语音播报
-     * - 可集成第三方语音 AI 服务（如百度、阿里等）
-     * - 当前暂不实现，仅预留接口
-     *
-     * @param advice 要播报的建议文本
-     */
-    fun playVoiceAdvice(advice: String) {
-        // TODO: 实现语音播报逻辑
-        // 当前暂不实现，预留给后续语音 AI 功能
-        // 1. 初始化 TextToSpeech（TTS）
-        // 2. 调用 speak() 方法播报文本
-        // 或者集成第三方语音 AI 服务进行播报
+    private fun ensureStreamCameraStarted(lifecycleOwner: androidx.lifecycle.LifecycleOwner) {
+        if (isStreamCameraStarted) return
+        cameraStreamManager.startCamera(lifecycleOwner)
+        isStreamCameraStarted = true
+    }
+
+    private fun formatPoseSuggestions(response: PoseResponse): String {
+        val suggestions = response.poseSuggestions ?: emptyList()
+        if (suggestions.isEmpty()) return ""
+
+        val lines = mutableListOf<String>()
+        for (suggestion in suggestions) {
+            val name = suggestion.name?.takeIf { it.isNotBlank() } ?: continue
+            lines.add("• $name")
+
+            suggestion.tips?.forEach { tip ->
+                if (!tip.isNullOrBlank()) {
+                    lines.add("  - $tip")
+                }
+            }
+
+            val details = suggestion.details
+            if (details != null) {
+                addPoseDetail(lines, "头部", details.head)
+                addPoseDetail(lines, "手臂", details.arms)
+                addPoseDetail(lines, "手部", details.hands)
+                addPoseDetail(lines, "躯干", details.torso)
+                addPoseDetail(lines, "髋部", details.hips)
+                addPoseDetail(lines, "腿部", details.legs)
+                addPoseDetail(lines, "脚部", details.feet)
+                addPoseDetail(lines, "朝向", details.orientation)
+            }
+        }
+
+        return lines.joinToString("\n")
+    }
+
+    private fun addPoseDetail(lines: MutableList<String>, label: String, value: String?) {
+        if (!value.isNullOrBlank()) {
+            lines.add("  - $label：$value")
+        }
     }
 
     /**
@@ -438,6 +545,7 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
      * 开始语音识别
      */
     fun startListening() {
+        _voiceGuideEnabled.value = true
         if (!_voiceGuideEnabled.value) {
             _errorMessage.value = "请先开启语音指导功能"
             //return
@@ -463,7 +571,14 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
             SparkAsrManager.getInstance().startListening(object : SparkAsrManager.AsrListener {
                 override fun onResult(text: String, isLast: Boolean) {
                     _voiceRecognitionResult.value = text
-                    if (isLast) _isListening.value = false
+                    if (isLast) {
+                        _isListening.value = false
+                        _lastUserIntent.value = text
+                        val owner = lastLifecycleOwner
+                        if (_voiceGuideEnabled.value && owner != null && text.isNotBlank()) {
+                            requestPoseGuidance(owner, userIntent = text)
+                        }
+                    }
 
                     val resultText = text ?: "空内容"
                     Log.d(TAG, "ASR识别结果: $resultText, 是否最后一条: $isLast")
@@ -486,7 +601,10 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
     fun stopListening() {
         try {
             _isListening.value = false
+            _voiceGuideEnabled.value = false
+            _lastUserIntent.value = ""
             SparkAsrManager.getInstance().stopListening();
+            TTSManager.getInstance().stopTTS()
         } catch (e: Exception) {
             Log.e(TAG, "停止语音识别失败", e)
         }
@@ -499,10 +617,45 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
         SparkAsrManager.getInstance().destroy();
     }
 
+    fun playVoiceAdvice(advice: String) {
+        if (advice.isBlank()) return
+        ensureTtsInitialized()
+
+        TTSManager.getInstance().startTTS(advice, object : TTSManager.TTSListener {
+            override fun onResult(result: com.iflytek.sparkchain.core.tts.TTS.TTSResult?, usrTag: Any?) {
+                Log.d(TAG, "TTS播放完成")
+            }
+
+            override fun onError(error: com.iflytek.sparkchain.core.tts.TTS.TTSError?, usrTag: Any?) {
+                _errorMessage.value = "语音播报失败：${error?.errMsg ?: "未知错误"}"
+            }
+        })
+    }
+
+    private fun ensureTtsInitialized() {
+        if (isTtsInitialized) return
+        TTSManager.getInstance().init()
+        isTtsInitialized = true
+    }
+
     override fun onCleared() {
         super.onCleared()
         cameraController.releaseCamera()
+        cameraStreamManager.stopCamera()
+        TTSManager.getInstance().destroy()
         releaseSpeechRecognizer()
+    }
+
+    fun clearVoiceRecognitionText() {
+        _voiceRecognitionResult.value = "当前未识别到语音，请打开语音识别按钮"
+        _lastUserIntent.value = "ai指导建议：当前无ai指导建议"
+    }
+
+    fun clearPoseGuidanceText() {
+        _poseGuideText.value = ""
+        _poseSuggestionText.value = ""
+        _poseImageUrl.value = ""
+        _poseErrorMessage.value = null
     }
 }
 
@@ -518,4 +671,3 @@ sealed class CameraUIState {
     object PhotoSaved : CameraUIState()
     object Error : CameraUIState()
 }
-

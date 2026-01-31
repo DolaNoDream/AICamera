@@ -1,12 +1,40 @@
 <libraries>
   <library
+      name="__local_aars__:D:\gitProjects\AICamera\android_code\AiCamera2\app\libs\SparkChain.aar:unspecified@jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\9c7ea47622224d2a3ba1ed0a2ef3a6b8\transformed\SparkChain\jars\classes.jar"
+      resolved="__local_aars__:D:\gitProjects\AICamera\android_code\AiCamera2\app\libs\SparkChain.aar:unspecified"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\9c7ea47622224d2a3ba1ed0a2ef3a6b8\transformed\SparkChain"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="__local_aars__:D:\gitProjects\AICamera\android_code\AiCamera2\app\libs\Codec.aar:unspecified@jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\99d9546d727d3f3a9c6ec69ffa778414\transformed\Codec\jars\classes.jar"
+      resolved="__local_aars__:D:\gitProjects\AICamera\android_code\AiCamera2\app\libs\Codec.aar:unspecified"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\99d9546d727d3f3a9c6ec69ffa778414\transformed\Codec"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name=":@@:app::debug"
       project=":app"/>
   <library
       name="androidx.test.ext:junit:1.3.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\1e68f862c1624dcb2ca042509299dba5\transformed\junit-1.3.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\fe0ee5b5fde8a7f7b1716824a76c2dc8\transformed\junit-1.3.0\jars\classes.jar"
       resolved="androidx.test.ext:junit:1.3.0"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\1e68f862c1624dcb2ca042509299dba5\transformed\junit-1.3.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\fe0ee5b5fde8a7f7b1716824a76c2dc8\transformed\junit-1.3.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -17,9 +45,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.test.espresso:espresso-core:3.7.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\b849982329e9b05b77acd1f4b3a4bf3d\transformed\espresso-core-3.7.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\7769bce56cbe57c913346591fc445baf\transformed\espresso-core-3.7.0\jars\classes.jar"
       resolved="androidx.test.espresso:espresso-core:3.7.0"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\b849982329e9b05b77acd1f4b3a4bf3d\transformed\espresso-core-3.7.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\7769bce56cbe57c913346591fc445baf\transformed\espresso-core-3.7.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -30,10 +58,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.databinding:viewbinding:8.13.2@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\45760ba2c4975dedba0d45319b1e6ca3\transformed\viewbinding-8.13.2\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\a84aad4a986fce3998cd55f47eba7793\transformed\viewbinding-8.13.2\jars\classes.jar"
       resolved="androidx.databinding:viewbinding:8.13.2"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\45760ba2c4975dedba0d45319b1e6ca3\transformed\viewbinding-8.13.2"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\a84aad4a986fce3998cd55f47eba7793\transformed\viewbinding-8.13.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -44,10 +72,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="com.google.android.material:material:1.10.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\21c0b793b3dcb5ce5e90d092e30f6cfa\transformed\material-1.10.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\8b836b26b66836efcde984e6babeb342\transformed\material-1.10.0\jars\classes.jar"
       resolved="com.google.android.material:material:1.10.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\21c0b793b3dcb5ce5e90d092e30f6cfa\transformed\material-1.10.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\8b836b26b66836efcde984e6babeb342\transformed\material-1.10.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -58,10 +86,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.appcompat:appcompat:1.6.1@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\dacadcd76056337b75a4746169e9fd32\transformed\appcompat-1.6.1\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\a6742994d036206732745fb28ddaef55\transformed\appcompat-1.6.1\jars\classes.jar"
       resolved="androidx.appcompat:appcompat:1.6.1"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\dacadcd76056337b75a4746169e9fd32\transformed\appcompat-1.6.1"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\a6742994d036206732745fb28ddaef55\transformed\appcompat-1.6.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -72,10 +100,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.viewpager2:viewpager2:1.0.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\927b08917ca534e720666228f53643c5\transformed\viewpager2-1.0.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\c55d795d8001a75507a9705a96e59bda\transformed\viewpager2-1.0.0\jars\classes.jar"
       resolved="androidx.viewpager2:viewpager2:1.0.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\927b08917ca534e720666228f53643c5\transformed\viewpager2-1.0.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\c55d795d8001a75507a9705a96e59bda\transformed\viewpager2-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -86,10 +114,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.fragment:fragment:1.3.6@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\c726156255cb7734dad6aa5f40597d4b\transformed\fragment-1.3.6\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\adf8e51cecf18f45662256d6c26ad313\transformed\fragment-1.3.6\jars\classes.jar"
       resolved="androidx.fragment:fragment:1.3.6"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\c726156255cb7734dad6aa5f40597d4b\transformed\fragment-1.3.6"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\adf8e51cecf18f45662256d6c26ad313\transformed\fragment-1.3.6"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -100,10 +128,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.activity:activity-compose:1.12.2@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\83933d560c457ad3165cfddce0c628bb\transformed\activity-compose-1.12.2\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\81d8f7d522baca0580b6f7182cad4ad4\transformed\activity-compose-1.12.2\jars\classes.jar"
       resolved="androidx.activity:activity-compose:1.12.2"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\83933d560c457ad3165cfddce0c628bb\transformed\activity-compose-1.12.2"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\81d8f7d522baca0580b6f7182cad4ad4\transformed\activity-compose-1.12.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -114,10 +142,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.activity:activity:1.12.2@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\341dd8798aa300ae7a648698bc7b99ac\transformed\activity-1.12.2\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\f4eeb384d6d06c09c70472f4662e4d44\transformed\activity-1.12.2\jars\classes.jar"
       resolved="androidx.activity:activity:1.12.2"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\341dd8798aa300ae7a648698bc7b99ac\transformed\activity-1.12.2"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\f4eeb384d6d06c09c70472f4662e4d44\transformed\activity-1.12.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -128,10 +156,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.camera:camera-video:1.5.2@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\805f3a47d3d6908e54e95d0d43d63f0a\transformed\camera-video-1.5.2\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\bef4fa87db901a4e3e35ac91c546dcfb\transformed\camera-video-1.5.2\jars\classes.jar"
       resolved="androidx.camera:camera-video:1.5.2"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\805f3a47d3d6908e54e95d0d43d63f0a\transformed\camera-video-1.5.2"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\bef4fa87db901a4e3e35ac91c546dcfb\transformed\camera-video-1.5.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -142,10 +170,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.camera:camera-lifecycle:1.5.2@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\470fef2fd9094e547194b150bdecef8b\transformed\camera-lifecycle-1.5.2\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\88b29233336b9e0d97b704a5e0fd7e54\transformed\camera-lifecycle-1.5.2\jars\classes.jar"
       resolved="androidx.camera:camera-lifecycle:1.5.2"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\470fef2fd9094e547194b150bdecef8b\transformed\camera-lifecycle-1.5.2"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\88b29233336b9e0d97b704a5e0fd7e54\transformed\camera-lifecycle-1.5.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -156,10 +184,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.camera:camera-camera2:1.5.2@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\e1495526c2b25828b7b365c6d0cd1ad1\transformed\camera-camera2-1.5.2\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\333a56225c97e0501eacb3d07db8841f\transformed\camera-camera2-1.5.2\jars\classes.jar"
       resolved="androidx.camera:camera-camera2:1.5.2"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\e1495526c2b25828b7b365c6d0cd1ad1\transformed\camera-camera2-1.5.2"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\333a56225c97e0501eacb3d07db8841f\transformed\camera-camera2-1.5.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -170,10 +198,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.camera:camera-core:1.5.2@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\a98c4a17ddbc0e7f2d3c12121e2e5bda\transformed\camera-core-1.5.2\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\3f398dff90f737c58c2ed293fb337cad\transformed\camera-core-1.5.2\jars\classes.jar"
       resolved="androidx.camera:camera-core:1.5.2"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\a98c4a17ddbc0e7f2d3c12121e2e5bda\transformed\camera-core-1.5.2"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\3f398dff90f737c58c2ed293fb337cad\transformed\camera-core-1.5.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -184,10 +212,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.camera:camera-view:1.5.2@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\760bed1326a8f13fc5b4114da169b951\transformed\camera-view-1.5.2\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\3d57a704ebfc849f4ed49a3dc5471113\transformed\camera-view-1.5.2\jars\classes.jar"
       resolved="androidx.camera:camera-view:1.5.2"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\760bed1326a8f13fc5b4114da169b951\transformed\camera-view-1.5.2"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\3d57a704ebfc849f4ed49a3dc5471113\transformed\camera-view-1.5.2"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -198,9 +226,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.test:core:1.7.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\fa2ea10376078d9d4ff2c2915edb46ef\transformed\core-1.7.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\10d9f575a8ec5d75e4351ca09801cd1c\transformed\core-1.7.0\jars\classes.jar"
       resolved="androidx.test:core:1.7.0"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\fa2ea10376078d9d4ff2c2915edb46ef\transformed\core-1.7.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\10d9f575a8ec5d75e4351ca09801cd1c\transformed\core-1.7.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -211,10 +239,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.appcompat:appcompat-resources:1.6.1@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\b9bf9bc0adff96e410990f17fab46d16\transformed\appcompat-resources-1.6.1\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\7c7c6232076b01970d88cf709ca542f5\transformed\appcompat-resources-1.6.1\jars\classes.jar"
       resolved="androidx.appcompat:appcompat-resources:1.6.1"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\b9bf9bc0adff96e410990f17fab46d16\transformed\appcompat-resources-1.6.1"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\7c7c6232076b01970d88cf709ca542f5\transformed\appcompat-resources-1.6.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -225,10 +253,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.drawerlayout:drawerlayout:1.1.1@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\9e7e39828c663da28f7b1955f7ff5c18\transformed\drawerlayout-1.1.1\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\8faf10aae84d06176a09f9dab5db684a\transformed\drawerlayout-1.1.1\jars\classes.jar"
       resolved="androidx.drawerlayout:drawerlayout:1.1.1"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\9e7e39828c663da28f7b1955f7ff5c18\transformed\drawerlayout-1.1.1"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\8faf10aae84d06176a09f9dab5db684a\transformed\drawerlayout-1.1.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -239,10 +267,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.coordinatorlayout:coordinatorlayout:1.1.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\c28cdb379cf8275a70317d7dbce3d88d\transformed\coordinatorlayout-1.1.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\44a297ebb72497619da8d14157e4c093\transformed\coordinatorlayout-1.1.0\jars\classes.jar"
       resolved="androidx.coordinatorlayout:coordinatorlayout:1.1.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\c28cdb379cf8275a70317d7dbce3d88d\transformed\coordinatorlayout-1.1.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\44a297ebb72497619da8d14157e4c093\transformed\coordinatorlayout-1.1.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -253,10 +281,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.dynamicanimation:dynamicanimation:1.0.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\2fb1f9cdd73bec02589156bc587f955a\transformed\dynamicanimation-1.0.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\52f6b998aaa2fea0bd7e84d2fe070c84\transformed\dynamicanimation-1.0.0\jars\classes.jar"
       resolved="androidx.dynamicanimation:dynamicanimation:1.0.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\2fb1f9cdd73bec02589156bc587f955a\transformed\dynamicanimation-1.0.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\52f6b998aaa2fea0bd7e84d2fe070c84\transformed\dynamicanimation-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -267,10 +295,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.transition:transition:1.2.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\59bb5ad7200ab62acb54d2d33dc48269\transformed\transition-1.2.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\c0e848016bf8bbe89f3c970ebf50684e\transformed\transition-1.2.0\jars\classes.jar"
       resolved="androidx.transition:transition:1.2.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\59bb5ad7200ab62acb54d2d33dc48269\transformed\transition-1.2.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\c0e848016bf8bbe89f3c970ebf50684e\transformed\transition-1.2.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -281,10 +309,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.vectordrawable:vectordrawable-animated:1.1.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\8f3179d19cf5d03c1dc1c2c02bddb6ca\transformed\vectordrawable-animated-1.1.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\829eb28f5eacb4fcf18c28224f72e343\transformed\vectordrawable-animated-1.1.0\jars\classes.jar"
       resolved="androidx.vectordrawable:vectordrawable-animated:1.1.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\8f3179d19cf5d03c1dc1c2c02bddb6ca\transformed\vectordrawable-animated-1.1.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\829eb28f5eacb4fcf18c28224f72e343\transformed\vectordrawable-animated-1.1.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -295,10 +323,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.vectordrawable:vectordrawable:1.1.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\e893bbba4df94dcf58040b950fceffdb\transformed\vectordrawable-1.1.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\ab20e3b1824a0f90f4c26dcd7c2dbda6\transformed\vectordrawable-1.1.0\jars\classes.jar"
       resolved="androidx.vectordrawable:vectordrawable:1.1.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\e893bbba4df94dcf58040b950fceffdb\transformed\vectordrawable-1.1.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\ab20e3b1824a0f90f4c26dcd7c2dbda6\transformed\vectordrawable-1.1.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -309,10 +337,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.viewpager:viewpager:1.0.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\7ff8caf9e989711d24094aaef1956d4e\transformed\viewpager-1.0.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\d914256c7bc8abbedde89131b5000a84\transformed\viewpager-1.0.0\jars\classes.jar"
       resolved="androidx.viewpager:viewpager:1.0.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\7ff8caf9e989711d24094aaef1956d4e\transformed\viewpager-1.0.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\d914256c7bc8abbedde89131b5000a84\transformed\viewpager-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -323,10 +351,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.legacy:legacy-support-core-utils:1.0.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\c324f6dd6e0797fb664b51a6052ac484\transformed\legacy-support-core-utils-1.0.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\c01a446819cf8795f928dccffa8673ff\transformed\legacy-support-core-utils-1.0.0\jars\classes.jar"
       resolved="androidx.legacy:legacy-support-core-utils:1.0.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\c324f6dd6e0797fb664b51a6052ac484\transformed\legacy-support-core-utils-1.0.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\c01a446819cf8795f928dccffa8673ff\transformed\legacy-support-core-utils-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -337,10 +365,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.loader:loader:1.0.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\441a93590d5faa817f00ddd27b06b1be\transformed\loader-1.0.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\de4c870361424f68caee4abb10d6156f\transformed\loader-1.0.0\jars\classes.jar"
       resolved="androidx.loader:loader:1.0.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\441a93590d5faa817f00ddd27b06b1be\transformed\loader-1.0.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\de4c870361424f68caee4abb10d6156f\transformed\loader-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -351,10 +379,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.recyclerview:recyclerview:1.1.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\e825ee7a6c43b136625a9d607a48db67\transformed\recyclerview-1.1.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\68965936930e49bc97752e31826ea537\transformed\recyclerview-1.1.0\jars\classes.jar"
       resolved="androidx.recyclerview:recyclerview:1.1.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\e825ee7a6c43b136625a9d607a48db67\transformed\recyclerview-1.1.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\68965936930e49bc97752e31826ea537\transformed\recyclerview-1.1.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -365,10 +393,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.customview:customview:1.1.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\c16afb18095a20552432dc7bf63388ad\transformed\customview-1.1.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\82bb5bdacdb6006b8d89a838e1f6a9d2\transformed\customview-1.1.0\jars\classes.jar"
       resolved="androidx.customview:customview:1.1.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\c16afb18095a20552432dc7bf63388ad\transformed\customview-1.1.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\82bb5bdacdb6006b8d89a838e1f6a9d2\transformed\customview-1.1.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -379,10 +407,220 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.core:core:1.17.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\71b804ad564a850a2b1623d063648eda\transformed\core-1.17.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\341e05987f24a0eee7e2342bf173415a\transformed\core-1.17.0\jars\classes.jar"
       resolved="androidx.core:core:1.17.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\71b804ad564a850a2b1623d063648eda\transformed\core-1.17.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\341e05987f24a0eee7e2342bf173415a\transformed\core-1.17.0"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.compose.material3:material3-android:1.2.1@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\02ab7cc62aee7db56456e54d45cdb020\transformed\material3-release\jars\classes.jar"
+      resolved="androidx.compose.material3:material3-android:1.2.1"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\02ab7cc62aee7db56456e54d45cdb020\transformed\material3-release"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.compose.material:material-ripple-android:1.6.6@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\1357c8355757acdc8ab959a19904206b\transformed\material-ripple-release\jars\classes.jar"
+      resolved="androidx.compose.material:material-ripple-android:1.6.6"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\1357c8355757acdc8ab959a19904206b\transformed\material-ripple-release"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.compose.material:material-icons-core-android:1.6.6@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\0bed1c5f8970d3cd3b9988d32afc9dcf\transformed\material-icons-core-release\jars\classes.jar"
+      resolved="androidx.compose.material:material-icons-core-android:1.6.6"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\0bed1c5f8970d3cd3b9988d32afc9dcf\transformed\material-icons-core-release"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.compose.foundation:foundation-android:1.10.1@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\cfbc8f862d08be2234f220e501aae01b\transformed\foundation\jars\classes.jar"
+      resolved="androidx.compose.foundation:foundation-android:1.10.1"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\cfbc8f862d08be2234f220e501aae01b\transformed\foundation"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.compose.animation:animation-core-android:1.10.1@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\2966f0966d8280b248d8560c2073b338\transformed\animation-core\jars\classes.jar"
+      resolved="androidx.compose.animation:animation-core-android:1.10.1"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\2966f0966d8280b248d8560c2073b338\transformed\animation-core"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.compose.animation:animation-android:1.10.1@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\19cdd33c9901e9899ea2cc9c7ab1063b\transformed\animation\jars\classes.jar"
+      resolved="androidx.compose.animation:animation-android:1.10.1"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\19cdd33c9901e9899ea2cc9c7ab1063b\transformed\animation"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.compose.foundation:foundation-layout-android:1.10.1@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\f99031111f8ee7f7f2e3a992b0d355a7\transformed\foundation-layout\jars\classes.jar"
+      resolved="androidx.compose.foundation:foundation-layout-android:1.10.1"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\f99031111f8ee7f7f2e3a992b0d355a7\transformed\foundation-layout"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.compose.ui:ui-geometry-android:1.10.1@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\c414a4db6029f3d3311e383e8d7f79d4\transformed\ui-geometry\jars\classes.jar"
+      resolved="androidx.compose.ui:ui-geometry-android:1.10.1"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\c414a4db6029f3d3311e383e8d7f79d4\transformed\ui-geometry"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.compose.ui:ui-util-android:1.10.1@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\ac57764ad4ab2e112773e573a02822c7\transformed\ui-util\jars\classes.jar"
+      resolved="androidx.compose.ui:ui-util-android:1.10.1"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\ac57764ad4ab2e112773e573a02822c7\transformed\ui-util"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.compose.ui:ui-tooling-preview-android:1.10.1@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\d2fe4c73ef4f32bc5dbabd70532f36e2\transformed\ui-tooling-preview\jars\classes.jar"
+      resolved="androidx.compose.ui:ui-tooling-preview-android:1.10.1"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\d2fe4c73ef4f32bc5dbabd70532f36e2\transformed\ui-tooling-preview"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.compose.ui:ui-unit-android:1.10.1@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\c1c854f040f8cb72467d7e1087e466dd\transformed\ui-unit\jars\classes.jar"
+      resolved="androidx.compose.ui:ui-unit-android:1.10.1"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\c1c854f040f8cb72467d7e1087e466dd\transformed\ui-unit"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.compose.ui:ui-text-android:1.10.1@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\449b538fc69679c5878101e8f6d3a3f8\transformed\ui-text\jars\classes.jar"
+      resolved="androidx.compose.ui:ui-text-android:1.10.1"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\449b538fc69679c5878101e8f6d3a3f8\transformed\ui-text"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.compose.ui:ui-graphics-android:1.10.1@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\c1e31436e58edbbf229bbc1684b2510e\transformed\ui-graphics\jars\classes.jar"
+      resolved="androidx.compose.ui:ui-graphics-android:1.10.1"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\c1e31436e58edbbf229bbc1684b2510e\transformed\ui-graphics"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.compose.ui:ui-android:1.10.1@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\fb43c06f40e1d20dac54e448d0d180f6\transformed\ui\jars\classes.jar"
+      resolved="androidx.compose.ui:ui-android:1.10.1"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\fb43c06f40e1d20dac54e448d0d180f6\transformed\ui"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.lifecycle:lifecycle-runtime-compose-android:2.9.4@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\8c5ec798aa25fa4c86fe25578cfdaf61\transformed\lifecycle-runtime-compose-release\jars\classes.jar"
+      resolved="androidx.lifecycle:lifecycle-runtime-compose-android:2.9.4"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\8c5ec798aa25fa4c86fe25578cfdaf61\transformed\lifecycle-runtime-compose-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -393,10 +631,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-runtime-ktx-android:2.9.4@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\0476656ba036f4e174c6818129cfe0ab\transformed\lifecycle-runtime-ktx\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\439fbdf8a6bbac423c5899fc47b9f49f\transformed\lifecycle-runtime-ktx\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-runtime-ktx-android:2.9.4"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\0476656ba036f4e174c6818129cfe0ab\transformed\lifecycle-runtime-ktx"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\439fbdf8a6bbac423c5899fc47b9f49f\transformed\lifecycle-runtime-ktx"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -407,10 +645,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-runtime-android:2.9.4@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\05b58a0ee9db8ed3a56776569cbe61f0\transformed\lifecycle-runtime-release\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\6bb9a2459b6c6a394aa16e4d38e8b626\transformed\lifecycle-runtime-release\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-runtime-android:2.9.4"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\05b58a0ee9db8ed3a56776569cbe61f0\transformed\lifecycle-runtime-release"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\6bb9a2459b6c6a394aa16e4d38e8b626\transformed\lifecycle-runtime-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -421,10 +659,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-livedata-core-ktx:2.9.4@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\5608f9e26c7bd0adf1cb162ac148b360\transformed\lifecycle-livedata-core-ktx-2.9.4\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\1596b7785e10b32b20a2f85fc3e633ac\transformed\lifecycle-livedata-core-ktx-2.9.4\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-livedata-core-ktx:2.9.4"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\5608f9e26c7bd0adf1cb162ac148b360\transformed\lifecycle-livedata-core-ktx-2.9.4"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\1596b7785e10b32b20a2f85fc3e633ac\transformed\lifecycle-livedata-core-ktx-2.9.4"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -435,10 +673,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.4@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\55854107c7e28fec50ad25f2bde5e818\transformed\lifecycle-viewmodel-ktx-2.9.4\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\66aa46f7642f51ec904fde961558c896\transformed\lifecycle-viewmodel-ktx-2.9.4\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.4"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\55854107c7e28fec50ad25f2bde5e818\transformed\lifecycle-viewmodel-ktx-2.9.4"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\66aa46f7642f51ec904fde961558c896\transformed\lifecycle-viewmodel-ktx-2.9.4"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -449,10 +687,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-livedata-core:2.9.4@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\b236f1ef64e014713b82bb13caa5b600\transformed\lifecycle-livedata-core-2.9.4\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\1733791e70380099f8ed5f268a8b8ebb\transformed\lifecycle-livedata-core-2.9.4\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-livedata-core:2.9.4"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\b236f1ef64e014713b82bb13caa5b600\transformed\lifecycle-livedata-core-2.9.4"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\1733791e70380099f8ed5f268a8b8ebb\transformed\lifecycle-livedata-core-2.9.4"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -463,10 +701,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-livedata:2.9.4@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\22e7f978e9c5830d1837240bac90463e\transformed\lifecycle-livedata-2.9.4\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\30d118cc3933171d40240c0c5df5c404\transformed\lifecycle-livedata-2.9.4\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-livedata:2.9.4"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\22e7f978e9c5830d1837240bac90463e\transformed\lifecycle-livedata-2.9.4"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\30d118cc3933171d40240c0c5df5c404\transformed\lifecycle-livedata-2.9.4"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -477,10 +715,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-viewmodel:2.9.4@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\8812fc916f6c5f17f240a47e187b2de7\transformed\lifecycle-viewmodel-2.9.4\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\70d6f47c712a184e90996b43f3375928\transformed\lifecycle-viewmodel-2.9.4\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-viewmodel:2.9.4"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\8812fc916f6c5f17f240a47e187b2de7\transformed\lifecycle-viewmodel-2.9.4"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\70d6f47c712a184e90996b43f3375928\transformed\lifecycle-viewmodel-2.9.4"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -491,10 +729,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.lifecycle:lifecycle-viewmodel-android:2.9.4@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\a3417d61e2c1a1df92452883c394ae2e\transformed\lifecycle-viewmodel-release\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\69e11718bd63511e71a9c313f292fa53\transformed\lifecycle-viewmodel-release\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-viewmodel-android:2.9.4"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\a3417d61e2c1a1df92452883c394ae2e\transformed\lifecycle-viewmodel-release"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\69e11718bd63511e71a9c313f292fa53\transformed\lifecycle-viewmodel-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -509,10 +747,10 @@
       resolved="androidx.lifecycle:lifecycle-common-jvm:2.9.4"/>
   <library
       name="androidx.lifecycle:lifecycle-viewmodel-savedstate-android:2.9.4@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\bb4b37a5990b8bd59902f786a8e442a0\transformed\lifecycle-viewmodel-savedstate-release\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\fb124e4066c5c214eaf452a0eab5d905\transformed\lifecycle-viewmodel-savedstate-release\jars\classes.jar"
       resolved="androidx.lifecycle:lifecycle-viewmodel-savedstate-android:2.9.4"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\bb4b37a5990b8bd59902f786a8e442a0\transformed\lifecycle-viewmodel-savedstate-release"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\fb124e4066c5c214eaf452a0eab5d905\transformed\lifecycle-viewmodel-savedstate-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -523,10 +761,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.core:core-ktx:1.17.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\31f17f116b7d5252f78adeed9ab958e3\transformed\core-ktx-1.17.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\15e224ad2f039a6a9a22d81c2d5404f0\transformed\core-ktx-1.17.0\jars\classes.jar"
       resolved="androidx.core:core-ktx:1.17.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\31f17f116b7d5252f78adeed9ab958e3\transformed\core-ktx-1.17.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\15e224ad2f039a6a9a22d81c2d5404f0\transformed\core-ktx-1.17.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -537,9 +775,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.test:runner:1.7.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\c144ba4189cee1b9c9b4181928adafd4\transformed\runner-1.7.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\24380babf9f87318b300dbc5f9319b2f\transformed\runner-1.7.0\jars\classes.jar"
       resolved="androidx.test:runner:1.7.0"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\c144ba4189cee1b9c9b4181928adafd4\transformed\runner-1.7.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\24380babf9f87318b300dbc5f9319b2f\transformed\runner-1.7.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -550,9 +788,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.test.services:storage:1.6.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\6030f8299e95d060697cb5b3acc114ca\transformed\storage-1.6.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\284e9013e3433c8d42593369eb88c76a\transformed\storage-1.6.0\jars\classes.jar"
       resolved="androidx.test.services:storage:1.6.0"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\6030f8299e95d060697cb5b3acc114ca\transformed\storage-1.6.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\284e9013e3433c8d42593369eb88c76a\transformed\storage-1.6.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -563,9 +801,9 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.test:monitor:1.8.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\45d418cfa271d0669016e3c5ae596536\transformed\monitor-1.8.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\e3ee4c96a468a4dfbdf8c0bd8db3d56c\transformed\monitor-1.8.0\jars\classes.jar"
       resolved="androidx.test:monitor:1.8.0"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\45d418cfa271d0669016e3c5ae596536\transformed\monitor-1.8.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\e3ee4c96a468a4dfbdf8c0bd8db3d56c\transformed\monitor-1.8.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -576,10 +814,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.core:core-viewtree:1.0.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\04c5a8fce15e7827d68d7b4530c49b31\transformed\core-viewtree-1.0.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\7fe554cd26888547b42d1ca44aa4ba30\transformed\core-viewtree-1.0.0\jars\classes.jar"
       resolved="androidx.core:core-viewtree:1.0.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\04c5a8fce15e7827d68d7b4530c49b31\transformed\core-viewtree-1.0.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\7fe554cd26888547b42d1ca44aa4ba30\transformed\core-viewtree-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -598,10 +836,10 @@
       resolved="androidx.concurrent:concurrent-futures:1.1.0"/>
   <library
       name="androidx.cursoradapter:cursoradapter:1.0.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\32dfa464b4f4c20f7132aad0c1518159\transformed\cursoradapter-1.0.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\8a456105dd5786f8e8b5b6f0795cb9aa\transformed\cursoradapter-1.0.0\jars\classes.jar"
       resolved="androidx.cursoradapter:cursoradapter:1.0.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\32dfa464b4f4c20f7132aad0c1518159\transformed\cursoradapter-1.0.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\8a456105dd5786f8e8b5b6f0795cb9aa\transformed\cursoradapter-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -612,24 +850,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.cardview:cardview:1.0.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\1981a2e790f703fbac0c205a48594999\transformed\cardview-1.0.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\8f6148d08a6162a5964d39e8fdbb2098\transformed\cardview-1.0.0\jars\classes.jar"
       resolved="androidx.cardview:cardview:1.0.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\1981a2e790f703fbac0c205a48594999\transformed\cardview-1.0.0"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="androidx.compose.material3:material3-android:1.2.1@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\eb9674bc3bfd303f62f3e81f7e95154c\transformed\material3-release\jars\classes.jar"
-      resolved="androidx.compose.material3:material3-android:1.2.1"
-      provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\eb9674bc3bfd303f62f3e81f7e95154c\transformed\material3-release"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\8f6148d08a6162a5964d39e8fdbb2098\transformed\cardview-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -640,10 +864,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.versionedparcelable:versionedparcelable:1.1.1@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\a4e6109da45a2dee0ac4d72bf0e74a1b\transformed\versionedparcelable-1.1.1\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\80cadea69090dff3b6de2880c83069ed\transformed\versionedparcelable-1.1.1\jars\classes.jar"
       resolved="androidx.versionedparcelable:versionedparcelable:1.1.1"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\a4e6109da45a2dee0ac4d72bf0e74a1b\transformed\versionedparcelable-1.1.1"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\80cadea69090dff3b6de2880c83069ed\transformed\versionedparcelable-1.1.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -654,10 +878,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.navigationevent:navigationevent-compose-android:1.0.1@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\791a6b151cb046edf78a7e637f5e96de\transformed\navigationevent-compose\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\15a35969feaed362f9b0f931f7a74076\transformed\navigationevent-compose\jars\classes.jar"
       resolved="androidx.navigationevent:navigationevent-compose-android:1.0.1"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\791a6b151cb046edf78a7e637f5e96de\transformed\navigationevent-compose"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\15a35969feaed362f9b0f931f7a74076\transformed\navigationevent-compose"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -668,192 +892,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.navigationevent:navigationevent-android:1.0.1@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\0fee97b07ce25b30a5f6df18cb97da53\transformed\navigationevent\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\f88252e38d42004ae9baeb84761cf402\transformed\navigationevent\jars\classes.jar"
       resolved="androidx.navigationevent:navigationevent-android:1.0.1"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\0fee97b07ce25b30a5f6df18cb97da53\transformed\navigationevent"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="androidx.compose.animation:animation-core-android:1.6.6@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\ca34993f2ab6c3031012cf06f35a519a\transformed\animation-core-release\jars\classes.jar"
-      resolved="androidx.compose.animation:animation-core-android:1.6.6"
-      provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\ca34993f2ab6c3031012cf06f35a519a\transformed\animation-core-release"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="androidx.compose.animation:animation-android:1.6.6@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\776c0f06ecc60efc50ae32554d1f1cb6\transformed\animation-release\jars\classes.jar"
-      resolved="androidx.compose.animation:animation-android:1.6.6"
-      provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\776c0f06ecc60efc50ae32554d1f1cb6\transformed\animation-release"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="androidx.compose.foundation:foundation-layout-android:1.6.6@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\3d4f7a05335cca8f7e600a30a266ebe1\transformed\foundation-layout-release\jars\classes.jar"
-      resolved="androidx.compose.foundation:foundation-layout-android:1.6.6"
-      provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\3d4f7a05335cca8f7e600a30a266ebe1\transformed\foundation-layout-release"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="androidx.compose.material:material-icons-core-android:1.6.6@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\3fe0b7c48adc19565f323338754969d1\transformed\material-icons-core-release\jars\classes.jar"
-      resolved="androidx.compose.material:material-icons-core-android:1.6.6"
-      provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\3fe0b7c48adc19565f323338754969d1\transformed\material-icons-core-release"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="androidx.compose.material:material-ripple-android:1.6.6@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\82a0a453795bbfcfcfa70eb9e130c58d\transformed\material-ripple-release\jars\classes.jar"
-      resolved="androidx.compose.material:material-ripple-android:1.6.6"
-      provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\82a0a453795bbfcfcfa70eb9e130c58d\transformed\material-ripple-release"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="androidx.compose.foundation:foundation-android:1.6.6@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\b4460584253e1893bb149ef4bc7e0bda\transformed\foundation-release\jars\classes.jar"
-      resolved="androidx.compose.foundation:foundation-android:1.6.6"
-      provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\b4460584253e1893bb149ef4bc7e0bda\transformed\foundation-release"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="androidx.compose.ui:ui-util-android:1.6.6@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\e1e22718532017a7201de21df6f25f05\transformed\ui-util-release\jars\classes.jar"
-      resolved="androidx.compose.ui:ui-util-android:1.6.6"
-      provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\e1e22718532017a7201de21df6f25f05\transformed\ui-util-release"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="androidx.compose.ui:ui-unit-android:1.6.6@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\fb7f36f0565bbf286bb6c4a231c3e04d\transformed\ui-unit-release\jars\classes.jar"
-      resolved="androidx.compose.ui:ui-unit-android:1.6.6"
-      provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\fb7f36f0565bbf286bb6c4a231c3e04d\transformed\ui-unit-release"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="androidx.compose.ui:ui-geometry-android:1.6.6@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\e693071fede478dd8a69bfc78ff3dd55\transformed\ui-geometry-release\jars\classes.jar"
-      resolved="androidx.compose.ui:ui-geometry-android:1.6.6"
-      provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\e693071fede478dd8a69bfc78ff3dd55\transformed\ui-geometry-release"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="androidx.compose.ui:ui-text-android:1.6.6@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\29cea39367ceaefe8c3dd3827717fdfa\transformed\ui-text-release\jars\classes.jar"
-      resolved="androidx.compose.ui:ui-text-android:1.6.6"
-      provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\29cea39367ceaefe8c3dd3827717fdfa\transformed\ui-text-release"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="androidx.compose.ui:ui-tooling-preview-android:1.6.6@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\33d5cee689a774d2b549684096bc6794\transformed\ui-tooling-preview-release\jars\classes.jar"
-      resolved="androidx.compose.ui:ui-tooling-preview-android:1.6.6"
-      provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\33d5cee689a774d2b549684096bc6794\transformed\ui-tooling-preview-release"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="androidx.compose.ui:ui-graphics-android:1.6.6@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\f78b143b5cb55459e0fbcd72cb9e88fe\transformed\ui-graphics-release\jars\classes.jar"
-      resolved="androidx.compose.ui:ui-graphics-android:1.6.6"
-      provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\f78b143b5cb55459e0fbcd72cb9e88fe\transformed\ui-graphics-release"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="androidx.compose.ui:ui-android:1.6.6@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\1b9b10aa1aec9ce7be061e0e71d2a0e5\transformed\ui-release\jars\classes.jar"
-      resolved="androidx.compose.ui:ui-android:1.6.6"
-      provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\1b9b10aa1aec9ce7be061e0e71d2a0e5\transformed\ui-release"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\f88252e38d42004ae9baeb84761cf402\transformed\navigationevent"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -864,10 +906,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.interpolator:interpolator:1.0.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\38ee0b81b2e792a189e77a45cda3ee29\transformed\interpolator-1.0.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\d5817894067e36897e15583a190a31dd\transformed\interpolator-1.0.0\jars\classes.jar"
       resolved="androidx.interpolator:interpolator:1.0.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\38ee0b81b2e792a189e77a45cda3ee29\transformed\interpolator-1.0.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\d5817894067e36897e15583a190a31dd\transformed\interpolator-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -878,10 +920,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.documentfile:documentfile:1.0.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\ebc7735fad3e74b94ba344ab1f439efe\transformed\documentfile-1.0.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\eaaf1d5372f56c31c510820274964be4\transformed\documentfile-1.0.0\jars\classes.jar"
       resolved="androidx.documentfile:documentfile:1.0.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\ebc7735fad3e74b94ba344ab1f439efe\transformed\documentfile-1.0.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\eaaf1d5372f56c31c510820274964be4\transformed\documentfile-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -892,10 +934,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.localbroadcastmanager:localbroadcastmanager:1.0.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\1ca191d1cad3ea7f87aeba1eaf1cf47b\transformed\localbroadcastmanager-1.0.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\6b0062e0c09ec2c133853689ded23165\transformed\localbroadcastmanager-1.0.0\jars\classes.jar"
       resolved="androidx.localbroadcastmanager:localbroadcastmanager:1.0.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\1ca191d1cad3ea7f87aeba1eaf1cf47b\transformed\localbroadcastmanager-1.0.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\6b0062e0c09ec2c133853689ded23165\transformed\localbroadcastmanager-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -906,10 +948,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.print:print:1.0.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\a7139b4376e1157b40005ee780a13b94\transformed\print-1.0.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\092b89ab12faff55f8ed2c5b7756d80a\transformed\print-1.0.0\jars\classes.jar"
       resolved="androidx.print:print:1.0.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\a7139b4376e1157b40005ee780a13b94\transformed\print-1.0.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\092b89ab12faff55f8ed2c5b7756d80a\transformed\print-1.0.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -920,10 +962,10 @@
       proguardRules="proguard.txt"/>
   <library
       name="androidx.arch.core:core-runtime:2.2.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\10e0fb88d610414c800c9b275dd6de56\transformed\core-runtime-2.2.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\04d869dfb7e2671e2d8c898dfd8e09aa\transformed\core-runtime-2.2.0\jars\classes.jar"
       resolved="androidx.arch.core:core-runtime:2.2.0"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\10e0fb88d610414c800c9b275dd6de56\transformed\core-runtime-2.2.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\04d869dfb7e2671e2d8c898dfd8e09aa\transformed\core-runtime-2.2.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -932,22 +974,17 @@
       symbolFile="R.txt"
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
-  <library
-      name="androidx.collection:collection-jvm:1.4.0@jar"
-      jars="D:\application2\GradleRepository\caches\modules-2\files-2.1\androidx.collection\collection-jvm\1.4.0\e209fb7bd1183032f55a0408121c6251a81acb49\collection-jvm-1.4.0.jar"
-      resolved="androidx.collection:collection-jvm:1.4.0"
-      provided="true"/>
   <library
       name="androidx.arch.core:core-common:2.2.0@jar"
       jars="D:\application2\GradleRepository\caches\modules-2\files-2.1\androidx.arch.core\core-common\2.2.0\5e1b8b81dfd5f52c56a8d53b18ca759c19a301f3\core-common-2.2.0.jar"
       resolved="androidx.arch.core:core-common:2.2.0"
       provided="true"/>
   <library
-      name="androidx.compose.runtime:runtime-annotation-android:1.9.2@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\295449b65db5fa88da57a5f60e9b3c8b\transformed\runtime-annotation\jars\classes.jar"
-      resolved="androidx.compose.runtime:runtime-annotation-android:1.9.2"
+      name="androidx.compose.runtime:runtime-retain-android:1.10.1@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\3a164381f38385e2ef3121faaecd34d4\transformed\runtime-retain\jars\classes.jar"
+      resolved="androidx.compose.runtime:runtime-retain-android:1.10.1"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\295449b65db5fa88da57a5f60e9b3c8b\transformed\runtime-annotation"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\3a164381f38385e2ef3121faaecd34d4\transformed\runtime-retain"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -957,11 +994,11 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="androidx.savedstate:savedstate-android:1.3.3@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\7752bdfc94914e4e3329e73465a841b9\transformed\savedstate-release\jars\classes.jar"
-      resolved="androidx.savedstate:savedstate-android:1.3.3"
+      name="androidx.compose.runtime:runtime-annotation-android:1.10.1@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\0d2230e5535e44a9eb1b430d8774c933\transformed\runtime-annotation\jars\classes.jar"
+      resolved="androidx.compose.runtime:runtime-annotation-android:1.10.1"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\7752bdfc94914e4e3329e73465a841b9\transformed\savedstate-release"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\0d2230e5535e44a9eb1b430d8774c933\transformed\runtime-annotation"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -971,11 +1008,11 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="androidx.savedstate:savedstate-compose-android:1.3.3@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\c6a3b8cd9095c9944ac51d3fa1e4b389\transformed\savedstate-compose\jars\classes.jar"
-      resolved="androidx.savedstate:savedstate-compose-android:1.3.3"
+      name="androidx.savedstate:savedstate-android:1.3.2@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\9c6631db1ab9139e6eedd9c9c59d7301\transformed\savedstate-release\jars\classes.jar"
+      resolved="androidx.savedstate:savedstate-android:1.3.2"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\c6a3b8cd9095c9944ac51d3fa1e4b389\transformed\savedstate-compose"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\9c6631db1ab9139e6eedd9c9c59d7301\transformed\savedstate-release"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -985,11 +1022,11 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="androidx.compose.runtime:runtime-android:1.9.2@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\18e01888cd918bd5c7958e5eec0ca068\transformed\runtime\jars\classes.jar"
-      resolved="androidx.compose.runtime:runtime-android:1.9.2"
+      name="androidx.savedstate:savedstate-compose-android:1.3.2@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\a2fa76dd33d1c270ddc14d2c464eeecb\transformed\savedstate-compose\jars\classes.jar"
+      resolved="androidx.savedstate:savedstate-compose-android:1.3.2"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\18e01888cd918bd5c7958e5eec0ca068\transformed\runtime"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\a2fa76dd33d1c270ddc14d2c464eeecb\transformed\savedstate-compose"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -999,11 +1036,11 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="androidx.compose.runtime:runtime-saveable-android:1.9.2@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\1101f9bbfa84d529b8ab4f563c9c5981\transformed\runtime-saveable\jars\classes.jar"
-      resolved="androidx.compose.runtime:runtime-saveable-android:1.9.2"
+      name="androidx.compose.runtime:runtime-android:1.10.1@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\1c1bfd07fe1308f3b9ad85fa4d873870\transformed\runtime\jars\classes.jar"
+      resolved="androidx.compose.runtime:runtime-android:1.10.1"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\1101f9bbfa84d529b8ab4f563c9c5981\transformed\runtime-saveable"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\1c1bfd07fe1308f3b9ad85fa4d873870\transformed\runtime"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -1012,6 +1049,25 @@
       symbolFile="R.txt"
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
+  <library
+      name="androidx.compose.runtime:runtime-saveable-android:1.10.1@aar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\b55b010fbb9163e0f7ee3bb3b27fa5f4\transformed\runtime-saveable\jars\classes.jar"
+      resolved="androidx.compose.runtime:runtime-saveable-android:1.10.1"
+      provided="true"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\b55b010fbb9163e0f7ee3bb3b27fa5f4\transformed\runtime-saveable"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.collection:collection-jvm:1.5.0@jar"
+      jars="D:\application2\GradleRepository\caches\modules-2\files-2.1\androidx.collection\collection-jvm\1.5.0\7ba2c69414d46ebc2dd76598bdd0a75c54281a57\collection-jvm-1.5.0.jar"
+      resolved="androidx.collection:collection-jvm:1.5.0"
+      provided="true"/>
   <library
       name="androidx.annotation:annotation-jvm:1.9.1@jar"
       jars="D:\application2\GradleRepository\caches\modules-2\files-2.1\androidx.annotation\annotation-jvm\1.9.1\b17951747e38bf3986a24431b9ba0d039958aa5f\annotation-jvm-1.9.1.jar"
@@ -1027,10 +1083,10 @@
       resolved="org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0"/>
   <library
       name="androidx.annotation:annotation-experimental:1.4.1@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\4c9a3ebdba70a592324773cceba41183\transformed\annotation-experimental-1.4.1\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\6dcaae518bb4dbf233c57e6eff1b79f1\transformed\annotation-experimental-1.4.1\jars\classes.jar"
       resolved="androidx.annotation:annotation-experimental:1.4.1"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\4c9a3ebdba70a592324773cceba41183\transformed\annotation-experimental-1.4.1"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\6dcaae518bb4dbf233c57e6eff1b79f1\transformed\annotation-experimental-1.4.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -1039,6 +1095,41 @@
       symbolFile="R.txt"
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
+  <library
+      name="com.squareup.retrofit2:converter-gson:2.9.0@jar"
+      jars="D:\application2\GradleRepository\caches\modules-2\files-2.1\com.squareup.retrofit2\converter-gson\2.9.0\fc93484fc67ab52b1e0ccbdaa3922d8a6678e097\converter-gson-2.9.0.jar"
+      resolved="com.squareup.retrofit2:converter-gson:2.9.0"
+      provided="true"/>
+  <library
+      name="com.squareup.retrofit2:retrofit:2.9.0@jar"
+      jars="D:\application2\GradleRepository\caches\modules-2\files-2.1\com.squareup.retrofit2\retrofit\2.9.0\d8fdfbd5da952141a665a403348b74538efc05ff\retrofit-2.9.0.jar"
+      resolved="com.squareup.retrofit2:retrofit:2.9.0"
+      provided="true"/>
+  <library
+      name="com.squareup.okhttp3:logging-interceptor:4.12.0@jar"
+      jars="D:\application2\GradleRepository\caches\modules-2\files-2.1\com.squareup.okhttp3\logging-interceptor\4.12.0\e922c1f14d365c0f2bed140cc0825e18462c2778\logging-interceptor-4.12.0.jar"
+      resolved="com.squareup.okhttp3:logging-interceptor:4.12.0"
+      provided="true"/>
+  <library
+      name="com.squareup.okhttp3:okhttp:4.12.0@jar"
+      jars="D:\application2\GradleRepository\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\4.12.0\2f4525d4a200e97e1b87449c2cd9bd2e25b7e8cd\okhttp-4.12.0.jar"
+      resolved="com.squareup.okhttp3:okhttp:4.12.0"
+      provided="true"/>
+  <library
+      name="com.squareup.okio:okio-jvm:3.6.0@jar"
+      jars="D:\application2\GradleRepository\caches\modules-2\files-2.1\com.squareup.okio\okio-jvm\3.6.0\5600569133b7bdefe1daf9ec7f4abeb6d13e1786\okio-jvm-3.6.0.jar"
+      resolved="com.squareup.okio:okio-jvm:3.6.0"
+      provided="true"/>
+  <library
+      name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10@jar"
+      jars="D:\application2\GradleRepository\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk8\1.9.10\c7510d64a83411a649c76f2778304ddf71d7437b\kotlin-stdlib-jdk8-1.9.10.jar"
+      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10"
+      provided="true"/>
+  <library
+      name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10@jar"
+      jars="D:\application2\GradleRepository\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\1.9.10\bc5bfc2690338defd5195b05c57562f2194eeb10\kotlin-stdlib-jdk7-1.9.10.jar"
+      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10"
+      provided="true"/>
   <library
       name="org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.7.3@jar"
       jars="D:\application2\GradleRepository\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-serialization-json-jvm\1.7.3\6701e8c68d9e82387ce72ee96e8ddf058208d58f\kotlinx-serialization-json-jvm-1.7.3.jar"
@@ -1055,10 +1146,10 @@
       resolved="org.jetbrains.kotlin:kotlin-stdlib:2.0.21"/>
   <library
       name="androidx.constraintlayout:constraintlayout:2.1.4@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\dfdd1e42fc805419553aef45c35787ba\transformed\constraintlayout-2.1.4\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\fb1696410de68a98f86a8e20be52f826\transformed\constraintlayout-2.1.4\jars\classes.jar"
       resolved="androidx.constraintlayout:constraintlayout:2.1.4"
       provided="true"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\dfdd1e42fc805419553aef45c35787ba\transformed\constraintlayout-2.1.4"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\fb1696410de68a98f86a8e20be52f826\transformed\constraintlayout-2.1.4"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -1068,14 +1159,19 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
+      name="com.google.code.gson:gson:2.10.1@jar"
+      jars="D:\application2\GradleRepository\caches\modules-2\files-2.1\com.google.code.gson\gson\2.10.1\b3add478d4382b78ea20b1671390a858002feb6c\gson-2.10.1.jar"
+      resolved="com.google.code.gson:gson:2.10.1"
+      provided="true"/>
+  <library
       name="org.jetbrains:annotations:23.0.0@jar"
       jars="D:\application2\GradleRepository\caches\modules-2\files-2.1\org.jetbrains\annotations\23.0.0\8cc20c07506ec18e0834947b84a864bfc094484e\annotations-23.0.0.jar"
       resolved="org.jetbrains:annotations:23.0.0"/>
   <library
       name="androidx.tracing:tracing:1.2.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\b7f579099018b0114bdae2fc254f8d17\transformed\tracing-1.2.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\c83cb82b0905e68b07223ba3e16c948f\transformed\tracing-1.2.0\jars\classes.jar"
       resolved="androidx.tracing:tracing:1.2.0"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\b7f579099018b0114bdae2fc254f8d17\transformed\tracing-1.2.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\c83cb82b0905e68b07223ba3e16c948f\transformed\tracing-1.2.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -1106,9 +1202,9 @@
       resolved="org.hamcrest:hamcrest-core:1.3"/>
   <library
       name="androidx.test.espresso:espresso-idling-resource:3.7.0@aar"
-      jars="D:\application2\GradleRepository\caches\8.13\transforms\9ffc276feaeb83109289842af4190d14\transformed\espresso-idling-resource-3.7.0\jars\classes.jar"
+      jars="D:\application2\GradleRepository\caches\8.13\transforms\9ca4c92ec346ce4075a12f0e2507a0e7\transformed\espresso-idling-resource-3.7.0\jars\classes.jar"
       resolved="androidx.test.espresso:espresso-idling-resource:3.7.0"
-      folder="D:\application2\GradleRepository\caches\8.13\transforms\9ffc276feaeb83109289842af4190d14\transformed\espresso-idling-resource-3.7.0"
+      folder="D:\application2\GradleRepository\caches\8.13\transforms\9ca4c92ec346ce4075a12f0e2507a0e7\transformed\espresso-idling-resource-3.7.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
