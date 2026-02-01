@@ -31,7 +31,8 @@
     <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"هم‌رسانی با"</string>
     <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"هم‌رسانی با <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
     <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"کوچک کردن"</string>
-    <string msgid="9020470552698189270" name="autofill">"تکمیل خودکار"</string>
+    <string msgid="8719607706653693137" name="androidx_compose_foundation_autofill">"تکمیل خودکار"</string>
+    <string msgid="1150566100598813236" name="androidx_compose_ui_autofill">"تکمیل خودکار"</string>
     <string name="bottomsheet_action_collapse">جمع کردن برگ زیرین</string>
     <string name="bottomsheet_action_expand">ازهم بازکردن برگ زیرین</string>
     <string name="bottomsheet_action_expand_halfway">گسترده کردن تا نیمه</string>
@@ -182,7 +183,7 @@
     <string msgid="1490883874751719580" name="state_on">"روشن"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
     <string msgid="2561197295334830845" name="switch_role">"کلید"</string>
-    <string msgid="1672349317127674378" name="tab">"برگه"</string>
+    <string msgid="1672349317127674378" name="tab">"زبانه"</string>
     <string msgid="5946805113151406391" name="template_percent">"<ns1:g id="PERCENTAGE">%1$d</ns1:g> درصد."</string>
     <string msgid="3765533235322692011" name="tooltip_description">"نکته‌ابزار"</string>
     <string msgid="3124740595719787496" name="tooltip_label">"نمایش نکته‌ابزار"</string>

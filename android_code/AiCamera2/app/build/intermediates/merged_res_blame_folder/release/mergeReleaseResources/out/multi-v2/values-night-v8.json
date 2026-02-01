@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.aicamera.app-mergeReleaseResources-2:/values-night-v8/values-night-v8.xml",
+            "outputFile": "com.example.aicamera.app-mergeReleaseResources-56:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "D:\\application2\\GradleRepository\\caches\\8.13\\transforms\\dacadcd76056337b75a4746169e9fd32\\transformed\\appcompat-1.6.1\\res\\values-night-v8\\values-night-v8.xml",
+                    "source": "C:\\Users\\luyao\\.gradle\\caches\\8.13\\transforms\\a6742994d036206732745fb28ddaef55\\transformed\\appcompat-1.6.1\\res\\values-night-v8\\values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "D:\\AndroidProjects\\AiCamera2\\app\\src\\main\\res\\values-night\\themes.xml",
+                    "source": "E:\\Code\\gitRepo\\AICamera\\android_code\\AiCamera2\\app\\src\\main\\res\\values-night\\themes.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -40,7 +40,7 @@
                     }
                 },
                 {
-                    "source": "D:\\application2\\GradleRepository\\caches\\8.13\\transforms\\21c0b793b3dcb5ce5e90d092e30f6cfa\\transformed\\material-1.10.0\\res\\values-night-v8\\values-night-v8.xml",
+                    "source": "C:\\Users\\luyao\\.gradle\\caches\\8.13\\transforms\\8b836b26b66836efcde984e6babeb342\\transformed\\material-1.10.0\\res\\values-night-v8\\values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

@@ -4,7 +4,7 @@
             "outputFile": "com.example.aicamera.app-mergeDebugResources-56:/values-v26/values-v26.xml",
             "map": [
                 {
-                    "source": "D:\\application2\\GradleRepository\\caches\\8.13\\transforms\\a6742994d036206732745fb28ddaef55\\transformed\\appcompat-1.6.1\\res\\values-v26\\values-v26.xml",
+                    "source": "C:\\Users\\luyao\\.gradle\\caches\\8.13\\transforms\\a6742994d036206732745fb28ddaef55\\transformed\\appcompat-1.6.1\\res\\values-v26\\values-v26.xml",
                     "from": {
                         "startLines": "2,3,4,8,12,16",
                         "startColumns": "4,4,4,4,4,4",

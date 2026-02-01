@@ -1,12 +1,12 @@
 <lint-module
     format="1"
-    dir="D:\AndroidProjects\AiCamera2\app"
+    dir="E:\Code\gitRepo\AICamera\android_code\AiCamera2\app"
     name=":app"
     type="APP"
     maven="AiCamera:app:unspecified"
     agpVersion="8.13.2"
     buildFolder="build"
-    bootClassPath="D:\application2\AndroidSDK\platforms\android-36\android.jar;D:\application2\AndroidSDK\build-tools\36.1.0\core-lambda-stubs.jar"
+    bootClassPath="D:\Software\AndroidSDK\platforms\android-36\android.jar;D:\Software\AndroidSDK\build-tools\36.1.0\core-lambda-stubs.jar"
     javaSourceLevel="11"
     compileTarget="android-36"
     neverShrinking="true">
