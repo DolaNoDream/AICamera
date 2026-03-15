@@ -3,10 +3,11 @@ import json
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional,List,Dict
 # 注意：确保这两个模块的路径正确，能正常导入
 from GeneratePose import generate_pose_suggestions
 from GeneratePic import generate_pose_image_url
+from GenerateWrite import generate_ai_write
 
 # ======================== 1. 初始化 FastAPI 应用 ========================
 app = FastAPI(
@@ -25,6 +26,17 @@ class PosesugResponse(BaseModel):
     voiceAudioText: str  # 语音播报WAV文件URL（假设后续生成或存储后返回URL）
     poseSuggestions: list[dict]
 
+# 定义前端传过来的纯 JSON 请求体
+class AiWriteRequest(BaseModel):
+    sessionId: str
+    image: List[str]  # 变成接受字符串URL的列表
+    requirement: Optional[Dict] = None  # 变成直接接受字典，前端无需转字符串了！
+
+# 定义符合你接口文档“通用响应格式”的模型
+class StandardResponse(BaseModel):
+    code: int
+    msg: str
+    data: dict
 
 # ======================== 3. 核心接口实现 ========================
 @app.post(
@@ -113,6 +125,49 @@ async def posesug(
         poseSuggestions=pose_suggestions_list
     )
 
+
+
+
+@app.post(
+    "/ai/write",
+    response_model=StandardResponse,
+    summary="AI成文接口",
+    description="上传单张/多张照片及需求参数，生成相应的社交文案"
+)
+async def ai_write_api(request: AiWriteRequest):
+    """
+    /ai/write 接口处理逻辑 (纯 JSON 通信版)
+    """
+    # 1. 验证 sessionId
+    if not request.sessionId.strip():
+        return StandardResponse(code=400, msg="参数错误：sessionId不能为空", data={})
+
+    # 2. 验证图片 URL 列表
+    if not request.image or len(request.image) == 0:
+        return StandardResponse(code=400, msg="参数错误：图片URL列表不能为空", data={})
+
+    # 3. 调用大模型生成文案 (直接传入 requirement 字典)
+    try:
+        content = generate_ai_write(
+            image_url_list=request.image,
+            requirement=request.requirement or {}
+        )
+
+        # 4. 返回统一格式的成功响应
+        return StandardResponse(
+            code=200,
+            msg="success",
+            data={
+                "content": content
+            }
+        )
+
+    except Exception as e:
+        return StandardResponse(
+            code=500,
+            msg=f"服务端处理失败: {str(e)}",
+            data={}
+        )
 
 # ======================== 4. 异常处理 ========================
 @app.exception_handler(HTTPException)
