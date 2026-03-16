@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.aicamera">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- 必需权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -11,8 +11,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 录音权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <!-- 帧截取权限 -->
-    <uses-permission android:name="android.permission.CAMERA" />
+
 
     <!-- 硬件特性声明 -->
     <uses-feature

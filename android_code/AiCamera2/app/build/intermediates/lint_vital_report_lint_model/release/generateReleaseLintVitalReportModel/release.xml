@@ -27,6 +27,6 @@
       applicationId="com.example.aicamera"
       generatedSourceFolders="build\generated\ap_generated_sources\release\out;build\generated\data_binding_base_class_source_out\release\out"
       generatedResourceFolders="build\generated\res\resValues\release"
-      desugaredMethodsFiles="D:\application2\GradleRepository\caches\8.13\transforms\bacbbef3a0ff836781eb8dfbb7d296b2\transformed\D8BackportedDesugaredMethods.txt">
+      desugaredMethodsFiles="C:\Users\luyao\.gradle\caches\8.13\transforms\ed6ae9b493972dfc7ee559fb526fa6ce\transformed\D8BackportedDesugaredMethods.txt">
   </artifact>
 </variant>

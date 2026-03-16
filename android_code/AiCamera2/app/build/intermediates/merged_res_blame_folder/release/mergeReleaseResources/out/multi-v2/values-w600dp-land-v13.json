@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.aicamera.app-mergeReleaseResources-2:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
+            "outputFile": "com.example.aicamera.app-mergeReleaseResources-56:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
             "map": [
                 {
-                    "source": "D:\\application2\\GradleRepository\\caches\\8.13\\transforms\\21c0b793b3dcb5ce5e90d092e30f6cfa\\transformed\\material-1.10.0\\res\\values-w600dp-land-v13\\values-w600dp-land-v13.xml",
+                    "source": "C:\\Users\\luyao\\.gradle\\caches\\8.13\\transforms\\8b836b26b66836efcde984e6babeb342\\transformed\\material-1.10.0\\res\\values-w600dp-land-v13\\values-w600dp-land-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
