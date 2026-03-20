@@ -26,12 +26,6 @@ class PosesugResponse(BaseModel):
     voiceAudioText: str  # 语音播报WAV文件URL（假设后续生成或存储后返回URL）
     poseSuggestions: list[dict]
 
-# 定义前端传过来的纯 JSON 请求体
-class AiWriteRequest(BaseModel):
-    sessionId: str
-    image: List[str]  # 变成接受字符串URL的列表
-    requirement: Optional[Dict] = None  # 变成直接接受字典，前端无需转字符串了！
-
 # 定义符合你接口文档“通用响应格式”的模型
 class StandardResponse(BaseModel):
     code: int
@@ -126,34 +120,60 @@ async def posesug(
     )
 
 
-
-
 @app.post(
     "/ai/write",
     response_model=StandardResponse,
     summary="AI成文接口",
     description="上传单张/多张照片及需求参数，生成相应的社交文案"
 )
-async def ai_write_api(request: AiWriteRequest):
+async def ai_write_api(
+        # 注意这里一定是 Form 和 File，适配 multipart/form-data
+        sessionId: str = Form(..., description="会话唯一标识"),
+        image: List[UploadFile] = File(..., description="上传的多张照片数组"),
+        requirement: Optional[str] = Form(None, description="成文需求（JSON格式的字符串）")
+):
+
     """
-    /ai/write 接口处理逻辑 (纯 JSON 通信版)
+    /ai/write 接口处理逻辑
     """
     # 1. 验证 sessionId
-    if not request.sessionId.strip():
+    if not sessionId.strip():
         return StandardResponse(code=400, msg="参数错误：sessionId不能为空", data={})
 
-    # 2. 验证图片 URL 列表
-    if not request.image or len(request.image) == 0:
-        return StandardResponse(code=400, msg="参数错误：图片URL列表不能为空", data={})
+    # 2. 验证并解析 requirement JSON 字符串
+    req_dict = {}
+    if requirement:
+        try:
+            req_dict = json.loads(requirement)
+        except json.JSONDecodeError:
+            return StandardResponse(code=400, msg="参数错误：requirement必须是合法的JSON字符串", data={})
 
-    # 3. 调用大模型生成文案 (直接传入 requirement 字典)
+    # 3. 读取所有上传的图片二进制数据
+    image_bytes_list = []
+    try:
+        for img in image:
+            # 简单校验一下后缀名
+            file_ext = img.filename.split(".")[-1].lower() if img.filename else ""
+            if file_ext not in ["jpg", "jpeg", "png", "webp"]:
+                return StandardResponse(code=400, msg=f"不支持的图片格式: {file_ext}", data={})
+
+            img_bytes = await img.read()
+            image_bytes_list.append(img_bytes)
+
+        if not image_bytes_list:
+            return StandardResponse(code=400, msg="未读取到有效的图片内容", data={})
+
+    except Exception as e:
+        return StandardResponse(code=400, msg=f"图片读取失败: {str(e)}", data={})
+
+    # 4. 调用大模型生成文案
     try:
         content = generate_ai_write(
-            image_url_list=request.image,
-            requirement=request.requirement or {}
+            image_data_list=image_bytes_list,
+            requirement=req_dict
         )
 
-        # 4. 返回统一格式的成功响应
+        # 5. 返回统一格式的成功响应
         return StandardResponse(
             code=200,
             msg="success",
@@ -163,6 +183,7 @@ async def ai_write_api(request: AiWriteRequest):
         )
 
     except Exception as e:
+        # 捕获异常，并用通用格式返回错误（保持code=500等结构）
         return StandardResponse(
             code=500,
             msg=f"服务端处理失败: {str(e)}",

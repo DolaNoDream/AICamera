@@ -1,10 +1,23 @@
 # GenerateWrite.py
 import json
 from typing import List, Dict
+import base64
 
+def encode_image_bytes(image_data: bytes) -> str:
+    """将图片二进制数据编码为base64格式的data URL"""
+    if image_data.startswith(b'\xff\xd8\xff'):
+        mime_type = 'image/jpeg'
+    elif image_data.startswith(b'\x89\x50\x4E\x47\x0D\x0A\x1A\x0A'):
+        mime_type = 'image/png'
+    elif image_data.startswith(b'RIFF') and image_data[8:12] == b'WEBP':
+        mime_type = 'image/webp'
+    else:
+        mime_type = 'image/jpeg'
 
+    base64_encoded = base64.b64encode(image_data).decode('utf-8')
+    return f"data:{mime_type};base64,{base64_encoded}"
 
-def generate_ai_write(image_url_list: List[str], requirement: Dict) -> List[str]:
+def generate_ai_write(image_data_list: List[bytes], requirement: Dict) -> List[str]:
     """
     接收多张图片二进制数据和文案要求字典，调用大模型生成文案
     返回包含3条不同的文案列表
@@ -19,8 +32,8 @@ def generate_ai_write(image_url_list: List[str], requirement: Dict) -> List[str]
 
     # 1. 组装多模态内容列表（直接使用前端传来的图片URL）
     content_list = []
-    for img_url in image_url_list:
-        # 大模型原生支持读取公网URL，速度极快
+    for img_bytes in image_data_list:
+        img_url = encode_image_bytes(img_bytes)
         content_list.append({"type": "image_url", "image_url": {"url": img_url}})
 
     # 2. 动态解析并翻译 requirement 字典，构建精准 Prompt
@@ -130,6 +143,7 @@ def generate_ai_write(image_url_list: List[str], requirement: Dict) -> List[str]
             raw_text = raw_text.split("\n", 1)[-1]
         if raw_text.endswith( "```"):
             raw_text = raw_text.rsplit("\n", 1)[0]
+
 
         # 尝试解析 JSON 数组
         try:
