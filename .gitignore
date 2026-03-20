@@ -1,2 +1,5 @@
 .idea/
+.env
+__pycache__/
+*.pyc
 android_code\AiCamera2\local.properties
