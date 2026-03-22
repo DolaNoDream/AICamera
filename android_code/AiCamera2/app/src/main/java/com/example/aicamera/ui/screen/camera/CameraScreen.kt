@@ -42,7 +42,6 @@ import com.example.aicamera.ui.screen.camera.components.LeftHiddenMenu
 import com.example.aicamera.ui.screen.camera.components.LoadingOverlay
 import com.example.aicamera.ui.screen.camera.components.SaveSuccessOverlay
 import com.example.aicamera.ui.screen.camera.components.TimeDisplay
-import com.example.aicamera.ui.screen.camera.components.TopControllerBar
 import com.example.aicamera.ui.screen.camera.components.ZoomButton
 import com.example.aicamera.ui.uistate.camera.CameraMode
 import com.example.aicamera.ui.uistate.camera.CameraState
@@ -121,11 +120,6 @@ fun CameraScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 12.dp, vertical = 10.dp)
         ) {
-            TopControllerBar(
-                isMenuExpanded = state.isMenuExpanded,
-                onMenuClick = { viewModel.setMenuExpanded(!state.isMenuExpanded) },
-                modifier = Modifier.align(Alignment.CenterStart)
-            )
 
             if (onNavigateToAlbum != null) {
                 IconButton(
@@ -222,19 +216,6 @@ fun CameraScreen(
                 onModeSelected = { viewModel.setSelectedMode(it) },
                 onVoiceStateChange = { isActive -> if (isActive) viewModel.startListening() else viewModel.stopListening() },
                 modifier = Modifier.fillMaxWidth()
-            )
-
-            // 一点点提示文案（尽量隐形）
-            Text(
-                text = "轻触对焦 · 双指缩放",
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier
-                    .padding(top = 4.dp)
-                    .background(color = Color.Black.copy(alpha = 0.25f), shape = RoundedCornerShape(12.dp))
-                    .padding(horizontal = 10.dp, vertical = 4.dp)
             )
         }
 

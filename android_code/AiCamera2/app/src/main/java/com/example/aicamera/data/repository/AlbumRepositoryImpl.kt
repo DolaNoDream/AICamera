@@ -16,4 +16,14 @@ class AlbumRepositoryImpl(
     override suspend fun insertPhoto(entity: AlbumPhotoEntity): Long {
         return albumPhotoDao.insertIgnore(entity)
     }
+
+    override suspend fun updateTextById(id: Long, text: String): Int {
+        return albumPhotoDao.updateTextById(id, text)
+    }
+
+    override suspend fun updateTextByIds(ids: List<Long>, text: String): Int {
+        return albumPhotoDao.updateTextByIds(ids, text)
+    }
 }
+
+

@@ -23,6 +23,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AiCamera"
         android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".data.network.copywriter.CopywriterTestActivity"
+            android:exported="true" />
+
         <activity
             android:name=".app.MainActivity"
             android:exported="true"

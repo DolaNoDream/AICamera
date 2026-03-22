@@ -391,7 +391,7 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
                             AlbumPhotoEntity(
                                 filePath = result,
                                 type = 0,
-                                text = "我很开心。\uD83D\uDE00？1234",
+                                text = "无",
                                 createTime = System.currentTimeMillis(),
                                 width = bitmap.width,
                                 height = bitmap.height,

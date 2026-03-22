@@ -31,6 +31,7 @@ import coil.compose.AsyncImage
 import com.example.aicamera.ui.viewmodel.album.AlbumListViewModel
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
+import androidx.core.net.toUri
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.net.toUri
@@ -181,3 +182,7 @@ fun AlbumListScreen(
         }
     }
 }
+
+
+
+

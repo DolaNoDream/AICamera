@@ -1,14 +1,16 @@
 package com.example.aicamera.ui.viewmodel.album
 
 import android.app.Application
-import android.net.Uri
 import android.util.Log
+import androidx.core.net.toUri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aicamera.app.di.ServiceLocator
 import com.example.aicamera.data.db.entity.AlbumPhotoEntity
 import com.example.aicamera.data.network.aiPs.AiEditManager
 import com.example.aicamera.data.network.aiPs.PictureRequirement
+import com.example.aicamera.data.network.copywriter.AiWriteManager
+import com.example.aicamera.data.network.copywriter.CopywriterRequirement
 import com.example.aicamera.data.storage.FileManager
 import com.example.aicamera.ui.uistate.album.PhotoDetailUiState
 import java.io.File
@@ -19,7 +21,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import androidx.core.net.toUri
 
 /**
  * 相片详情 VM。
@@ -230,6 +231,87 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
                     onDone(true)
                 }
             }
+        }
+    }
+
+    /** AI 生成文案：供 UI 调用的状态 */
+    fun setAiWriteStatus(isWriting: Boolean, message: String? = null) {
+        _uiState.value = _uiState.value.copy(
+            isAiWriting = isWriting,
+            aiWriteMessage = message
+        )
+    }
+
+    /**
+     * 对当前照片生成文案，并将返回结果写入该照片的 text 字段。
+     */
+    fun aiWriteCurrentPhoto(requirement: CopywriterRequirement?, onDone: (Boolean) -> Unit) {
+        val photo = _uiState.value.photo
+        if (photo == null) {
+            setAiWriteStatus(isWriting = false, message = "无可生成文案的照片")
+            onDone(false)
+            return
+        }
+
+        viewModelScope.launch {
+            setAiWriteStatus(isWriting = true, message = null)
+
+            val appContext = getApplication<Application>().applicationContext
+            val uri = runCatching { photo.filePath.toUri() }.getOrNull()
+
+            if (uri == null) {
+                setAiWriteStatus(isWriting = false, message = "无效图片Uri")
+                onDone(false)
+                return@launch
+            }
+
+            val sessionId = UUID.randomUUID().toString()
+            val manager = AiWriteManager.getInstance(appContext)
+
+            // AiWriteManager 内部是 OkHttp 异步回调，这里用回调切回协程更新状态
+            manager.writeWithUris(
+                sessionId = sessionId,
+                imageUris = listOf(uri),
+                requirement = requirement,
+                callback = object : AiWriteManager.AiWriteCallback {
+                    override fun onResult(result: com.example.aicamera.data.network.copywriter.AiWriteResult) {
+                        viewModelScope.launch {
+                            if (!result.success || result.content.isNullOrBlank()) {
+                                setAiWriteStatus(
+                                    isWriting = false,
+                                    message = result.errorMessage ?: "文案生成失败"
+                                )
+                                onDone(false)
+                                return@launch
+                            }
+
+                            val content = result.content
+
+                            val updated = runCatching {
+                                withContext(Dispatchers.IO) {
+                                    albumRepository.updateTextById(photo.id, content)
+                                }
+                            }.getOrElse { e ->
+                                Log.w(TAG, "写入文案到数据库失败：${e.message}")
+                                0
+                            }
+
+                            if (updated <= 0) {
+                                setAiWriteStatus(isWriting = false, message = "文案生成成功，但写入数据库失败")
+                                onDone(false)
+                                return@launch
+                            }
+
+                            // 刷新当前 photo（让 UI 立即展示最新 text）
+                            val refreshed = withContext(Dispatchers.IO) { dao.getById(photo.id) }
+                            _uiState.value = _uiState.value.copy(photo = refreshed)
+
+                            setAiWriteStatus(isWriting = false, message = "文案已保存")
+                            onDone(true)
+                        }
+                    }
+                }
+            )
         }
     }
 

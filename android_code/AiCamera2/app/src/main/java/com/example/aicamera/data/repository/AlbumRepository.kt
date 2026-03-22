@@ -11,4 +11,8 @@ interface AlbumRepository {
 
     /** 保存 photo 记录（插入时自动去重：同 filePath 不会重复入库） */
     suspend fun insertPhoto(entity: AlbumPhotoEntity): Long
+
+    suspend fun updateTextById(id: Long, text: String): Int
+
+    suspend fun updateTextByIds(ids: List<Long>, text: String): Int
 }

@@ -10,7 +10,9 @@ data class PhotoDetailUiState(
     val errorMessage: String? = null,
     val photo: AlbumPhotoEntity? = null,
 
-    // AI 修图
     val isAiEditing: Boolean = false,
-    val aiEditMessage: String? = null
+    val aiEditMessage: String? = "",
+
+    val isAiWriting: Boolean = false,
+    val aiWriteMessage: String? = "",
 )
