@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.core.net.toUri
 
 /**
  * 相片详情 VM。
@@ -71,7 +72,7 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
             val appContext = getApplication<Application>().applicationContext
             val resolver = appContext.contentResolver
 
-            val uri = runCatching { Uri.parse(photo.filePath) }.getOrNull()
+            val uri = runCatching { photo.filePath.toUri() }.getOrNull()
             if (uri == null) {
                 _uiState.value = _uiState.value.copy(isLoading = false, errorMessage = "无效图片Uri")
                 onResult(false)

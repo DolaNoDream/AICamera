@@ -27,6 +27,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.core.net.toUri
 
 /**
  * 相片详情页。
@@ -147,7 +148,7 @@ fun PhotoDetailScreen(
                 }
 
                 state.photo != null -> {
-                    val uri = runCatching { Uri.parse(state.photo!!.filePath) }.getOrNull()
+                    val uri = runCatching { state.photo!!.filePath.toUri() }.getOrNull()
 
                     Box(
                         modifier = Modifier
@@ -187,6 +188,11 @@ fun PhotoDetailScreen(
                         )
                         Text(
                             text = "type: ${state.photo!!.type}",
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Text(
+                            text = "text: ${state.photo!!.text ?: "无"}",
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             style = MaterialTheme.typography.bodyMedium
                         )

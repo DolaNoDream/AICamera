@@ -60,7 +60,6 @@ fun SaveSuccessOverlay(modifier: Modifier = Modifier) {
 @Composable
 fun ErrorOverlay(
     message: String,
-    onRetry: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(

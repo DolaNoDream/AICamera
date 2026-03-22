@@ -33,6 +33,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.ViewCompat
+import androidx.core.net.toUri
 
 /**
  * 相册列表页：展示本地 Room(photo 表) 中记录的所有图片。
@@ -131,7 +132,7 @@ fun AlbumListScreen(
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             items(state.photos, key = { it.id }) { item ->
-                                val uri = runCatching { Uri.parse(item.filePath) }.getOrNull()
+                                val uri = runCatching { item.filePath.toUri() }.getOrNull()
 
                                 Card(
                                     shape = MaterialTheme.shapes.large,

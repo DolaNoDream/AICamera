@@ -29,7 +29,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.aicamera.R
 import com.example.aicamera.data.storage.ImageDownloadHelper
@@ -42,7 +41,6 @@ import androidx.compose.runtime.remember
 fun LeftHiddenMenu(
     isExpanded: Boolean,
     onToggle: () -> Unit,
-    poseGuideText: String,
     poseSuggestionText: String,
     poseImageUrl: String,
     isLoading: Boolean,
@@ -154,7 +152,7 @@ fun LeftHiddenMenu(
                                             ImageView(ctx).apply { scaleType = ImageView.ScaleType.CENTER_CROP }
                                         },
                                         update = { view ->
-                                            (view as ImageView).setImageBitmap(poseImageBitmap)
+                                            view.setImageBitmap(poseImageBitmap)
                                         },
                                         modifier = Modifier
                                             .fillMaxWidth()
@@ -184,7 +182,10 @@ fun LeftHiddenMenu(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .clip(CircleShape)
-                                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.85f), CircleShape)
+                                    .background(
+                                        MaterialTheme.colorScheme.primary.copy(alpha = 0.85f),
+                                        CircleShape
+                                    )
                                     .clickable(
                                         indication = LocalIndication.current,
                                         interactionSource = remember { MutableInteractionSource() },
