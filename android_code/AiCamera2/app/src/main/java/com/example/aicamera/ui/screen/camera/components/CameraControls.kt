@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +33,8 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.example.aicamera.ui.uistate.camera.CameraMode
 import com.example.aicamera.ui.uistate.camera.CameraState
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 
 @Composable
 fun CameraControlsLayer(
@@ -46,7 +49,7 @@ fun CameraControlsLayer(
 ) {
     Column(
         modifier = modifier
-            .background(Color.Black)
+            .background(Color.Black.copy(alpha = 0.35f))
             .padding(top = 8.dp, bottom = 16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -98,7 +101,12 @@ fun ShutterButton(
     Box(
         modifier = modifier
             .clip(CircleShape)
-            .clickable(enabled = enabled, onClick = onClick),
+            .clickable(
+                enabled = enabled,
+                indication = LocalIndication.current,
+                interactionSource = remember { MutableInteractionSource() },
+                onClick = onClick
+            ),
         contentAlignment = Alignment.Center
     ) {
         Box(
@@ -122,17 +130,22 @@ fun SwitchCameraButton(
     Box(
         modifier = modifier
             .size(64.dp)
-            .background(Color.Gray, CircleShape)
-            .clickable { onSwitchCamera() },
+            .background(Color.White.copy(alpha = 0.12f), CircleShape)
+            .clickable(
+                indication = LocalIndication.current,
+                interactionSource = remember { MutableInteractionSource() },
+                onClick = onSwitchCamera
+            ),
         contentAlignment = Alignment.Center
     ) {
         Icon(
             imageVector = Icons.Filled.Refresh,
             contentDescription = "切换摄像头",
-            tint = Color.White,
+            tint = Color.White.copy(alpha = 0.85f),
             modifier = Modifier.size(20.dp)
         )
     }
+
 }
 
 @Composable
@@ -146,22 +159,24 @@ fun ClickToggleVoiceButton(
         modifier = modifier
             .size(64.dp)
             .background(
-                color = if (isVoiceActive) Color(0xFF4A90E2) else Color.White,
+                color = if (isVoiceActive) MaterialTheme.colorScheme.primary.copy(alpha = 0.85f) else Color.White.copy(alpha = 0.12f),
                 shape = CircleShape
             )
             .border(
                 width = 1.dp,
-                color = if (isVoiceActive) Color.Transparent else Color.Gray.copy(alpha = 0.3f),
+                color = Color.White.copy(alpha = 0.18f),
                 shape = CircleShape
             )
             .clickable(
                 role = Role.Button,
+                indication = LocalIndication.current,
+                interactionSource = remember { MutableInteractionSource() },
                 onClick = {
                     isVoiceActive = !isVoiceActive
                     onVoiceStateChange(isVoiceActive)
                 }
             ),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         if (isVoiceActive) {
             Canvas(modifier = Modifier.size(24.dp)) {

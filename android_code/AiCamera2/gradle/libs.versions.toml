@@ -25,7 +25,8 @@ composeFoundation = "1.5.4"
 composeMaterial3 = "1.2.1"
 activityCompose = "1.8.2"
 cameraView = "1.5.2"
-animationCore = "1.10.1"  # 适配Compose的Activity版本
+animationCore = "1.10.1"
+remoteCreationCompose = "1.0.0-alpha06"  # 适配Compose的Activity版本
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -60,6 +61,7 @@ androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "composeUi" }
 camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "cameraView" }
 androidx-compose-animation-core = { group = "androidx.compose.animation", name = "animation-core", version.ref = "animationCore" }
+androidx-compose-remote-creation-compose = { group = "androidx.compose.remote", name = "remote-creation-compose", version.ref = "remoteCreationCompose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

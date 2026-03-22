@@ -59,8 +59,8 @@ enum class CameraState {
 
 data class ZoomUi(
     val currentZoom: Float = 1f,
-    val minZoom: Float = 1f,
-    val maxZoom: Float = 1f
+    val minZoom: Float = 0.5f,
+    val maxZoom: Float = 5f
 )
 
 /**

@@ -1,28 +1,24 @@
 package com.example.aicamera.ui.viewmodel.camera
 
 import android.app.Application
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.speech.RecognitionListener
-import android.speech.RecognizerIntent
-import android.speech.SpeechRecognizer
 import android.util.Log
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
+import com.example.aicamera.app.di.ServiceLocator
 import com.example.aicamera.data.camera.CameraController
 import com.example.aicamera.data.camera.CameraStreamManager
+import com.example.aicamera.data.db.entity.AlbumPhotoEntity
 import com.example.aicamera.data.network.pose.PoseRecommendationClient
 import com.example.aicamera.data.network.pose.model.PoseResponse
-import com.example.aicamera.data.storage.FileManager
+import com.example.aicamera.data.permission.PermissionManager
 import com.example.aicamera.data.speech.stt.SparkAsrManager
 import com.example.aicamera.data.speech.tts.TTSManager
+import com.example.aicamera.data.storage.FileManager
 import com.example.aicamera.ui.uistate.camera.CameraMode
 import com.example.aicamera.ui.uistate.camera.CameraState
 import com.example.aicamera.ui.uistate.camera.CameraUiEvent
 import com.example.aicamera.ui.uistate.camera.CameraUiState
-import com.example.aicamera.ui.uistate.camera.ZoomUi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,7 +27,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 /**
  * 相机页面 ViewModel
@@ -46,6 +41,7 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
     // 依赖注入
     val cameraController = CameraController(application)
     val fileManager = FileManager(application)
+    private var permissionManager : PermissionManager = PermissionManager(getApplication())
 
     /**
      * 单一 UiState：UI 层只需要 collect 这一份即可。
@@ -71,47 +67,9 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
     private val _lastPhoto = MutableStateFlow<Bitmap?>(null)
     val lastPhoto: StateFlow<Bitmap?> = _lastPhoto.asStateFlow()
 
-    //TODO: 导入STT类
-    // 语音识别相关
-    private val _isListening = MutableStateFlow<Boolean>(false)
-    val isListening: StateFlow<Boolean> = _isListening.asStateFlow()
-
-    /**
-     * 当前摄像头镜头朝向（0 = 后置，1 = 前置）
-     *
-     * 扩展点：可添加摄像头切换动画、提示等
-     */
-    private val _currentLensFacing = MutableStateFlow<Int>(androidx.camera.core.CameraSelector.LENS_FACING_BACK)
-    val currentLensFacing: StateFlow<Int> = _currentLensFacing.asStateFlow()
-
-    /**
-     * 当前变焦比例
-     *
-     * 扩展点：UI 可监听此字段更新变焦滑块或显示当前变焦值
-     */
-    private val _currentZoom = MutableStateFlow<Float>(1f)
-    val currentZoom: StateFlow<Float> = _currentZoom.asStateFlow()
-
-    /**
-     * 变焦范围信息（minZoom, maxZoom, step）
-     */
-    private val _zoomRangeInfo = MutableStateFlow<Triple<Float, Float, Float>?>(null)
-    val zoomRangeInfo: StateFlow<Triple<Float, Float, Float>?> = _zoomRangeInfo.asStateFlow()
-
-    // 对焦状态
-    private val _focusState = MutableStateFlow<CameraController.FocusState>(CameraController.FocusState.Idle)
-    val focusState: StateFlow<CameraController.FocusState> = _focusState.asStateFlow()
-
-    // 对焦点坐标（用于 UI 显示对焦框）
-    private val _focusPointX = MutableStateFlow<Float>(0.5f)
-    val focusPointX: StateFlow<Float> = _focusPointX.asStateFlow()
-
-    private val _focusPointY = MutableStateFlow<Float>(0.5f)
-    val focusPointY: StateFlow<Float> = _focusPointY.asStateFlow()
-
-    // 用户意图（最后一次识别的语音文本）
-    private val _lastUserIntent = MutableStateFlow("")
-    val lastUserIntent: StateFlow<String> = _lastUserIntent.asStateFlow()
+    private val albumRepository by lazy {
+        ServiceLocator.provideAlbumRepository(getApplication<Application>().applicationContext)
+    }
 
     /**
      * 初始化相机
@@ -156,7 +114,11 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
         }
 
         cameraController.onFocusStateChanged = { focusState ->
-            _focusState.value = focusState
+            _uiState.update { currentState ->
+                currentState.copy(
+                    focusState = focusState
+                )
+            }
         }
 
         cameraController.onZoomRangeUpdated = { minZoom, maxZoom ->
@@ -215,8 +177,17 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
         try {
             val newLensFacing = cameraController.switchCamera(lifecycleOwner, previewView)
             if (newLensFacing != null) {
-                _currentLensFacing.value = newLensFacing
-                _currentZoom.value = 1f
+                _uiState.update{ currentState ->
+                    currentState.copy(
+                        currentLensFacing = newLensFacing
+                    )
+                }
+                _uiState.update {
+                        currentState ->
+                    currentState.copy(
+                        zoom = currentState.zoom.copy(currentZoom = 1f)
+                    )
+                }
                 _uiState.update { currentState ->
                     currentState.copy(errorMessage = null)
                 }
@@ -237,7 +208,12 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
     fun setZoom(zoomFactor: Float, animate: Boolean = true) {
         try {
             val actualZoom = cameraController.setZoom(zoomFactor, animate)
-            _currentZoom.value = actualZoom
+            _uiState.update {
+                    currentState ->
+                currentState.copy(
+                    zoom = currentState.zoom.copy(currentZoom = actualZoom)
+                )
+            }
         } catch (e: Exception) {
             Log.e(TAG, "变焦操作异常", e)
             _uiState.update { currentState ->
@@ -254,7 +230,12 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
     fun zoomIn() {
         try {
             val actualZoom = cameraController.zoomIn()
-            _currentZoom.value = actualZoom
+            _uiState.update {
+                    currentState ->
+                currentState.copy(
+                    zoom = currentState.zoom.copy(currentZoom = actualZoom)
+                )
+            }
         } catch (e: Exception) {
             Log.e(TAG, "放大失败", e)
         }
@@ -266,7 +247,12 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
     fun zoomOut() {
         try {
             val actualZoom = cameraController.zoomOut()
-            _currentZoom.value = actualZoom
+            _uiState.update {
+                    currentState ->
+                currentState.copy(
+                    zoom = currentState.zoom.copy(currentZoom = actualZoom)
+                )
+            }
         } catch (e: Exception) {
             Log.e(TAG, "缩小失败", e)
         }
@@ -278,7 +264,12 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
     fun resetZoom() {
         try {
             val actualZoom = cameraController.resetZoom()
-            _currentZoom.value = actualZoom
+            _uiState.update {
+                currentState ->
+                currentState.copy(
+                    zoom = currentState.zoom.copy(currentZoom = actualZoom)
+                )
+            }
         } catch (e: Exception) {
             Log.e(TAG, "重置变焦失败", e)
         }
@@ -289,8 +280,12 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
      */
     fun autoFocus(x: Float, y: Float) {
         try {
-            _focusPointX.value = x
-            _focusPointY.value = y
+            _uiState.update { currentState ->
+                currentState.copy(
+                    focusPointX = x,
+                    focusPointY = y,
+                )
+            }
             cameraController.autoFocus(x, y)
         } catch (e: Exception) {
             Log.e(TAG, "对焦失败", e)
@@ -307,8 +302,12 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
      */
     fun lockFocus(x: Float, y: Float) {
         try {
-            _focusPointX.value = x
-            _focusPointY.value = y
+            _uiState.update { currentState ->
+                currentState.copy(
+                    focusPointX = x,
+                    focusPointY = y,
+                )
+            }
             cameraController.lockFocus(x, y)
         } catch (e: Exception) {
             Log.e(TAG, "对焦锁定失败", e)
@@ -337,7 +336,16 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
     fun updateZoomRangeInfo() {
         try {
             val rangeInfo = cameraController.getZoomRangeInfo()
-            _zoomRangeInfo.value = rangeInfo
+            _uiState.update {
+                currentState ->
+                currentState.copy(
+                    zoom = currentState.zoom.copy(
+                        minZoom = rangeInfo?.first ?: 0.5f,
+                        maxZoom = rangeInfo?.second ?: 5f,
+                        currentZoom = rangeInfo?.third ?: 1f
+                    )
+                )
+            }
         } catch (e: Exception) {
             Log.e(TAG, "获取变焦范围失败", e)
         }
@@ -375,6 +383,25 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
                 val result = fileManager.saveBitmapToGallery(bitmap)
                 if (result != null) {
                     Log.d(TAG, "照片成功保存，URI: $result")
+
+                    // 保存到 Room（用于相册列表页展示）
+                    // 扩展点：后续可在这里更新 type/text（例如 P 图/手账结果）或补充更多 meta。
+                    runCatching {
+                        albumRepository.insertPhoto(
+                            AlbumPhotoEntity(
+                                filePath = result,
+                                type = 0,
+                                text = null,
+                                createTime = System.currentTimeMillis(),
+                                width = bitmap.width,
+                                height = bitmap.height,
+                                fileSize = null
+                            )
+                        )
+                    }.onFailure { e ->
+                        Log.w(TAG, "照片已保存到系统相册，但写入本地数据库失败：${e.message}")
+                    }
+
                     _uiState.update { currentState ->
                         currentState.copy(cameraState = CameraState.PhotoSaved)
                     }
@@ -415,7 +442,7 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
 
         val resolvedIntent: String? = when {
             !userIntent.isNullOrBlank() -> userIntent
-            _uiState.value.voiceGuideEnabled -> _lastUserIntent.value.takeIf { it.isNotBlank() }
+            _uiState.value.voiceGuideEnabled -> _uiState.value.lastUserIntent.takeIf { it.isNotBlank() }
             else -> null
         }
 
@@ -564,7 +591,6 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
         cameraController.releaseCamera()
     }
 
-    // TODO: 语音识别
     /**
      * 初始化语音识别
      */
@@ -587,25 +613,29 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
             //return
         }
 
-        // 检查录音权限
-        val hasAudioPermission = PackageManager.PERMISSION_GRANTED ==
-            ContextCompat.checkSelfPermission(
-                getApplication(),
-                android.Manifest.permission.RECORD_AUDIO
-            )
 
-        if (!hasAudioPermission) {
+        if (!permissionManager.hasAudioPermission()) {
             _uiState.update { currentState ->
                 currentState.copy(errorMessage = "请先授予录音权限")
+            }
+            permissionManager.requestAudioPermission()
+            if (permissionManager.hasAudioPermission()) {
+                _uiState.update { currentState ->
+                    currentState.copy(errorMessage = null)
+                }
             }
             return
         }
 
-
         initializeSpeechRecognizer()
 
         try {
-            _isListening.value = true
+            _uiState.update{ currentState ->
+                currentState.copy(
+                    voiceRecognitionResult = "正在聆听，请说话...",
+                    isListening = true
+                )
+            }
             SparkAsrManager.getInstance().startListening(object : SparkAsrManager.AsrListener {
                 override fun onResult(text: String, isLast: Boolean) {
                     _uiState.update { currentState ->
@@ -614,8 +644,16 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
                         )
                     }
                     if (isLast) {
-                        _isListening.value = false
-                        _lastUserIntent.value = text
+                        _uiState.update{ currentState ->
+                            currentState.copy(
+                                isListening = false
+                            )
+                        }
+                        _uiState.update{ currentState ->
+                            currentState.copy(
+                                lastUserIntent = text
+                            )
+                        }
                         val owner = lastLifecycleOwner
                         if (_uiState.value.voiceGuideEnabled && owner != null && text.isNotBlank()) {
                             requestPoseGuidance(owner, userIntent = text)
@@ -634,7 +672,9 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
             })
         } catch (e: Exception) {
             Log.e(TAG, "开始语音识别失败", e)
-            _isListening.value = false
+            _uiState.update{ currentState ->
+                currentState.copy(isListening = false)
+            }
             _uiState.update { currentState ->
                 currentState.copy(errorMessage = "开始语音识别失败: ${e.message}")
             }
@@ -646,11 +686,17 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
      */
     fun stopListening() {
         try {
-            _isListening.value = false
+            _uiState.update{ currentState ->
+                currentState.copy(isListening = false)
+            }
             _uiState.update { currentState ->
                 currentState.copy(voiceGuideEnabled = false)
             }
-            _lastUserIntent.value = ""
+            _uiState.update{ currentState ->
+                currentState.copy(
+                    lastUserIntent = ""
+                )
+            }
             SparkAsrManager.getInstance().stopListening();
             TTSManager.getInstance().stopTTS()
         } catch (e: Exception) {
@@ -702,7 +748,11 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
                 voiceRecognitionResult = "当前未识别到语音，请打开语音识别按钮"
             )
         }
-        _lastUserIntent.value = "ai指导建议：当前无ai指导建议"
+        _uiState.update{ currentState ->
+            currentState.copy(
+                lastUserIntent = "ai指导建议：当前无ai指导建议"
+            )
+        }
     }
 
     fun clearPoseGuidanceText() {

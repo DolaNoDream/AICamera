@@ -1,87 +1,57 @@
 package com.example.aicamera.ui.screen.camera
 
-import android.app.Application
-import android.graphics.Bitmap
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.LifecycleOwner
-import com.example.aicamera.R
-import com.example.aicamera.ui.viewmodel.camera.CameraViewModel
-import com.example.aicamera.ui.uistate.camera.CameraState
-import com.example.aicamera.ui.uistate.camera.CameraMode
 import com.example.aicamera.data.camera.CameraController
-import com.example.aicamera.data.storage.ImageDownloadHelper
-import com.google.android.material.snackbar.Snackbar
-import kotlin.math.sqrt
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.aicamera.ui.screen.camera.components.AiSuggestionStatusBox
-import com.example.aicamera.ui.screen.camera.components.CameraModeTabs
+import com.example.aicamera.ui.screen.camera.components.CameraControlsLayer
+import com.example.aicamera.ui.screen.camera.components.ErrorOverlay
+import com.example.aicamera.ui.screen.camera.components.FocusIndicator
 import com.example.aicamera.ui.screen.camera.components.LeftHiddenMenu
 import com.example.aicamera.ui.screen.camera.components.LoadingOverlay
 import com.example.aicamera.ui.screen.camera.components.SaveSuccessOverlay
-import com.example.aicamera.ui.screen.camera.components.ErrorOverlay
-import com.example.aicamera.ui.screen.camera.components.TopControllerBar
-import com.example.aicamera.ui.screen.camera.components.CameraControlsLayer
-import com.example.aicamera.ui.screen.camera.components.FocusIndicator
 import com.example.aicamera.ui.screen.camera.components.TimeDisplay
+import com.example.aicamera.ui.screen.camera.components.TopControllerBar
 import com.example.aicamera.ui.screen.camera.components.ZoomButton
-import com.example.aicamera.ui.screen.camera.components.ZoomSlider
+import com.example.aicamera.ui.uistate.camera.CameraMode
+import com.example.aicamera.ui.uistate.camera.CameraState
+import com.example.aicamera.ui.viewmodel.camera.CameraViewModel
+import com.google.android.material.snackbar.Snackbar
+import kotlin.math.sqrt
 
 /**
  * 相机页面 UI
@@ -91,7 +61,8 @@ import com.example.aicamera.ui.screen.camera.components.ZoomSlider
 fun CameraScreen(
     viewModel: CameraViewModel,
     lifecycleOwner: LifecycleOwner,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNavigateToAlbum: (() -> Unit)? = null
 ) {
     val state = viewModel.uiState.collectAsState().value
 
@@ -129,7 +100,7 @@ fun CameraScreen(
             .fillMaxSize()
             .background(Color.Black)
     ) {
-        // 相机预览层（支持点击对焦和手势变焦）
+        // 预览层：真实 PreviewView 在最底层
         CameraPreviewLayer(
             viewModel = viewModel,
             lifecycleOwner = lifecycleOwner,
@@ -138,15 +109,47 @@ fun CameraScreen(
             },
             modifier = Modifier.fillMaxSize()
         )
-        
-        // 顶部控制栏
-        TopControllerBar(
-            isMenuExpanded = state.isMenuExpanded,
-            onMenuClick = { viewModel.setMenuExpanded(!state.isMenuExpanded) },
-            modifier = Modifier.align(Alignment.TopStart)
+
+        // 轻微的遮罩，让整体更接近系统相机的“稳重”观感
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.12f))
         )
 
-        // 左侧隐藏式菜单
+        // 顶部栏：左侧菜单（原有 TopControllerBar），右侧相册入口
+        Box(
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp, vertical = 10.dp)
+        ) {
+            TopControllerBar(
+                isMenuExpanded = state.isMenuExpanded,
+                onMenuClick = { viewModel.setMenuExpanded(!state.isMenuExpanded) },
+                modifier = Modifier.align(Alignment.CenterStart)
+            )
+
+            if (onNavigateToAlbum != null) {
+                IconButton(
+                    onClick = onNavigateToAlbum,
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .size(40.dp),
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.16f),
+                        contentColor = MaterialTheme.colorScheme.onSurface
+                    )
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.PhotoCamera,
+                        contentDescription = "打开相册"
+                    )
+                }
+            }
+        }
+
+        // 左侧隐藏式菜单（AI 姿势建议/图片等）
         LeftHiddenMenu(
             isExpanded = state.isLeftPanelExpanded,
             onToggle = { viewModel.setLeftPanelExpanded(!state.isLeftPanelExpanded) },
@@ -161,7 +164,7 @@ fun CameraScreen(
             modifier = Modifier.align(Alignment.CenterStart)
         )
 
-        // 语音识别结果显示
+        // 顶部 AI 文本框：显示用户语音 + guideText
         if (state.isAiVoiceBoxVisible) {
             AiSuggestionStatusBox(
                 recognizedText = state.voiceRecognitionResult,
@@ -172,12 +175,12 @@ fun CameraScreen(
                 },
                 modifier = Modifier
                     .align(Alignment.TopCenter)
-                    .padding(top = 80.dp)
-                    .fillMaxWidth(0.9f)
+                    .padding(top = 70.dp)
+                    .fillMaxWidth(0.92f)
             )
         }
 
-        // 时间显示（系统时间框1秒后自动隐藏）
+        // 时间显示：小字、半透明
         TimeDisplay(
             modifier = Modifier
                 .align(Alignment.TopStart)
@@ -194,35 +197,22 @@ fun CameraScreen(
             )
         }
 
-
-
-        // 拍照按钮和控制区域
+        // 底部控制区：仿系统相机
         Column(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(bottom = 18.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp) // Zoom控件和CameraControlsLayer间距4dp
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            // 变焦按钮 + 变焦滑块
+            // 变焦按钮（你已有组件，保持）
             ZoomButton(
                 currentZoom = state.zoom.currentZoom,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
-            // 变焦滑块
-            if (state.zoom.maxZoom > state.zoom.minZoom) {
-                ZoomSlider(
-                    currentZoom = state.zoom.currentZoom,
-                    minZoom = state.zoom.minZoom,
-                    maxZoom = state.zoom.maxZoom,
-                    onZoomChange = { viewModel.setZoom(it, animate = true) },
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-
-
-            // 原控制层（已移除变焦控件）
+            // 拍照/语音/切镜头 + 模式 Tabs（仍旧交给原层，但让其吃主题）
             CameraControlsLayer(
                 uiState = state.cameraState,
                 onTakePicture = { viewModel.takePicture() },
@@ -236,6 +226,19 @@ fun CameraScreen(
                 onModeSelected = { viewModel.setSelectedMode(it) },
                 onVoiceStateChange = { isActive -> if (isActive) viewModel.startListening() else viewModel.stopListening() },
                 modifier = Modifier.fillMaxWidth()
+            )
+
+            // 一点点提示文案（尽量隐形）
+            Text(
+                text = "轻触对焦 · 双指缩放",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier
+                    .padding(top = 4.dp)
+                    .background(color = Color.Black.copy(alpha = 0.25f), shape = RoundedCornerShape(12.dp))
+                    .padding(horizontal = 10.dp, vertical = 4.dp)
             )
         }
 
@@ -310,9 +313,9 @@ private fun CameraPreviewLayer(
             })
 
             // 设置 OnTouchListener 处理手势
-            previewView.setOnTouchListener { _, event ->
+            previewView.setOnTouchListener { v, event ->
                 // 处理双指捏合变焦
-                when (event.pointerCount) {
+                val handled = when (event.pointerCount) {
                     2 -> handlePinchZoom(event, viewModel)
                     1 -> {
                         // 处理单指滑动变焦（在屏幕左右边缘）
@@ -352,6 +355,13 @@ private fun CameraPreviewLayer(
 
                     else -> gestureDetector.onTouchEvent(event)
                 }
+
+                // 无障碍：单指抬起才 performClick（避免拖动/双指手势误触发）
+                if (event.pointerCount == 1 && event.action == MotionEvent.ACTION_UP) {
+                    v.performClick()
+                }
+
+                handled
             }
         },
         modifier = modifier
@@ -409,18 +419,3 @@ private fun calculateDistance(event: MotionEvent): Float {
 fun CameraScreenPreview() {
     Box(modifier = Modifier.fillMaxSize().background(Color.Black))
 }
-
-// 导入缺失的函数
-fun Modifier.border(width: androidx.compose.ui.unit.Dp, color: Color) =
-    this.then(
-        Modifier.background(
-            color = color,
-            shape = RoundedCornerShape(0.dp)
-        )
-    )
-
-fun Modifier.offset(x: androidx.compose.ui.unit.Dp, y: androidx.compose.ui.unit.Dp) =
-    this.then(
-        Modifier.padding(start = x, top = y)
-    )
-
