@@ -8,5 +8,9 @@ import com.example.aicamera.data.db.entity.AlbumPhotoEntity
 data class PhotoDetailUiState(
     val isLoading: Boolean = true,
     val errorMessage: String? = null,
-    val photo: AlbumPhotoEntity? = null
+    val photo: AlbumPhotoEntity? = null,
+
+    // AI 修图
+    val isAiEditing: Boolean = false,
+    val aiEditMessage: String? = null
 )

@@ -6,7 +6,13 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aicamera.app.di.ServiceLocator
+import com.example.aicamera.data.db.entity.AlbumPhotoEntity
+import com.example.aicamera.data.network.aiPs.AiEditManager
+import com.example.aicamera.data.network.aiPs.PictureRequirement
+import com.example.aicamera.data.storage.FileManager
 import com.example.aicamera.ui.uistate.album.PhotoDetailUiState
+import java.io.File
+import java.util.UUID
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,6 +31,8 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     private val dao = ServiceLocator.provideDatabase(application).albumPhotoDao()
+    private val albumRepository = ServiceLocator.provideAlbumRepository(application)
+    private val fileManager = FileManager(application.applicationContext)
 
     private val _uiState = MutableStateFlow(PhotoDetailUiState())
     val uiState: StateFlow<PhotoDetailUiState> = _uiState.asStateFlow()
@@ -120,6 +128,133 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
                 )
                 onResult(false)
             }
+        }
+    }
+
+    /** AI 修图：供 UI 调用的状态 */
+    fun setAiEditStatus(isEditing: Boolean, message: String? = null) {
+        _uiState.value = _uiState.value.copy(
+            isAiEditing = isEditing,
+            aiEditMessage = message
+        )
+    }
+
+    /**
+     * 调用 AI 修图接口：
+     * - sessionId 自动生成
+     * - imageFile 来自当前 photo（支持 content:// Uri 或绝对路径）
+     * - requirement 必须至少填一项
+     *
+     * 成功后：
+     * 1) 将 AiEditManager 下载到私有目录的图片导入系统相册（Pictures/AiCamera）
+     * 2) 写入 Room（type=1 表示 P 图）
+     */
+    fun aiEditCurrentPhoto(requirement: PictureRequirement, onDone: (Boolean) -> Unit) {
+        val photo = _uiState.value.photo
+        if (photo == null) {
+            _uiState.value = _uiState.value.copy(aiEditMessage = "无可修图的照片")
+            onDone(false)
+            return
+        }
+
+        val hasReq = !requirement.filter.isNullOrBlank() ||
+            !requirement.portrait.isNullOrBlank() ||
+            !requirement.background.isNullOrBlank() ||
+            !requirement.special.isNullOrBlank()
+
+        if (!hasReq) {
+            _uiState.value = _uiState.value.copy(aiEditMessage = "修图需求不能为空（至少填写一项）")
+            onDone(false)
+            return
+        }
+
+        viewModelScope.launch {
+            setAiEditStatus(isEditing = true, message = null)
+
+            val appContext = getApplication<Application>().applicationContext
+            val sourceFile = withContext(Dispatchers.IO) {
+                resolvePhotoToLocalFile(appContext, photo.filePath)
+            }
+
+            if (sourceFile == null || !sourceFile.exists()) {
+                setAiEditStatus(isEditing = false, message = "无法读取原图文件")
+                onDone(false)
+                return@launch
+            }
+
+            val sessionId = UUID.randomUUID().toString()
+            val manager = AiEditManager.getInstance(appContext)
+
+            // AiEditManager 内部是 OkHttp 异步回调，这里用回调切回协程更新状态
+            manager.editImage(sessionId, sourceFile, requirement) { result ->
+                viewModelScope.launch {
+                    if (result == null || !result.isSuccess()) {
+                        setAiEditStatus(isEditing = false, message = result?.getErrorMsg() ?: "修图失败")
+                        onDone(false)
+                        return@launch
+                    }
+
+                    val savePath = result.getImageSavePath()
+                    if (savePath.isNullOrBlank()) {
+                        setAiEditStatus(isEditing = false, message = "修图成功但返回路径为空")
+                        onDone(false)
+                        return@launch
+                    }
+
+                    val editedFile = File(savePath)
+                    val galleryUri = fileManager.importImageFileToGallery(editedFile)
+                    if (galleryUri.isNullOrBlank()) {
+                        setAiEditStatus(isEditing = false, message = "修图成功，但保存到系统相册失败")
+                        onDone(false)
+                        return@launch
+                    }
+
+                    // 入库：type = 1（P图）
+                    runCatching {
+                        albumRepository.insertPhoto(
+                            AlbumPhotoEntity(
+                                filePath = galleryUri,
+                                type = 1,
+                                text = null,
+                                createTime = System.currentTimeMillis(),
+                                width = photo.width,
+                                height = photo.height,
+                                fileSize = editedFile.length()
+                            )
+                        )
+                    }.onFailure { e ->
+                        Log.w(TAG, "修图结果已保存到系统相册，但写入数据库失败：${e.message}")
+                    }
+
+                    setAiEditStatus(isEditing = false, message = "AI修图成功")
+                    onDone(true)
+                }
+            }
+        }
+    }
+
+    /**
+     * 将 photo.filePath 解析为可读取的本地文件。
+     * 兼容：
+     * - content://...（从 ContentResolver 读出并复制到 cache）
+     * - /storage/... 或 app 私有目录绝对路径
+     */
+    private suspend fun resolvePhotoToLocalFile(context: android.content.Context, filePath: String): File? {
+        return withContext(Dispatchers.IO) {
+            runCatching {
+                if (filePath.startsWith("content://")) {
+                    val uri = filePath.toUri()
+                    val cacheFile = File(context.cacheDir, "ai_edit_input_${System.currentTimeMillis()}.jpg")
+                    context.contentResolver.openInputStream(uri)?.use { input ->
+                        cacheFile.outputStream().use { output ->
+                            input.copyTo(output)
+                        }
+                    } ?: return@runCatching null
+                    cacheFile
+                } else {
+                    File(filePath)
+                }
+            }.getOrNull()
         }
     }
 }
