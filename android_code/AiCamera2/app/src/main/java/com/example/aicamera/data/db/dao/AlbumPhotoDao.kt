@@ -19,6 +19,10 @@ interface AlbumPhotoDao {
     @Query("SELECT * FROM photo WHERE id = :id LIMIT 1")
     suspend fun getById(id: Long): AlbumPhotoEntity?
 
+    // 批量查询（用于批量删除前获取 filePath）
+    @Query("SELECT * FROM photo WHERE id IN (:ids)")
+    suspend fun getByIds(ids: List<Long>): List<AlbumPhotoEntity>
+
     @Query("DELETE FROM photo WHERE id = :id")
     suspend fun deleteById(id: Long): Int
 

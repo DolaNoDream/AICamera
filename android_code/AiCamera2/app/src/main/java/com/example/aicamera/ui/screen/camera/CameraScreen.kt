@@ -121,26 +121,6 @@ fun CameraScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 12.dp, vertical = 10.dp)
         ) {
-            if (onNavigateToCopywriting != null) {
-                IconButton(
-                    onClick = onNavigateToCopywriting,
-                    modifier = Modifier
-                        .align(Alignment.CenterStart)
-                        .size(40.dp),
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.16f),
-                        contentColor = MaterialTheme.colorScheme.onSurface
-                    )
-                ) {
-                    Text(
-                        text = "文案",
-                        style = MaterialTheme.typography.labelLarge,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
-            }
-
             if (onNavigateToAlbum != null) {
                 IconButton(
                     onClick = onNavigateToAlbum,

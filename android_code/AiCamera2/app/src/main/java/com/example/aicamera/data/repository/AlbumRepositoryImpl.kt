@@ -25,6 +25,10 @@ class AlbumRepositoryImpl(
         return albumPhotoDao.updateTextByIds(ids, text)
     }
 
+    override suspend fun getPhotosByIds(ids: List<Long>): List<AlbumPhotoEntity> {
+        return if (ids.isEmpty()) emptyList() else albumPhotoDao.getByIds(ids)
+    }
+
     override suspend fun deletePhotosByIds(ids: List<Long>): Int {
         return albumPhotoDao.deleteByIds(ids)
     }

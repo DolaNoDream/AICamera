@@ -1,9 +1,9 @@
 package com.example.aicamera.ui.screen.copywriting
 
 import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,9 +14,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
@@ -122,87 +121,110 @@ fun CopywritingDetailScreen(
                     }
 
                     else -> {
-                        Column(
+                        // 整页可滚动：长文案 + 大量照片都能上下滑动查看
+                        LazyColumn(
                             modifier = Modifier.fillMaxSize(),
-                            verticalArrangement = Arrangement.spacedBy(12.dp)
+                            verticalArrangement = Arrangement.spacedBy(12.dp),
+                            contentPadding = androidx.compose.foundation.layout.PaddingValues(bottom = 16.dp)
                         ) {
-                            Card(
-                                modifier = Modifier.fillMaxWidth(),
-                                shape = MaterialTheme.shapes.large,
-                                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                                elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
-                            ) {
-                                Column(modifier = Modifier.padding(12.dp)) {
-                                    Text(
-                                        text = "关联照片：${state.photos.size} 张",
-                                        style = MaterialTheme.typography.labelMedium,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                    Spacer(modifier = Modifier.height(6.dp))
-                                    Text(
-                                        text = state.content,
-                                        style = MaterialTheme.typography.bodyLarge,
-                                        color = MaterialTheme.colorScheme.onSurface,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
+                            item(key = "copywriting_card") {
+                                Card(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    shape = MaterialTheme.shapes.large,
+                                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                                    elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+                                ) {
+                                    Column(modifier = Modifier.padding(12.dp)) {
+                                        Text(
+                                            text = "关联照片：${state.photos.size} 张",
+                                            style = MaterialTheme.typography.labelMedium,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                        Spacer(modifier = Modifier.height(6.dp))
+                                        Text(
+                                            text = state.content,
+                                            style = MaterialTheme.typography.bodyLarge,
+                                            color = MaterialTheme.colorScheme.onSurface,
+                                            // 不截断，允许长文案完整显示并随页面滚动
+                                            overflow = TextOverflow.Clip
+                                        )
+                                    }
                                 }
                             }
 
                             if (state.photos.isEmpty()) {
-                                Text(
-                                    text = "暂无关联照片",
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
+                                item(key = "empty_photos") {
+                                    Text(
+                                        text = "暂无关联照片",
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        style = MaterialTheme.typography.bodyMedium
+                                    )
+                                }
                             } else {
-                                LazyVerticalGrid(
-                                    columns = GridCells.Fixed(3),
-                                    modifier = Modifier.fillMaxSize(),
-                                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                                ) {
-                                    items(state.photos, key = { it.id }) { photo ->
-                                        val uri = runCatching { photo.filePath.toUri() }.getOrNull()
+                                item(key = "photos_title") {
+                                    Text(
+                                        text = "关联照片",
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        style = MaterialTheme.typography.labelMedium
+                                    )
+                                }
 
-                                        Card(
-                                            modifier = Modifier
-                                                .clickable(
-                                                    enabled = onPhotoClick != null,
-                                                    indication = LocalIndication.current,
-                                                    interactionSource = remember { MutableInteractionSource() },
-                                                    onClick = { onPhotoClick?.invoke(photo.id) }
-                                                ),
-                                            shape = MaterialTheme.shapes.large,
-                                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                                            elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
-                                        ) {
-                                            if (uri != null) {
-                                                AsyncImage(
-                                                    model = uri,
-                                                    contentDescription = null,
-                                                    contentScale = ContentScale.Crop,
-                                                    modifier = Modifier
-                                                        .fillMaxWidth()
-                                                        .height(110.dp)
-                                                        .background(MaterialTheme.colorScheme.surfaceVariant)
-                                                )
-                                            } else {
-                                                Box(
-                                                    modifier = Modifier
-                                                        .fillMaxWidth()
-                                                        .height(110.dp)
-                                                        .background(MaterialTheme.colorScheme.surfaceVariant)
-                                                ) {
-                                                    Text(
-                                                        text = "无效路径",
+                                // 在 LazyColumn 里用“三列分组 Row”来渲染网格，避免嵌套 LazyVerticalGrid 造成滚动冲突/测量异常
+                                val rows = state.photos.chunked(3)
+                                items(rows, key = { row -> row.joinToString("_") { it.id.toString() } }) { rowPhotos ->
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                    ) {
+                                        rowPhotos.forEach { photo ->
+                                            val uri = runCatching { photo.filePath.toUri() }.getOrNull()
+
+                                            Card(
+                                                modifier = Modifier
+                                                    .weight(1f)
+                                                    .clickable(
+                                                        enabled = onPhotoClick != null,
+                                                        indication = LocalIndication.current,
+                                                        interactionSource = remember { MutableInteractionSource() },
+                                                        onClick = { onPhotoClick?.invoke(photo.id) }
+                                                    ),
+                                                shape = MaterialTheme.shapes.large,
+                                                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                                                elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+                                            ) {
+                                                if (uri != null) {
+                                                    AsyncImage(
+                                                        model = uri,
+                                                        contentDescription = null,
+                                                        contentScale = ContentScale.Crop,
                                                         modifier = Modifier
-                                                            .align(Alignment.Center)
-                                                            .padding(8.dp),
-                                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                                        style = MaterialTheme.typography.bodySmall
+                                                            .fillMaxWidth()
+                                                            .height(110.dp)
+                                                            .background(MaterialTheme.colorScheme.surfaceVariant)
                                                     )
+                                                } else {
+                                                    Box(
+                                                        modifier = Modifier
+                                                            .fillMaxWidth()
+                                                            .height(110.dp)
+                                                            .background(MaterialTheme.colorScheme.surfaceVariant)
+                                                    ) {
+                                                        Text(
+                                                            text = "无效路径",
+                                                            modifier = Modifier
+                                                                .align(Alignment.Center)
+                                                                .padding(8.dp),
+                                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                                            style = MaterialTheme.typography.bodySmall
+                                                        )
+                                                    }
                                                 }
                                             }
+                                        }
+
+                                        // 不足 3 张时补齐占位，保持网格对齐
+                                        repeat(3 - rowPhotos.size) {
+                                            Spacer(modifier = Modifier.weight(1f))
                                         }
                                     }
                                 }

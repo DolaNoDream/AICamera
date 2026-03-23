@@ -40,7 +40,6 @@ fun AppNavGraph(
                 viewModel = cameraViewModel,
                 lifecycleOwner = lifecycleOwner,
                 onNavigateToAlbum = { navController.navigate(Routes.AlbumList) },
-                onNavigateToCopywriting = { navController.navigate(Routes.CopywritingList) }
             )
         }
 
@@ -51,7 +50,8 @@ fun AppNavGraph(
                 onBack = { navController.popBackStack() },
                 onPhotoClick = { photoId ->
                     navController.navigate(Routes.photoDetail(photoId))
-                }
+                },
+                onNavigateToCopywriting = { navController.navigate(Routes.CopywritingList) }
             )
         }
 

@@ -12,7 +12,7 @@ fun TimeDisplay(modifier: Modifier = Modifier) {
     val activity = context as? android.app.Activity
 
     LaunchedEffect(Unit) {
-        kotlinx.coroutines.delay(1000)
+        kotlinx.coroutines.delay(0)
         android.os.Handler(android.os.Looper.getMainLooper()).post {
             activity?.window?.let { window ->
                 @Suppress("DEPRECATION")
