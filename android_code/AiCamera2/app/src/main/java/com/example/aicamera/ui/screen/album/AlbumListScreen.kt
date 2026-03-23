@@ -70,6 +70,14 @@ fun AlbumListScreen(
 ) {
     val state by viewModel.uiState.collectAsState()
 
+    // 根据筛选过滤后的展示列表
+    val displayPhotos = remember(state.photos, state.photoTypeFilter) {
+        when (val t = state.photoTypeFilter) {
+            null -> state.photos
+            else -> state.photos.filter { it.type == t }
+        }
+    }
+
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
@@ -295,7 +303,7 @@ fun AlbumListScreen(
                 Row{
                     //展示albumphoto的全部图片
                     IconButton(
-                        onClick = {  },
+                        onClick = { viewModel.setPhotoTypeFilter(null) },
                         modifier = Modifier.size(40.dp),
                         colors = IconButtonDefaults.iconButtonColors(
                             containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.16f),
@@ -311,7 +319,7 @@ fun AlbumListScreen(
                     }
                     //展示albumphoto的用相机拍摄的照片（photo表中type字段为0)
                     IconButton(
-                        onClick = {  },
+                        onClick = { viewModel.setPhotoTypeFilter(0) },
                         modifier = Modifier.size(40.dp),
                         colors = IconButtonDefaults.iconButtonColors(
                             containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.16f),
@@ -327,7 +335,7 @@ fun AlbumListScreen(
                     }
                     //展示albumphoto的p过的照片（photo表中type字段为1)
                     IconButton(
-                        onClick = {  },
+                        onClick = { viewModel.setPhotoTypeFilter(1) },
                         modifier = Modifier.size(40.dp),
                         colors = IconButtonDefaults.iconButtonColors(
                             containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.16f),
@@ -401,7 +409,7 @@ fun AlbumListScreen(
                             verticalArrangement = Arrangement.spacedBy(8.dp),
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            items(state.photos, key = { it.id }) { photo ->
+                            items(displayPhotos, key = { it.id }) { photo ->
                                 val uri = runCatching { photo.filePath.toUri() }.getOrNull()
                                 val selected = state.selectedPhotoIds.contains(photo.id)
 

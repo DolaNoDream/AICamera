@@ -253,4 +253,22 @@ class AlbumListViewModel(application: Application) : AndroidViewModel(applicatio
             onDone(dbDeleted > 0, dbDeleted)
         }
     }
+
+    /** 设置相册筛选：null=全部；0=相机原图；1=精修图 */
+    fun setPhotoTypeFilter(type: Int?) {
+        _uiState.update { s ->
+            val idsVisible = when (type) {
+                null -> s.photos.map { it.id }.toSet()
+                else -> s.photos.filter { it.type == type }.map { it.id }.toSet()
+            }
+
+            s.copy(
+                photoTypeFilter = type,
+                // 切换筛选后，把不可见照片从 selection 中移除（体验更一致）
+                selectedPhotoIds = s.selectedPhotoIds.intersect(idsVisible),
+                aiWriteMessage = null,
+                lastGeneratedCopywritingId = null
+            )
+        }
+    }
 }
