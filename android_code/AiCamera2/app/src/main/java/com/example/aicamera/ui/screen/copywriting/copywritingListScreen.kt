@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -20,16 +21,22 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.DoneAll
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.SelectAll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -38,6 +45,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -48,13 +56,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.semantics.Role.Companion.Checkbox
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.aicamera.ui.uistate.copywriting.CopywritingSort
 import com.example.aicamera.ui.viewmodel.copywriting.CopywritingListViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CopywritingListScreen(
     viewModel: CopywritingListViewModel,
@@ -67,6 +81,15 @@ fun CopywritingListScreen(
 
     var showDeleteConfirm by remember { mutableStateOf(false) }
     var showSortMenu by remember { mutableStateOf(false) }
+
+    // 日期选择弹窗状态
+    var showCreateFromPicker by remember { mutableStateOf(false) }
+    var showCreateToPicker by remember { mutableStateOf(false) }
+    var showUpdateFromPicker by remember { mutableStateOf(false) }
+    var showUpdateToPicker by remember { mutableStateOf(false) }
+
+    val dateFormatter = remember { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) }
+    fun formatDate(dayStartMillis: Long?): String = if (dayStartMillis == null) "未选择" else dateFormatter.format(Date(dayStartMillis))
 
     val view = LocalView.current
     val density = LocalDensity.current
@@ -98,6 +121,87 @@ fun CopywritingListScreen(
                 }
             }
         )
+    }
+
+    // Create From/To pickers
+    if (showCreateFromPicker) {
+        val pickerState = rememberDatePickerState(initialSelectedDateMillis = state.createDateFrom)
+        DatePickerDialog(
+            onDismissRequest = { showCreateFromPicker = false },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showCreateFromPicker = false
+                        viewModel.setCreateDateFrom(pickerState.selectedDateMillis)
+                    }
+                ) { Text(text = "确定") }
+            },
+            dismissButton = {
+                TextButton(onClick = { showCreateFromPicker = false }) { Text(text = "取消") }
+            }
+        ) {
+            DatePicker(state = pickerState)
+        }
+    }
+
+    if (showCreateToPicker) {
+        val pickerState = rememberDatePickerState(initialSelectedDateMillis = state.createDateTo)
+        DatePickerDialog(
+            onDismissRequest = { showCreateToPicker = false },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showCreateToPicker = false
+                        viewModel.setCreateDateTo(pickerState.selectedDateMillis)
+                    }
+                ) { Text(text = "确定") }
+            },
+            dismissButton = {
+                TextButton(onClick = { showCreateToPicker = false }) { Text(text = "取消") }
+            }
+        ) {
+            DatePicker(state = pickerState)
+        }
+    }
+
+    if (showUpdateFromPicker) {
+        val pickerState = rememberDatePickerState(initialSelectedDateMillis = state.updateDateFrom)
+        DatePickerDialog(
+            onDismissRequest = { showUpdateFromPicker = false },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showUpdateFromPicker = false
+                        viewModel.setUpdateDateFrom(pickerState.selectedDateMillis)
+                    }
+                ) { Text(text = "确定") }
+            },
+            dismissButton = {
+                TextButton(onClick = { showUpdateFromPicker = false }) { Text(text = "取消") }
+            }
+        ) {
+            DatePicker(state = pickerState)
+        }
+    }
+
+    if (showUpdateToPicker) {
+        val pickerState = rememberDatePickerState(initialSelectedDateMillis = state.updateDateTo)
+        DatePickerDialog(
+            onDismissRequest = { showUpdateToPicker = false },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showUpdateToPicker = false
+                        viewModel.setUpdateDateTo(pickerState.selectedDateMillis)
+                    }
+                ) { Text(text = "确定") }
+            },
+            dismissButton = {
+                TextButton(onClick = { showUpdateToPicker = false }) { Text(text = "取消") }
+            }
+        ) {
+            DatePicker(state = pickerState)
+        }
     }
 
     Surface(
@@ -190,53 +294,142 @@ fun CopywritingListScreen(
                 }
             }
 
-            // 搜索框 + 排序
+            // 搜索区域（显式搜索按钮 + 多条件）
             if (!state.isSelectionMode) {
-                Row(
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 12.dp, vertical = 6.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    OutlinedTextField(
-                        value = state.query,
-                        onValueChange = viewModel::onQueryChange,
-                        modifier = Modifier.weight(1f),
-                        singleLine = true,
-                        placeholder = { Text(text = "查找：内容 / 创建时间 / 修改时间") },
-                        colors = TextFieldDefaults.colors(
-                            focusedContainerColor = MaterialTheme.colorScheme.surface,
-                            unfocusedContainerColor = MaterialTheme.colorScheme.surface
+                    // 内容搜索 + 清除(X) + 搜索按钮
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        OutlinedTextField(
+                            value = state.contentQuery,
+                            onValueChange = viewModel::onContentQueryChange,
+                            modifier = Modifier.weight(1f),
+                            singleLine = true,
+                            placeholder = { Text(text = "输入关键词") },
+                            trailingIcon = {
+                                if (state.contentQuery.isNotBlank()) {
+                                    IconButton(onClick = { viewModel.clearContentQuery() }) {
+                                        Icon(imageVector = Icons.Filled.Clear, contentDescription = "清除")
+                                    }
+                                }
+                            },
+                            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(imeAction = ImeAction.Search),
+                            keyboardActions = androidx.compose.foundation.text.KeyboardActions(onSearch = { viewModel.applySearch() })
                         )
-                    )
 
-                    Spacer(modifier = Modifier.width(8.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
 
-                    Box(modifier = Modifier.wrapContentSize()) {
-                        TextButton(onClick = { showSortMenu = true }) {
-                            Text(text = when (state.sort) {
-                                CopywritingSort.CreateTimeDesc -> "按创建时间"
-                                CopywritingSort.UpdateTimeDesc -> "按修改时间"
-                            })
+                        IconButton(onClick = { viewModel.applySearch() }) {
+                            Icon(imageVector = Icons.Filled.Search, contentDescription = "搜索")
                         }
-                        DropdownMenu(
-                            expanded = showSortMenu,
-                            onDismissRequest = { showSortMenu = false }
+                    }
+
+                    // 条件选择（可组合多选）
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Checkbox(
+                            checked = state.enableContentFilter,
+                            onCheckedChange = { viewModel.toggleContentFilter(it) }
+                        )
+                        Text(text = "内容")
+
+                        Spacer(modifier = Modifier.width(12.dp))
+
+                        Checkbox(
+                            checked = state.enableCreateTimeFilter,
+                            onCheckedChange = { viewModel.toggleCreateTimeFilter(it) }
+                        )
+                        Text(text = "创建时间")
+
+                        Spacer(modifier = Modifier.width(12.dp))
+
+                        Checkbox(
+                            checked = state.enableUpdateTimeFilter,
+                            onCheckedChange = { viewModel.toggleUpdateTimeFilter(it) }
+                        )
+                        Text(text = "修改时间")
+                    }
+
+                    // 创建时间范围
+                    if (state.enableCreateTimeFilter) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            DropdownMenuItem(
-                                text = { Text(text = "按创建时间") },
-                                onClick = {
-                                    showSortMenu = false
-                                    viewModel.setSort(CopywritingSort.CreateTimeDesc)
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(text = "按修改时间") },
-                                onClick = {
-                                    showSortMenu = false
-                                    viewModel.setSort(CopywritingSort.UpdateTimeDesc)
-                                }
-                            )
+                            TextButton(onClick = { showCreateFromPicker = true }) {
+                                Text(text = "创建从：${formatDate(state.createDateFrom)}")
+                            }
+                            Spacer(modifier = Modifier.width(8.dp))
+                            TextButton(onClick = { showCreateToPicker = true }) {
+                                Text(text = "到：${formatDate(state.createDateTo)}")
+                            }
+                        }
+                    }
+
+                    // 修改时间范围
+                    if (state.enableUpdateTimeFilter) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            TextButton(onClick = { showUpdateFromPicker = true }) {
+                                Text(text = "修改从：${formatDate(state.updateDateFrom)}")
+                            }
+                            Spacer(modifier = Modifier.width(8.dp))
+                            TextButton(onClick = { showUpdateToPicker = true }) {
+                                Text(text = "到：${formatDate(state.updateDateTo)}")
+                            }
+                        }
+                    }
+
+                    // 排序（修复：点击后立即 applySearch 才能看见变化）
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Box(modifier = Modifier.wrapContentSize()) {
+                            TextButton(onClick = { showSortMenu = true }) {
+                                Text(text = when (state.sort) {
+                                    CopywritingSort.CreateTimeDesc -> "按创建时间倒序"
+                                    CopywritingSort.UpdateTimeDesc -> "按修改时间倒序"
+                                })
+                            }
+                            DropdownMenu(
+                                expanded = showSortMenu,
+                                onDismissRequest = { showSortMenu = false }
+                            ) {
+                                DropdownMenuItem(
+                                    text = { Text(text = "按创建时间倒序") },
+                                    onClick = {
+                                        showSortMenu = false
+                                        viewModel.setSort(CopywritingSort.CreateTimeDesc)
+                                    }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text(text = "按修改时间倒序") },
+                                    onClick = {
+                                        showSortMenu = false
+                                        viewModel.setSort(CopywritingSort.UpdateTimeDesc)
+                                    }
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.weight(1f))
+
+                        TextButton(
+                            onClick = {
+                                viewModel.clearContentQuery()
+                                viewModel.clearTimeFilters()
+                            }
+                        ) {
+                            Text(text = "清空条件")
                         }
                     }
                 }
