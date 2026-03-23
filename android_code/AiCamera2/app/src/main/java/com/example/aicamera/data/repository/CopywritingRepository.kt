@@ -30,6 +30,12 @@ interface CopywritingRepository {
      * @return copywritingId
      */
     suspend fun createCopywritingForPhoto(albumPhotoId: Long, content: String): Long
+
+    /**
+     * 新建一条文案并关联到多张照片（用于相册多选生成文案）。
+     * @return copywritingId
+     */
+    suspend fun createCopywritingForPhotos(albumPhotoIds: List<Long>, content: String): Long
 }
 
 data class CopywritingWithCount(

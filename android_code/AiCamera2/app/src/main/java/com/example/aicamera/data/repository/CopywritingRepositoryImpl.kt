@@ -128,4 +128,32 @@ class CopywritingRepositoryImpl(
             copywritingId
         }
     }
+
+    override suspend fun createCopywritingForPhotos(albumPhotoIds: List<Long>, content: String): Long {
+        val ids = albumPhotoIds.distinct().filter { it > 0 }
+        require(ids.isNotEmpty()) { "albumPhotoIds must not be empty" }
+        require(content.isNotBlank()) { "content must not be blank" }
+
+        val now = System.currentTimeMillis()
+        return database.withTransaction {
+            val copywritingId = copywritingDao.insert(
+                CopywritingEntity(
+                    content = content,
+                    createTime = now,
+                    updateTime = now
+                )
+            )
+
+            val relations = ids.map { albumPhotoId ->
+                CopywritingAlbumPhotoRelationEntity(
+                    copywritingId = copywritingId,
+                    albumPhotoId = albumPhotoId,
+                    createTime = now
+                )
+            }
+            relationDao.insertIgnoreAll(relations)
+
+            copywritingId
+        }
+    }
 }
