@@ -88,7 +88,10 @@ fun AppNavGraph(
             CopywritingDetailScreen(
                 viewModel = vm,
                 copywritingId = copywritingId,
-                onBack = { navController.popBackStack() }
+                onBack = { navController.popBackStack() },
+                onPhotoClick = { photoId ->
+                    navController.navigate(Routes.photoDetail(photoId))
+                }
             )
         }
     }

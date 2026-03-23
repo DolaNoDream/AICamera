@@ -1,5 +1,8 @@
 package com.example.aicamera.ui.screen.copywriting
 
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -47,7 +50,8 @@ fun CopywritingDetailScreen(
     viewModel: CopywritingDetailViewModel,
     copywritingId: Long,
     modifier: Modifier = Modifier,
-    onBack: (() -> Unit)? = null
+    onBack: (() -> Unit)? = null,
+    onPhotoClick: ((photoId: Long) -> Unit)? = null
 ) {
     val state by viewModel.uiState.collectAsState()
 
@@ -161,6 +165,13 @@ fun CopywritingDetailScreen(
                                         val uri = runCatching { photo.filePath.toUri() }.getOrNull()
 
                                         Card(
+                                            modifier = Modifier
+                                                .clickable(
+                                                    enabled = onPhotoClick != null,
+                                                    indication = LocalIndication.current,
+                                                    interactionSource = remember { MutableInteractionSource() },
+                                                    onClick = { onPhotoClick?.invoke(photo.id) }
+                                                ),
                                             shape = MaterialTheme.shapes.large,
                                             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                                             elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)

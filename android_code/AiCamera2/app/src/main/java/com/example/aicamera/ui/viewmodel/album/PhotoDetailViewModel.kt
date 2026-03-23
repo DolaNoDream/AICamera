@@ -34,6 +34,7 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
     private val dao = ServiceLocator.provideDatabase(application).albumPhotoDao()
     private val albumRepository = ServiceLocator.provideAlbumRepository(application)
     private val fileManager = FileManager(application.applicationContext)
+    private val copywritingRepository = ServiceLocator.provideCopywritingRepository(application)
 
     private val _uiState = MutableStateFlow(PhotoDetailUiState())
     val uiState: StateFlow<PhotoDetailUiState> = _uiState.asStateFlow()
@@ -287,19 +288,32 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
 
                             val content = result.content
 
+                            // 1) 写入 photo.text
                             val updated = runCatching {
                                 withContext(Dispatchers.IO) {
                                     albumRepository.updateTextById(photo.id, content)
                                 }
                             }.getOrElse { e ->
-                                Log.w(TAG, "写入文案到数据库失败：${e.message}")
+                                Log.w(TAG, "写入文案到 photo 表失败：${e.message}")
                                 0
                             }
 
                             if (updated <= 0) {
-                                setAiWriteStatus(isWriting = false, message = "文案生成成功，但写入数据库失败")
+                                setAiWriteStatus(isWriting = false, message = "文案生成成功，但写入照片失败")
                                 onDone(false)
                                 return@launch
+                            }
+
+                            // 2) 写入 copywriting + relation（失败不影响 photo.text）
+                            runCatching {
+                                withContext(Dispatchers.IO) {
+                                    copywritingRepository.createCopywritingForPhoto(
+                                        albumPhotoId = photo.id,
+                                        content = content
+                                    )
+                                }
+                            }.onFailure { e ->
+                                Log.w(TAG, "文案已写入 photo.text，但写入 copywriting/relation 失败：${e.message}")
                             }
 
                             // 刷新当前 photo（让 UI 立即展示最新 text）

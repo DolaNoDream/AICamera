@@ -102,4 +102,30 @@ class CopywritingRepositoryImpl(
     override fun observePhotosForCopywriting(copywritingId: Long): Flow<List<com.example.aicamera.data.db.entity.AlbumPhotoEntity>> {
         return relationDao.observePhotosForCopywriting(copywritingId)
     }
+
+    override suspend fun createCopywritingForPhoto(albumPhotoId: Long, content: String): Long {
+        require(albumPhotoId > 0) { "albumPhotoId must be > 0" }
+        require(content.isNotBlank()) { "content must not be blank" }
+
+        val now = System.currentTimeMillis()
+        return database.withTransaction {
+            val copywritingId = copywritingDao.insert(
+                CopywritingEntity(
+                    content = content,
+                    createTime = now,
+                    updateTime = now
+                )
+            )
+
+            relationDao.insertIgnore(
+                CopywritingAlbumPhotoRelationEntity(
+                    copywritingId = copywritingId,
+                    albumPhotoId = albumPhotoId,
+                    createTime = now
+                )
+            )
+
+            copywritingId
+        }
+    }
 }

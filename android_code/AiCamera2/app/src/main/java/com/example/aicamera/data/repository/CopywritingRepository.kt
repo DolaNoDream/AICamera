@@ -24,6 +24,12 @@ interface CopywritingRepository {
      * 注意：会从 photo 表中读取真实的 id 作为关联。
      */
     suspend fun seedMockDataIfNeeded(): SeedResult
+
+    /**
+     * 新建一条文案并关联到某张照片。
+     * @return copywritingId
+     */
+    suspend fun createCopywritingForPhoto(albumPhotoId: Long, content: String): Long
 }
 
 data class CopywritingWithCount(
