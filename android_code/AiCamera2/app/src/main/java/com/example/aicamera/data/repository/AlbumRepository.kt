@@ -15,4 +15,7 @@ interface AlbumRepository {
     suspend fun updateTextById(id: Long, text: String): Int
 
     suspend fun updateTextByIds(ids: List<Long>, text: String): Int
+
+    /** 从 photo 表批量删除（关联表由外键 CASCADE 自动清理） */
+    suspend fun deletePhotosByIds(ids: List<Long>): Int
 }

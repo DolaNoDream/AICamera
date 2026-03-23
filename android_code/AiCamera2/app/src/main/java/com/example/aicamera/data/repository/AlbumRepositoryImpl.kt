@@ -24,6 +24,8 @@ class AlbumRepositoryImpl(
     override suspend fun updateTextByIds(ids: List<Long>, text: String): Int {
         return albumPhotoDao.updateTextByIds(ids, text)
     }
+
+    override suspend fun deletePhotosByIds(ids: List<Long>): Int {
+        return albumPhotoDao.deleteByIds(ids)
+    }
 }
-
-

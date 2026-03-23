@@ -22,6 +22,9 @@ interface AlbumPhotoDao {
     @Query("DELETE FROM photo WHERE id = :id")
     suspend fun deleteById(id: Long): Int
 
+    @Query("DELETE FROM photo WHERE id IN (:ids)")
+    suspend fun deleteByIds(ids: List<Long>): Int
+
     @Query("UPDATE photo SET text = :text WHERE id = :id")
     fun updateTextById(id: Long, text: String): Int
 

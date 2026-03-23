@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.UUID
@@ -148,6 +149,40 @@ class AlbumListViewModel(application: Application) : AndroidViewModel(applicatio
                     }
                 }
             )
+        }
+    }
+
+    /**
+     * 批量删除当前选中的照片。
+     * 说明：copywriting_albumphoto_relation 表对 photo(id) 有外键 CASCADE，删除 photo 行会自动清理关联记录。
+     */
+    fun deleteSelectedPhotos(onDone: (Boolean, Int) -> Unit) {
+        val ids = _uiState.value.selectedPhotoIds.toList().distinct().filter { it > 0 }
+        if (ids.isEmpty()) {
+            setAiWriteStatus(isWriting = false, message = "请先选择要删除的照片")
+            onDone(false, 0)
+            return
+        }
+
+        viewModelScope.launch {
+            // 删除期间禁用按钮（复用 isAiWriting 作为 busy 标记，避免额外字段）
+            setAiWriteStatus(isWriting = true, message = null, copywritingId = null)
+
+            val deleted = withContext(Dispatchers.IO) {
+                albumRepository.deletePhotosByIds(ids)
+            }
+
+            // 清空选择（observePhotos 也会基于 existingIds 自动修正，这里主动清掉体验更好）
+            _uiState.update {
+                it.copy(
+                    selectedPhotoIds = emptySet(),
+                    isAiWriting = false,
+                    aiWriteMessage = if (deleted > 0) "已删除 $deleted 张照片" else "删除失败",
+                    lastGeneratedCopywritingId = null
+                )
+            }
+
+            onDone(deleted > 0, deleted)
         }
     }
 }

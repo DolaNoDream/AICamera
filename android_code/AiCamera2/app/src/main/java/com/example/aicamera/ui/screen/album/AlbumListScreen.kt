@@ -2,7 +2,6 @@ package com.example.aicamera.ui.screen.album
 
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -22,8 +21,6 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -36,6 +33,7 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -82,6 +80,7 @@ fun AlbumListScreen(
     }
 
     val showAiWriteDialog = remember { mutableStateOf(false) }
+    val showDeleteDialog = remember { mutableStateOf(false) }
 
     // requirement 输入（复用 PhotoDetail 的字段定义，仅放一个弹窗即可）
     val writeType = remember { mutableStateOf("") }
@@ -218,6 +217,38 @@ fun AlbumListScreen(
         )
     }
 
+    if (showDeleteDialog.value) {
+        AlertDialog(
+            onDismissRequest = { if (!state.isAiWriting) showDeleteDialog.value = false },
+            title = { Text("确认删除") },
+            text = { Text("将删除已选 ${state.selectedPhotoIds.size} 张照片（仅删除本地数据库记录，关联表会自动清理）。是否继续？") },
+            confirmButton = {
+                TextButton(
+                    enabled = !state.isAiWriting,
+                    onClick = {
+                        viewModel.deleteSelectedPhotos { ok, _ ->
+                            scope.launch {
+                                if (ok) {
+                                    showDeleteDialog.value = false
+                                }
+                            }
+                        }
+                    }
+                ) {
+                    Text("删除")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    enabled = !state.isAiWriting,
+                    onClick = { showDeleteDialog.value = false }
+                ) {
+                    Text("取消")
+                }
+            }
+        )
+    }
+
     Surface(
         modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.surface
@@ -255,36 +286,6 @@ fun AlbumListScreen(
                         color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.weight(1f)
                     )
-
-                    // 清空选择
-                    IconButton(
-                        enabled = state.selectedPhotoIds.isNotEmpty() && !state.isAiWriting,
-                        onClick = { viewModel.clearSelection() }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Clear,
-                            contentDescription = "清空选择",
-                            tint = if (state.selectedPhotoIds.isNotEmpty()) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-
-                    // 多图生成文案：允许点击，如果没选照片则提示
-                    IconButton(
-                        enabled = !state.isAiWriting,
-                        onClick = {
-                            if (state.selectedPhotoIds.isEmpty()) {
-                                scope.launch { snackbarHostState.showSnackbar("请先长按一张照片进入多选，然后选择多张照片") }
-                            } else {
-                                showAiWriteDialog.value = true
-                            }
-                        }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Edit,
-                            contentDescription = "多图生成文案",
-                            tint = if (state.selectedPhotoIds.isNotEmpty()) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
                 }
 
                 when {
@@ -398,22 +399,44 @@ fun AlbumListScreen(
 
             // 右下角悬浮按钮（更显眼）：多图生成文案
             if (state.selectedPhotoIds.isNotEmpty()) {
-                Button(
-                    enabled = !state.isAiWriting,
-                    onClick = { showAiWriteDialog.value = true },
+                Row(
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
                         .padding(16.dp)
                 ) {
-                    if (state.isAiWriting) {
-                        CircularProgressIndicator(
-                            modifier = Modifier
-                                .size(16.dp)
-                                .padding(end = 8.dp),
-                            strokeWidth = 2.dp
-                        )
+                    // 批量删除
+                    Button(
+                        enabled = state.selectedPhotoIds.isNotEmpty() && !state.isAiWriting,
+                        onClick = { showDeleteDialog.value = true },
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        Text("删除")
                     }
-                    Text("多图生成文案")
+
+                    // 清空选择
+                    Button(
+                        enabled = state.selectedPhotoIds.isNotEmpty() && !state.isAiWriting,
+                        onClick = { viewModel.clearSelection() },
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        Text("取消")
+                    }
+
+                    Button(
+                        enabled = !state.isAiWriting,
+                        onClick = { showAiWriteDialog.value = true },
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        if (state.isAiWriting) {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .size(16.dp)
+                                    .padding(end = 8.dp),
+                                strokeWidth = 2.dp
+                            )
+                        }
+                        Text("多图生成文案")
+                    }
                 }
             }
         }
