@@ -12,9 +12,13 @@ import androidx.navigation.navArgument
 import com.example.aicamera.ui.screen.album.AlbumListScreen
 import com.example.aicamera.ui.screen.album.PhotoDetailScreen
 import com.example.aicamera.ui.screen.camera.CameraScreen
+import com.example.aicamera.ui.screen.copywriting.CopywritingDetailScreen
+import com.example.aicamera.ui.screen.copywriting.CopywritingListScreen
 import com.example.aicamera.ui.viewmodel.album.AlbumListViewModel
 import com.example.aicamera.ui.viewmodel.album.PhotoDetailViewModel
 import com.example.aicamera.ui.viewmodel.camera.CameraViewModel
+import com.example.aicamera.ui.viewmodel.copywriting.CopywritingDetailViewModel
+import com.example.aicamera.ui.viewmodel.copywriting.CopywritingListViewModel
 
 /**
  * AppNavGraph：应用内页面导航。
@@ -35,7 +39,8 @@ fun AppNavGraph(
             CameraScreen(
                 viewModel = cameraViewModel,
                 lifecycleOwner = lifecycleOwner,
-                onNavigateToAlbum = { navController.navigate(Routes.AlbumList) }
+                onNavigateToAlbum = { navController.navigate(Routes.AlbumList) },
+                onNavigateToCopywriting = { navController.navigate(Routes.CopywritingList) }
             )
         }
 
@@ -59,6 +64,30 @@ fun AppNavGraph(
             PhotoDetailScreen(
                 viewModel = detailVm,
                 photoId = photoId,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        composable(Routes.CopywritingList) {
+            val vm: CopywritingListViewModel = viewModel()
+            CopywritingListScreen(
+                viewModel = vm,
+                onBack = { navController.popBackStack() },
+                onItemClick = { id ->
+                    navController.navigate(Routes.copywritingDetail(id))
+                }
+            )
+        }
+
+        composable(
+            route = Routes.CopywritingDetail,
+            arguments = listOf(navArgument("copywritingId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val copywritingId = backStackEntry.arguments?.getLong("copywritingId") ?: 0L
+            val vm: CopywritingDetailViewModel = viewModel()
+            CopywritingDetailScreen(
+                viewModel = vm,
+                copywritingId = copywritingId,
                 onBack = { navController.popBackStack() }
             )
         }

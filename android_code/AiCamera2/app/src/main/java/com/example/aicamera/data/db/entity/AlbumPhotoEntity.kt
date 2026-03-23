@@ -27,7 +27,7 @@ data class AlbumPhotoEntity(
     @ColumnInfo(name = "file_path")
     val filePath: String,
 
-    /** 0:原图 1:P图 2:手账 */
+    /** 0:原图 1:P图 */
     @ColumnInfo(name = "type")
     val type: Int = 0,
 

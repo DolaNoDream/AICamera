@@ -58,7 +58,8 @@ fun CameraScreen(
     viewModel: CameraViewModel,
     lifecycleOwner: LifecycleOwner,
     modifier: Modifier = Modifier,
-    onNavigateToAlbum: (() -> Unit)? = null
+    onNavigateToAlbum: (() -> Unit)? = null,
+    onNavigateToCopywriting: (() -> Unit)? = null
 ) {
     val state = viewModel.uiState.collectAsState().value
 
@@ -113,13 +114,32 @@ fun CameraScreen(
                 .background(Color.Black.copy(alpha = 0.12f))
         )
 
-        // 顶部栏：左侧菜单（原有 TopControllerBar），右侧相册入口
+        // 顶部栏：左侧入口（文案列表），右侧相册入口
         Box(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .fillMaxWidth()
                 .padding(horizontal = 12.dp, vertical = 10.dp)
         ) {
+            if (onNavigateToCopywriting != null) {
+                IconButton(
+                    onClick = onNavigateToCopywriting,
+                    modifier = Modifier
+                        .align(Alignment.CenterStart)
+                        .size(40.dp),
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.16f),
+                        contentColor = MaterialTheme.colorScheme.onSurface
+                    )
+                ) {
+                    Text(
+                        text = "文案",
+                        style = MaterialTheme.typography.labelLarge,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+            }
 
             if (onNavigateToAlbum != null) {
                 IconButton(

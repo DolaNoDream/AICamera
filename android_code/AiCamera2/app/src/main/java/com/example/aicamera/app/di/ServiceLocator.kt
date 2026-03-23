@@ -4,6 +4,8 @@ import android.content.Context
 import com.example.aicamera.data.db.AiCameraDatabase
 import com.example.aicamera.data.repository.AlbumRepository
 import com.example.aicamera.data.repository.AlbumRepositoryImpl
+import com.example.aicamera.data.repository.CopywritingRepository
+import com.example.aicamera.data.repository.CopywritingRepositoryImpl
 
 /**
  * 简易 ServiceLocator。
@@ -29,6 +31,23 @@ object ServiceLocator {
             albumRepository ?: AlbumRepositoryImpl(
                 provideDatabase(context).albumPhotoDao()
             ).also { albumRepository = it }
+        }
+    }
+
+    @Volatile
+    private var copywritingRepository: CopywritingRepository? = null
+
+    fun provideCopywritingRepository(context: Context): CopywritingRepository {
+        return copywritingRepository ?: synchronized(this) {
+            copywritingRepository ?: run {
+                val db = provideDatabase(context)
+                CopywritingRepositoryImpl(
+                    database = db,
+                    albumPhotoDao = db.albumPhotoDao(),
+                    copywritingDao = db.copywritingDao(),
+                    relationDao = db.copywritingAlbumPhotoRelationDao()
+                )
+            }.also { copywritingRepository = it }
         }
     }
 }
