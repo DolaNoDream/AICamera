@@ -75,6 +75,11 @@ fun AppNavGraph(
                 onBack = { navController.popBackStack() },
                 onItemClick = { id ->
                     navController.navigate(Routes.copywritingDetail(id))
+                },
+                onCreateClick = {
+                    vm.createNewCopywriting { newId ->
+                        navController.navigate(Routes.copywritingDetail(newId))
+                    }
                 }
             )
         }

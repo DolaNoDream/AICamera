@@ -156,4 +156,73 @@ class CopywritingRepositoryImpl(
             copywritingId
         }
     }
+
+    override suspend fun createCopywriting(content: String): Long {
+        require(content.isNotBlank()) { "content must not be blank" }
+        val now = System.currentTimeMillis()
+        return database.withTransaction {
+            copywritingDao.insert(
+                CopywritingEntity(
+                    content = content,
+                    createTime = now,
+                    updateTime = now
+                )
+            )
+        }
+    }
+
+    override suspend fun addPhotosToCopywriting(copywritingId: Long, albumPhotoIds: List<Long>): Int {
+        require(copywritingId > 0) { "copywritingId must be > 0" }
+        val ids = albumPhotoIds.distinct().filter { it > 0 }
+        if (ids.isEmpty()) return 0
+
+        val now = System.currentTimeMillis()
+        return database.withTransaction {
+            // 确保 copywriting 存在，避免插入无效外键（能更早给出可读错误）
+            val exists = copywritingDao.getById(copywritingId) != null
+            if (!exists) return@withTransaction 0
+
+            val relations = ids.map { albumPhotoId ->
+                CopywritingAlbumPhotoRelationEntity(
+                    copywritingId = copywritingId,
+                    albumPhotoId = albumPhotoId,
+                    createTime = now
+                )
+            }
+            val results = relationDao.insertIgnoreAll(relations)
+            // Room 对 IGNORE：插入成功返回 rowId(>0)，冲突返回 -1
+            results.count { it != -1L }
+        }
+    }
+
+    override suspend fun deleteCopywritingById(copywritingId: Long): Int {
+        require(copywritingId > 0) { "copywritingId must be > 0" }
+        return database.withTransaction {
+            copywritingDao.deleteById(copywritingId)
+        }
+    }
+
+    override suspend fun deleteCopywritingsByIds(copywritingIds: List<Long>): Int {
+        val ids = copywritingIds.distinct().filter { it > 0 }
+        if (ids.isEmpty()) return 0
+        return database.withTransaction {
+            copywritingDao.deleteByIds(ids)
+        }
+    }
+
+    override suspend fun updateCopywritingContent(copywritingId: Long, newContent: String): Int {
+        require(copywritingId > 0) { "copywritingId must be > 0" }
+        require(newContent.isNotBlank()) { "newContent must not be blank" }
+        return database.withTransaction {
+            copywritingDao.updateContentById(copywritingId, newContent)
+        }
+    }
+
+    override suspend fun removePhotoFromCopywriting(copywritingId: Long, albumPhotoId: Long): Int {
+        require(copywritingId > 0) { "copywritingId must be > 0" }
+        require(albumPhotoId > 0) { "albumPhotoId must be > 0" }
+        return database.withTransaction {
+            relationDao.deleteOne(copywritingId = copywritingId, albumPhotoId = albumPhotoId)
+        }
+    }
 }

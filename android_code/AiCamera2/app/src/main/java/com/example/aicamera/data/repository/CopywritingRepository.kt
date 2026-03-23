@@ -36,6 +36,24 @@ interface CopywritingRepository {
      * @return copywritingId
      */
     suspend fun createCopywritingForPhotos(albumPhotoIds: List<Long>, content: String): Long
+
+    /** 新建一条“纯文案”（不关联照片） */
+    suspend fun createCopywriting(content: String): Long
+
+    /** 为现有文案追加关联照片（重复关联会被忽略） */
+    suspend fun addPhotosToCopywriting(copywritingId: Long, albumPhotoIds: List<Long>): Int
+
+    /** 删除一条文案（会同时清理关联关系，取决于外键/级联设置） */
+    suspend fun deleteCopywritingById(copywritingId: Long): Int
+
+    /** 批量删除文案 */
+    suspend fun deleteCopywritingsByIds(copywritingIds: List<Long>): Int
+
+    /** 修改文案内容 */
+    suspend fun updateCopywritingContent(copywritingId: Long, newContent: String): Int
+
+    /** 移除某条文案的一张关联照片（仅删除关联关系，不删除 photo 本体） */
+    suspend fun removePhotoFromCopywriting(copywritingId: Long, albumPhotoId: Long): Int
 }
 
 data class CopywritingWithCount(
