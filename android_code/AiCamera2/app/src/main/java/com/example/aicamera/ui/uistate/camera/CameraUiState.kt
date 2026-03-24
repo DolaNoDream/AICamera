@@ -1,5 +1,6 @@
 package com.example.aicamera.ui.uistate.camera
 
+import androidx.compose.ui.unit.IntOffset
 import com.example.aicamera.data.camera.CameraController
 
 
@@ -40,7 +41,14 @@ data class CameraUiState(
     // --- 页面上的 UI 控件状态（Compose remember 的部分也可以逐步迁移到这里） ---
     val selectedMode: CameraMode = CameraMode.Standard,
     val isMenuExpanded: Boolean = false,
-    val isLeftPanelExpanded: Boolean = false
+    val isLeftPanelExpanded: Boolean = false,
+
+    // --- 悬浮窗状态 ---
+    val floatingWindowStatus: FloatingWindowStatus = FloatingWindowStatus.Default,
+    val floatingWindowPosition: FloatingWindowPosition = FloatingWindowPosition.Right, // 默认在右边
+    val voiceToTextContent: String = "等待语音输入...", // 显示的文字
+    // 新增：记录悬浮窗相对于初始位置的偏移量 (x, y)
+    val floatingOffset: IntOffset = IntOffset(0, 0)
 ) {
     val isAiVoiceBoxVisible: Boolean
         get() = selectedMode == CameraMode.AiSuggestion || selectedMode == CameraMode.AiPose
@@ -72,4 +80,19 @@ enum class CameraMode {
     Standard,
     AiSuggestion,
     AiPose
+}
+
+/**
+ * 悬浮窗的UISTATE
+ */
+// 1. 定义悬浮窗的状态枚举
+enum class FloatingWindowStatus {
+    Default,    // 圆形图标状态
+    Activated   // 横向模块展开状态
+}
+
+// 2. 定义悬浮窗的位置枚举
+enum class FloatingWindowPosition {
+    Left,
+    Right
 }

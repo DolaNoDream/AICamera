@@ -35,6 +35,14 @@ import com.example.aicamera.ui.uistate.camera.CameraMode
 import com.example.aicamera.ui.uistate.camera.CameraState
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.filled.Photo
+import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 
 @Composable
 fun CameraControlsLayer(
@@ -45,7 +53,8 @@ fun CameraControlsLayer(
     modes: List<CameraMode>,
     onModeSelected: (CameraMode) -> Unit,
     onVoiceStateChange: (Boolean) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onOpenGallery: () -> Unit?, //打开相册的回调
 ) {
     Column(
         modifier = modifier
@@ -54,12 +63,32 @@ fun CameraControlsLayer(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CameraModeTabs(
-            modes = modes,
-            selectedMode = selectedMode,
-            onModeSelected = onModeSelected,
-            modifier = Modifier.padding(0.dp)
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            CameraModeTabs(
+                modes = modes,
+                selectedMode = selectedMode,
+                onModeSelected = onModeSelected,
+                modifier = Modifier.weight(1f, fill = false)
+            )
+            Spacer(modifier = Modifier.width(12.dp)) // 两个组件之间的间距
+
+            SwitchCameraButton(
+                onSwitchCamera = onSwitchCamera,
+                modifier = Modifier
+                    .size(width = 44.dp, height = 36.dp) // 高度与 CameraModeTabs 保持一致
+                    .background(
+                        color = Color.White.copy(alpha = 0.10f), // 使用相同的半透明背景
+                        shape = RoundedCornerShape(12.dp)
+                    )
+
+            )
+        }
 
         Row(
             modifier = Modifier
@@ -82,12 +111,22 @@ fun CameraControlsLayer(
                     .size(96.dp)
             )
 
-            SwitchCameraButton(
-                onSwitchCamera = onSwitchCamera,
-                modifier = Modifier
-                    .size(80.dp)
-                    .padding(10.dp)
-            )
+            //相册按钮
+            IconButton(
+                onClick = {onOpenGallery?.invoke()} ,
+                modifier = Modifier.size(48.dp), // 增大点击区域
+                colors = IconButtonDefaults.iconButtonColors(
+                    containerColor = Color.White.copy(alpha = 0.16f), // 参照您提供的旧样式
+                    contentColor = Color.White
+                )
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Photo, // 参照您提供的旧图标
+                    contentDescription = "打开相册",
+                    modifier = Modifier.size(28.dp)
+                )
+            }
+
         }
     }
 }
