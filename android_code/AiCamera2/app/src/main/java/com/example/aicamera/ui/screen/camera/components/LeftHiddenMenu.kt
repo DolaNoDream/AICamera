@@ -2,7 +2,6 @@ package com.example.aicamera.ui.screen.camera.components
 
 import android.graphics.Bitmap
 import android.widget.ImageView
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
@@ -19,6 +18,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.produceState
@@ -29,16 +29,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.aicamera.R
 import com.example.aicamera.data.storage.ImageDownloadHelper
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.runtime.remember
 
 @Composable
 fun LeftHiddenMenu(
     isExpanded: Boolean,
     onToggle: () -> Unit,
-    poseGuideText: String,
     poseSuggestionText: String,
     poseImageUrl: String,
     isLoading: Boolean,
@@ -62,9 +64,13 @@ fun LeftHiddenMenu(
             modifier = Modifier
                 .width(6.dp)
                 .height(300.dp)
-                .background(Color.White.copy(alpha = 0.3f))
+                .background(Color.White.copy(alpha = 0.22f))
                 .clip(RoundedCornerShape(7.dp))
-                .clickable(onClick = onToggle)
+                .clickable(
+                    indication = LocalIndication.current,
+                    interactionSource = remember { MutableInteractionSource() },
+                    onClick = onToggle
+                )
         )
 
         Box(
@@ -80,9 +86,13 @@ fun LeftHiddenMenu(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(Color.Black.copy(alpha = 0.3f))
+                        .background(Color.Black.copy(alpha = 0.55f))
                         .padding(16.dp)
-                        .clickable(onClick = onToggle)
+                        .clickable(
+                            indication = LocalIndication.current,
+                            interactionSource = remember { MutableInteractionSource() },
+                            onClick = onToggle
+                        )
                 ) {
                     Column(
                         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -95,14 +105,18 @@ fun LeftHiddenMenu(
                         ) {
                             Text(
                                 text = stringResource(id = R.string.pose_guide_title),
-                                color = Color(0xFFFFC107),
-                                fontSize = 14.sp
+                                color = MaterialTheme.colorScheme.primary,
+                                style = MaterialTheme.typography.labelSmall
                             )
                             Text(
                                 text = stringResource(id = R.string.clear),
-                                color = Color.White,
-                                fontSize = 12.sp,
-                                modifier = Modifier.clickable { onClear() }
+                                color = Color.White.copy(alpha = 0.85f),
+                                style = MaterialTheme.typography.labelSmall,
+                                modifier = Modifier.clickable(
+                                    indication = LocalIndication.current,
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    onClick = onClear
+                                )
                             )
                         }
 
@@ -110,24 +124,27 @@ fun LeftHiddenMenu(
                             isLoading -> {
                                 Text(
                                     text = stringResource(id = R.string.pose_guide_loading),
-                                    color = Color.White,
-                                    fontSize = 12.sp
+                                    color = Color.White.copy(alpha = 0.85f),
+                                    style = MaterialTheme.typography.labelSmall
                                 )
                             }
+
                             !errorMessage.isNullOrBlank() -> {
                                 Text(
                                     text = stringResource(id = R.string.pose_guide_error, errorMessage),
-                                    color = Color(0xFFFF5252),
-                                    fontSize = 12.sp
+                                    color = MaterialTheme.colorScheme.error,
+                                    style = MaterialTheme.typography.labelSmall
                                 )
                             }
+
                             poseSuggestionText.isBlank() && poseImageUrl.isBlank() -> {
                                 Text(
                                     text = stringResource(id = R.string.pose_guide_empty),
-                                    color = Color.White,
-                                    fontSize = 12.sp
+                                    color = Color.White.copy(alpha = 0.85f),
+                                    style = MaterialTheme.typography.labelSmall
                                 )
                             }
+
                             else -> {
                                 if (poseImageBitmap != null) {
                                     AndroidView(
@@ -135,25 +152,26 @@ fun LeftHiddenMenu(
                                             ImageView(ctx).apply { scaleType = ImageView.ScaleType.CENTER_CROP }
                                         },
                                         update = { view ->
-                                            (view as ImageView).setImageBitmap(poseImageBitmap)
+                                            view.setImageBitmap(poseImageBitmap)
                                         },
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .height(120.dp)
+                                            .clip(MaterialTheme.shapes.medium)
                                     )
                                 } else if (poseImageUrl.isNotBlank()) {
                                     Text(
                                         text = stringResource(id = R.string.pose_guide_image_loading),
-                                        color = Color.White,
-                                        fontSize = 10.sp
+                                        color = Color.White.copy(alpha = 0.85f),
+                                        style = MaterialTheme.typography.labelSmall
                                     )
                                 }
 
                                 if (poseSuggestionText.isNotBlank()) {
                                     Text(
                                         text = poseSuggestionText,
-                                        color = Color.White,
-                                        fontSize = 11.sp
+                                        color = Color.White.copy(alpha = 0.85f),
+                                        style = MaterialTheme.typography.labelSmall
                                     )
                                 }
                             }
@@ -163,15 +181,23 @@ fun LeftHiddenMenu(
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .background(color = Color(0xFF81C784), shape = RoundedCornerShape(8.dp))
-                                    .clickable { onConfirm() }
-                                    .padding(vertical = 8.dp),
+                                    .clip(CircleShape)
+                                    .background(
+                                        MaterialTheme.colorScheme.primary.copy(alpha = 0.85f),
+                                        CircleShape
+                                    )
+                                    .clickable(
+                                        indication = LocalIndication.current,
+                                        interactionSource = remember { MutableInteractionSource() },
+                                        onClick = onConfirm
+                                    )
+                                    .padding(vertical = 10.dp),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Text(
                                     text = stringResource(id = R.string.pose_confirm),
-                                    color = Color.White,
-                                    fontSize = 12.sp
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    style = MaterialTheme.typography.labelSmall
                                 )
                             }
                         }

@@ -3,3 +3,19 @@
 __pycache__/
 *.pyc
 android_code\AiCamera2\local.properties
+
+# 安卓编译产物（必加）
+*.apk
+*.apk.dSYM/
+*.zip
+*.rar
+
+# 安卓构建目录
+build/
+app/build/
+
+# IDE 自动生成文件（可选，已有的话不用重复加）
+.idea/
+*.iml
+gradle/
+gradlew.bat
