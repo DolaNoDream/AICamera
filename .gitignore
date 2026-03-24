@@ -1,21 +1,34 @@
-.idea/
-.env
-__pycache__/
-*.pyc
-android_code\AiCamera2\local.properties
-
-# 安卓编译产物（必加）
+# ============================
+# Android 自动生成文件（必忽略）
+# ============================
 *.apk
-*.apk.dSYM/
+*.ap_
 *.zip
 *.rar
+*.tar
+*.gz
 
-# 安卓构建目录
+# 构建目录
 build/
 app/build/
+captures/
+output.json
 
-# IDE 自动生成文件（可选，已有的话不用重复加）
+# Android Studio 配置文件
 .idea/
 *.iml
-gradle/
-gradlew.bat
+*.iws
+*.ipr
+local.properties
+gradle.xml
+runConfigurations/
+
+# 编译缓存
+.externalNativeBuild
+.cxx
+*.dex
+*.class
+
+# 日志、临时文件
+*.log
+.DS_Store
