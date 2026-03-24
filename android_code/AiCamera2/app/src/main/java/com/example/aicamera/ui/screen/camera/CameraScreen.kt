@@ -13,14 +13,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -66,7 +64,6 @@ fun CameraScreen(
     lifecycleOwner: LifecycleOwner,
     modifier: Modifier = Modifier,
     onNavigateToAlbum: (() -> Unit)? = null,
-    onNavigateToCopywriting: (() -> Unit)? = null
 ) {
     val state = viewModel.uiState.collectAsState().value
 
@@ -143,26 +140,6 @@ fun CameraScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 12.dp, vertical = 10.dp)
         ) {
-            if (onNavigateToCopywriting != null) {
-                IconButton(
-                    onClick = onNavigateToCopywriting,
-                    modifier = Modifier
-                        .align(Alignment.CenterStart)
-                        .size(40.dp),
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.16f),
-                        contentColor = MaterialTheme.colorScheme.onSurface
-                    )
-                ) {
-                    Text(
-                        text = "文案",
-                        style = MaterialTheme.typography.labelLarge,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
-            }
-
             if (onNavigateToAlbum != null) {
                 IconButton(
                     onClick = onNavigateToAlbum,
@@ -341,7 +318,7 @@ private fun CameraPreviewLayer(
             }
         },
         update = { view ->
-            val previewView = view as androidx.camera.view.PreviewView
+            val previewView = view
             // 设置手势检测器
             val gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onSingleTapConfirmed(e: MotionEvent): Boolean {

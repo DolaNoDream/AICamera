@@ -26,6 +26,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -65,8 +66,17 @@ fun AlbumListScreen(
     modifier: Modifier = Modifier,
     onBack: (() -> Unit)? = null,
     onPhotoClick: ((photoId: Long) -> Unit)? = null,
+    onNavigateToCopywriting: (() -> Unit)? = null,
 ) {
     val state by viewModel.uiState.collectAsState()
+
+    // 根据筛选过滤后的展示列表
+    val displayPhotos = remember(state.photos, state.photoTypeFilter) {
+        when (val t = state.photoTypeFilter) {
+            null -> state.photos
+            else -> state.photos.filter { it.type == t }
+        }
+    }
 
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -262,6 +272,7 @@ fun AlbumListScreen(
             Column(modifier = Modifier.fillMaxSize()) {
                 Spacer(modifier = Modifier.height(statusBarTopPaddingDp))
 
+                //顶部返回+相册页标识
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -287,6 +298,78 @@ fun AlbumListScreen(
                         modifier = Modifier.weight(1f)
                     )
                 }
+
+                // 选择栏：全部图 + 相机图 + 精修图 + 文案入口
+                Row{
+                    //展示albumphoto的全部图片
+                    IconButton(
+                        onClick = { viewModel.setPhotoTypeFilter(null) },
+                        modifier = Modifier.size(40.dp),
+                        colors = IconButtonDefaults.iconButtonColors(
+                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.16f),
+                            contentColor = MaterialTheme.colorScheme.onSurface
+                        )
+                    ) {
+                        Text(
+                            text = "全部",
+                            style = MaterialTheme.typography.labelLarge,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                    //展示albumphoto的用相机拍摄的照片（photo表中type字段为0)
+                    IconButton(
+                        onClick = { viewModel.setPhotoTypeFilter(0) },
+                        modifier = Modifier.size(40.dp),
+                        colors = IconButtonDefaults.iconButtonColors(
+                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.16f),
+                            contentColor = MaterialTheme.colorScheme.onSurface
+                        )
+                    ) {
+                        Text(
+                            text = "照片",
+                            style = MaterialTheme.typography.labelLarge,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                    //展示albumphoto的p过的照片（photo表中type字段为1)
+                    IconButton(
+                        onClick = { viewModel.setPhotoTypeFilter(1) },
+                        modifier = Modifier.size(40.dp),
+                        colors = IconButtonDefaults.iconButtonColors(
+                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.16f),
+                            contentColor = MaterialTheme.colorScheme.onSurface
+                        )
+                    ) {
+                        Text(
+                            text = "精修",
+                            style = MaterialTheme.typography.labelLarge,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                    // 右侧入口：文案列表
+                    if (onNavigateToCopywriting != null) {
+                        IconButton(
+                            onClick = onNavigateToCopywriting,
+                            modifier = Modifier.size(40.dp),
+                            colors = IconButtonDefaults.iconButtonColors(
+                                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.16f),
+                                contentColor = MaterialTheme.colorScheme.onSurface
+                            )
+                        ) {
+                            Text(
+                                text = "文案",
+                                style = MaterialTheme.typography.labelLarge,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                    }
+                }
+
+
 
                 when {
                     state.isLoading -> {
@@ -326,7 +409,7 @@ fun AlbumListScreen(
                             verticalArrangement = Arrangement.spacedBy(8.dp),
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            items(state.photos, key = { it.id }) { photo ->
+                            items(displayPhotos, key = { it.id }) { photo ->
                                 val uri = runCatching { photo.filePath.toUri() }.getOrNull()
                                 val selected = state.selectedPhotoIds.contains(photo.id)
 
@@ -374,7 +457,11 @@ fun AlbumListScreen(
                                         Box(
                                             modifier = Modifier
                                                 .fillMaxSize()
-                                                .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.25f))
+                                                .background(
+                                                    MaterialTheme.colorScheme.primary.copy(
+                                                        alpha = 0.25f
+                                                    )
+                                                )
                                         )
                                         Icon(
                                             imageVector = Icons.Default.CheckCircle,
@@ -404,28 +491,38 @@ fun AlbumListScreen(
                         .align(Alignment.BottomEnd)
                         .padding(16.dp)
                 ) {
-                    // 批量删除
+                    //全选
                     Button(
                         enabled = state.selectedPhotoIds.isNotEmpty() && !state.isAiWriting,
-                        onClick = { showDeleteDialog.value = true },
-                        modifier = Modifier.padding(16.dp)
+                        onClick = { viewModel.selectAll() },
+                        modifier = Modifier.padding(4.dp)
                     ) {
-                        Text("删除")
+                        Text("全选")
                     }
 
                     // 清空选择
                     Button(
                         enabled = state.selectedPhotoIds.isNotEmpty() && !state.isAiWriting,
                         onClick = { viewModel.clearSelection() },
-                        modifier = Modifier.padding(16.dp)
+                        modifier = Modifier.padding(4.dp)
                     ) {
                         Text("取消")
                     }
 
+                    // 批量删除
+                    Button(
+                        enabled = state.selectedPhotoIds.isNotEmpty() && !state.isAiWriting,
+                        onClick = { showDeleteDialog.value = true },
+                        modifier = Modifier.padding(4.dp)
+                    ) {
+                        Text("删除")
+                    }
+
+                    //批量生成文案
                     Button(
                         enabled = !state.isAiWriting,
                         onClick = { showAiWriteDialog.value = true },
-                        modifier = Modifier.padding(16.dp)
+                        modifier = Modifier.padding(4.dp)
                     ) {
                         if (state.isAiWriting) {
                             CircularProgressIndicator(

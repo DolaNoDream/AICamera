@@ -16,6 +16,9 @@ interface AlbumRepository {
 
     suspend fun updateTextByIds(ids: List<Long>, text: String): Int
 
+    /** 按 ids 批量获取照片（用于批量删除等场景拿到 filePath） */
+    suspend fun getPhotosByIds(ids: List<Long>): List<AlbumPhotoEntity>
+
     /** 从 photo 表批量删除（关联表由外键 CASCADE 自动清理） */
     suspend fun deletePhotosByIds(ids: List<Long>): Int
 }

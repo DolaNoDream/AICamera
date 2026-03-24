@@ -7,5 +7,13 @@ data class CopywritingDetailUiState(
     val errorMessage: String? = null,
     val copywritingId: Long = 0L,
     val content: String = "",
-    val photos: List<AlbumPhotoEntity> = emptyList()
+    val createTime: Long = 0L,
+    val updateTime: Long = 0L,
+    val photos: List<AlbumPhotoEntity> = emptyList(),
+    val isEditing: Boolean = false,
+    val editContent: String = "",
+    val isAddingPhotos: Boolean = false,
+    val candidatePhotos: List<AlbumPhotoEntity> = emptyList(),
+    val selectedAddPhotoIds: Set<Long> = emptySet(),
+    val pendingRemovePhotoId: Long? = null
 )

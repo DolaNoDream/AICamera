@@ -26,6 +26,9 @@ interface CopywritingDao {
     @Query("DELETE FROM copywriting WHERE id = :id")
     suspend fun deleteById(id: Long): Int
 
+    @Query("DELETE FROM copywriting WHERE id IN (:ids)")
+    suspend fun deleteByIds(ids: List<Long>): Int
+
     @Query("UPDATE copywriting SET content = :content, update_time = :updateTime WHERE id = :id")
     suspend fun updateContentById(id: Long, content: String, updateTime: Long = System.currentTimeMillis()): Int
 }

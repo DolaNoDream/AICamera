@@ -10,6 +10,9 @@ data class AlbumListUiState(
     val errorMessage: String? = null,
     val photos: List<AlbumPhotoEntity> = emptyList(),
 
+    /** 当前筛选：null=全部；0=相机原图；1=精修图 */
+    val photoTypeFilter: Int? = null,
+
     /** 已选中的 photo.id 集合 */
     val selectedPhotoIds: Set<Long> = emptySet(),
 
