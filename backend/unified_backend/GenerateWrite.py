@@ -2,6 +2,8 @@
 import json
 from typing import List, Dict
 import base64
+import os
+from openai import OpenAI
 
 def encode_image_bytes(image_data: bytes) -> str:
     """将图片二进制数据编码为base64格式的data URL"""
@@ -22,13 +24,14 @@ def generate_ai_write(image_data_list: List[bytes], requirement: Dict) -> List[s
     接收多张图片二进制数据和文案要求字典，调用大模型生成文案
     返回包含3条不同的文案列表
     """
-    from openai import OpenAI
 
     # API Key
     client = OpenAI(
-        api_key="sk-8eb3cf8f28ab454ba7c84819e7cac905",
+        api_key=os.getenv("DASHSCOPE_API_KEY"),
         base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
     )
+    if not os.getenv("DASHSCOPE_API_KEY"):
+        raise ValueError("DASHSCOPE_API_KEY 未配置")
 
     # 1. 组装多模态内容列表（直接使用前端传来的图片URL）
     content_list = []
