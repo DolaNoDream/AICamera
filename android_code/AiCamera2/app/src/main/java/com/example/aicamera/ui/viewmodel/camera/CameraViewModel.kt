@@ -3,6 +3,9 @@ package com.example.aicamera.ui.viewmodel.camera
 import android.app.Application
 import android.graphics.Bitmap
 import android.util.Log
+import androidx.compose.remote.creation.compose.state.log
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.unit.IntOffset
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aicamera.app.di.ServiceLocator
@@ -19,6 +22,8 @@ import com.example.aicamera.ui.uistate.camera.CameraMode
 import com.example.aicamera.ui.uistate.camera.CameraState
 import com.example.aicamera.ui.uistate.camera.CameraUiEvent
 import com.example.aicamera.ui.uistate.camera.CameraUiState
+import com.example.aicamera.ui.uistate.camera.FloatingWindowPosition
+import com.example.aicamera.ui.uistate.camera.FloatingWindowStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -790,6 +795,68 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
         // 约束：进入 AI 姿势模式默认展开左侧面板；其他模式收起
         _uiState.update { current ->
             current.copy(isLeftPanelExpanded = mode == CameraMode.AiPose)
+        }
+    }
+
+    // 切换悬浮窗的展开/折叠状态
+    fun toggleFloatingWindowStatus() {
+        val currentStatus = uiState.value.floatingWindowStatus
+        _uiState.update {
+            it.copy(
+                floatingWindowStatus = if (currentStatus == FloatingWindowStatus.Default) {
+                    FloatingWindowStatus.Activated
+                } else {
+                    FloatingWindowStatus.Default
+                }
+            )
+        }
+    }
+
+    // 改变悬浮窗的位置（左/右）
+    fun setFloatingWindowPosition(position: FloatingWindowPosition) {
+        _uiState.update { it.copy(floatingWindowPosition = position) }
+    }
+
+    // 模拟语音转文字更新
+    fun updateVoiceText(text: String) {
+        _uiState.update { it.copy(voiceToTextContent = text) }
+    }
+
+    // 悬浮窗内按钮的点击处理
+    fun onFloatingWindowButtonClick() {
+        // 这里处理点击后的逻辑，比如确认 AI 建议
+        println("悬浮窗按钮被点击了！当前文字: ${uiState.value.voiceToTextContent}")
+        // 处理完后，通常会把悬浮窗收起
+        _uiState.update { it.copy(floatingWindowStatus = FloatingWindowStatus.Default) }
+    }
+
+    // 悬浮窗移动处理
+    fun updateFloatingOffset(dragAmount: Offset) {
+        _uiState.update {
+            val newX = (it.floatingOffset.x + dragAmount.x).toInt()
+            val newY = (it.floatingOffset.y + dragAmount.y).toInt()
+            it.copy(floatingOffset = IntOffset(newX, newY))
+        }
+    }
+
+    //判断悬浮窗离哪边更近
+    fun onDragEnd(screenWidthPx: Int) {
+        _uiState.update { currentState ->
+            val currentX = currentState.floatingOffset.x
+            val componentWidth = 150 // 预估宽度像素
+
+            // 判断靠近哪一边
+            val isLeft = currentX < (screenWidthPx / 2)
+            val targetX = if (isLeft) 0 else (screenWidthPx - 130) // 130是图标px宽度左右
+
+            Log.d("Postion", isLeft.toString())
+
+            currentState.copy(
+                floatingOffset = IntOffset(targetX, currentState.floatingOffset.y),
+                // 这一步至关重要：决定了 AiFloatingWindow 内部 Row 的组件顺序
+                floatingWindowPosition = if (isLeft) FloatingWindowPosition.Left else FloatingWindowPosition.Right
+            )
+
         }
     }
 }

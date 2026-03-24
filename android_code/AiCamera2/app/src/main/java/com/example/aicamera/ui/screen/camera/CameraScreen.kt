@@ -1,5 +1,6 @@
 package com.example.aicamera.ui.screen.camera
 
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -25,12 +27,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.LifecycleOwner
 import com.example.aicamera.data.camera.CameraController
+import com.example.aicamera.ui.screen.camera.components.AiFloatingWindow //悬浮窗组件
 import com.example.aicamera.ui.screen.camera.components.AiSuggestionStatusBox
 import com.example.aicamera.ui.screen.camera.components.CameraControlsLayer
 import com.example.aicamera.ui.screen.camera.components.ErrorOverlay
@@ -42,6 +48,8 @@ import com.example.aicamera.ui.screen.camera.components.TimeDisplay
 import com.example.aicamera.ui.screen.camera.components.ZoomButton
 import com.example.aicamera.ui.uistate.camera.CameraMode
 import com.example.aicamera.ui.uistate.camera.CameraState
+import com.example.aicamera.ui.uistate.camera.FloatingWindowPosition //悬浮窗状态
+import com.example.aicamera.ui.uistate.camera.FloatingWindowStatus //悬浮窗状态
 import com.example.aicamera.ui.viewmodel.camera.CameraViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlin.math.sqrt
@@ -68,6 +76,12 @@ fun CameraScreen(
         listOf(CameraMode.Standard, CameraMode.AiSuggestion, CameraMode.AiPose)
     }
 
+    val configuration = LocalConfiguration.current
+    val density = LocalDensity.current
+
+    // 将 dp 转换为 px（像素）
+    val screenWidthPx = with(density) { configuration.screenWidthDp.dp.roundToPx() }
+
     LaunchedEffect(state.errorMessage) {
         if (!state.errorMessage.isNullOrEmpty()) {
             val rootView = (context as? android.app.Activity)?.window?.decorView?.findViewById<ViewGroup>(android.R.id.content)
@@ -82,6 +96,10 @@ fun CameraScreen(
             kotlinx.coroutines.delay(1000)
             viewModel.resumePreview()
         }
+    }
+
+    LaunchedEffect(state) {
+        Log.d("CameraScreen", "状态更新：$state")
     }
 
     LaunchedEffect(Unit) {
@@ -100,7 +118,9 @@ fun CameraScreen(
             onPreviewViewReady = { previewView ->
                 previewViewRef.value = previewView
             },
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.7f)
         )
 
         // 轻微的遮罩，让整体更接近系统相机的“稳重”观感
@@ -111,6 +131,9 @@ fun CameraScreen(
         )
 
         // 顶部栏：左侧入口（文案列表），右侧相册入口
+        /*
+
+
         Box(
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -135,6 +158,7 @@ fun CameraScreen(
                 }
             }
         }
+        */
 
         // 左侧隐藏式菜单（AI 姿势建议/图片等）
         LeftHiddenMenu(
@@ -211,7 +235,8 @@ fun CameraScreen(
                 modes = cameraModes,
                 onModeSelected = { viewModel.setSelectedMode(it) },
                 onVoiceStateChange = { isActive -> if (isActive) viewModel.startListening() else viewModel.stopListening() },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                onOpenGallery = {onNavigateToAlbum?.invoke()},
             )
         }
 
@@ -240,6 +265,34 @@ fun CameraScreen(
         if (state.cameraState == CameraState.PhotoSaved) {
             SaveSuccessOverlay(modifier = Modifier.fillMaxSize())
         }
+
+        // ==========================================================
+        // --- 3. 添加 AI 悬浮窗组件 (放在 Box 内部的较后位置，确保在最上层) ---
+        // ==========================================================
+        AiFloatingWindow(
+            // 绑定来自 ViewModel 的状态
+            status = state.floatingWindowStatus,
+            position = state.floatingWindowPosition,
+            voiceText = state.voiceToTextContent,
+            offset = state.floatingOffset,
+            onDrag = { viewModel.updateFloatingOffset(it) },
+            // 绑定点击事件到 ViewModel 的方法
+            onIconClick = { viewModel.toggleFloatingWindowStatus() },
+            onButtonClick = { viewModel.onFloatingWindowButtonClick() },
+            onDragEnd = {viewModel.onDragEnd(screenWidthPx ) },
+
+            // 设置悬浮窗的位置
+            modifier = Modifier
+                .padding(top = 100.dp) // 距离顶部一定距离，避免挡住顶部栏
+                // 根据位置状态，将悬浮窗对齐到左中或右中
+                .align(Alignment.TopStart)
+                // 如果在右边，可以加一点右边距
+                .padding(
+                    start = if (state.floatingWindowPosition == FloatingWindowPosition.Left) 16.dp else 0.dp,
+                    end = if (state.floatingWindowPosition == FloatingWindowPosition.Right) 16.dp else 0.dp
+                )
+        )
+
     }
 }
 
@@ -389,5 +442,7 @@ private fun calculateDistance(event: MotionEvent): Float {
 @Preview(showBackground = true)
 @Composable
 fun CameraScreenPreview() {
-    Box(modifier = Modifier.fillMaxSize().background(Color.Black))
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(Color.Black))
 }
