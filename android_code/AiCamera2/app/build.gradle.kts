@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.21"
     // 序列化插件
     id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
+    id("com.google.devtools.ksp") version "2.0.21-1.0.26"
 }
 
 android {
@@ -81,8 +82,13 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.activity.compose)
+
+    // Material Icons (Compose)
+    implementation("androidx.compose.material:material-icons-extended")
+
     implementation(libs.camera.view)
     implementation(libs.androidx.compose.animation.core)
+    implementation(libs.androidx.compose.remote.creation.compose)
 
     testImplementation(libs.junit)
     testImplementation("org.robolectric:robolectric:4.12.1")
@@ -108,4 +114,25 @@ dependencies {
     // 引用星火语音听写arr文件
     implementation(files("libs/SparkChain.aar"))
     implementation(files("libs/Codec.aar"))
+
+    // Navigation (Compose)
+    implementation("androidx.navigation:navigation-compose:2.8.0")
+
+    // Lifecycle compose helpers
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.4")
+
+    // Room
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
+
+    // Images (for album thumbnails / detail)
+    implementation("io.coil-kt:coil-compose:2.6.0")
+}
+
+// Room schema 导出目录（建议配置，避免 Room 报错/警告）
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("room.incremental", "true")
+    arg("room.expandProjection", "true")
 }

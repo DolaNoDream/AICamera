@@ -1,25 +1,25 @@
 package com.example.aicamera.ui.screen.camera.components
 
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.aicamera.R
 
 @Composable
@@ -31,7 +31,7 @@ fun AiSuggestionStatusBox(
 ) {
     Box(
         modifier = modifier
-            .background(color = Color.Black.copy(alpha = 0.7f), shape = RoundedCornerShape(8.dp))
+            .background(color = Color.Black.copy(alpha = 0.55f), shape = RoundedCornerShape(12.dp))
             .padding(12.dp)
     ) {
         Column(
@@ -45,14 +45,18 @@ fun AiSuggestionStatusBox(
             ) {
                 Text(
                     text = stringResource(id = R.string.ai_suggestion_header),
-                    color = Color(0xFF81C784),
-                    fontSize = 12.sp
+                    color = Color.White.copy(alpha = 0.85f),
+                    style = MaterialTheme.typography.labelSmall
                 )
                 Text(
                     text = stringResource(id = R.string.clear),
-                    color = Color.White,
-                    fontSize = 12.sp,
-                    modifier = Modifier.clickable { onClear() }
+                    color = Color.White.copy(alpha = 0.85f),
+                    style = MaterialTheme.typography.labelSmall,
+                    modifier = Modifier.clickable(
+                        indication = LocalIndication.current,
+                        interactionSource = remember { MutableInteractionSource() },
+                        onClick = onClear
+                    )
                 )
             }
 
@@ -61,13 +65,13 @@ fun AiSuggestionStatusBox(
 
             Text(
                 text = stringResource(id = R.string.voice_label_prefix, voiceText),
-                color = Color.White,
-                fontSize = 12.sp
+                color = Color.White.copy(alpha = 0.85f),
+                style = MaterialTheme.typography.labelSmall
             )
             Text(
                 text = stringResource(id = R.string.guide_label_prefix, guideHint),
-                color = Color.White,
-                fontSize = 12.sp
+                color = Color.White.copy(alpha = 0.85f),
+                style = MaterialTheme.typography.labelSmall
             )
         }
     }

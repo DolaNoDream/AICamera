@@ -1,4 +1,18 @@
 package com.example.aicamera.ui.uistate.album
 
-/** 相片详情 UIState（骨架） */
-data class PhotoDetailUiState(val placeholder: Boolean = true)
+import com.example.aicamera.data.db.entity.AlbumPhotoEntity
+
+/**
+ * 相片详情 UIState
+ */
+data class PhotoDetailUiState(
+    val isLoading: Boolean = true,
+    val errorMessage: String? = null,
+    val photo: AlbumPhotoEntity? = null,
+
+    val isAiEditing: Boolean = false,
+    val aiEditMessage: String? = "",
+
+    val isAiWriting: Boolean = false,
+    val aiWriteMessage: String? = "",
+)

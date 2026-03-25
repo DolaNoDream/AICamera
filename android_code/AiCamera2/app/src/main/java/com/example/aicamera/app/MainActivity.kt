@@ -1,16 +1,13 @@
 package com.example.aicamera.app
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.aicamera.data.permission.PermissionManager
+import com.example.aicamera.ui.nav.AppNavGraph
 import com.example.aicamera.ui.viewmodel.camera.CameraViewModel
 
 /**
@@ -84,10 +81,14 @@ class MainActivity : AppCompatActivity() {
 
         // 使用 Compose 设置 UI
         setContent {
-            com.example.aicamera.ui.screen.camera.CameraScreen(
-                viewModel = viewModel,
+            AppNavGraph(
+                cameraViewModel = viewModel,
                 lifecycleOwner = this
             )
+//            com.example.aicamera.ui.screen.camera.CameraScreen(
+//                viewModel = viewModel,
+//                lifecycleOwner = this
+//            )
         }
 
         // 检查权限

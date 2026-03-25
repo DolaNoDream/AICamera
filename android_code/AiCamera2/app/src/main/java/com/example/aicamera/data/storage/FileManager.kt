@@ -50,10 +50,7 @@ class FileManager(private val context: Context) {
                 put(MediaStore.Images.Media.DISPLAY_NAME, displayName)
                 put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
                 put(MediaStore.Images.Media.RELATIVE_PATH, "${Environment.DIRECTORY_PICTURES}/AiCamera")
-                // 在 Android 11+ 上需要设置 IS_PENDING
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-                    put(MediaStore.Images.Media.IS_PENDING, 1)
-                }
+                put(MediaStore.Images.Media.IS_PENDING, 1)
             }
 
             // 插入到 MediaStore
@@ -85,12 +82,10 @@ class FileManager(private val context: Context) {
             }
 
             // 完成写入，更新 IS_PENDING 标志
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-                contentValues.put(MediaStore.Images.Media.IS_PENDING, 0)
-                val updated = contentResolver.update(uri, contentValues, null, null)
-                if (updated <= 0) {
-                    Log.w(TAG, "更新 IS_PENDING 标志失败，但继续处理")
-                }
+            contentValues.put(MediaStore.Images.Media.IS_PENDING, 0)
+            val updated = contentResolver.update(uri, contentValues, null, null)
+            if (updated <= 0) {
+                Log.w(TAG, "更新 IS_PENDING 标志失败，但继续处理")
             }
 
             Log.d(TAG, "照片成功保存到相册: $uri")
@@ -199,6 +194,54 @@ class FileManager(private val context: Context) {
             file.listFiles()?.all { deleteRecursively(it) } ?: false && file.delete()
         } else {
             file.delete()
+        }
+    }
+
+    /**
+     * 将「已有本地文件」导入系统相册（MediaStore）到 Pictures/AiCamera。
+     *
+     * 适用场景：AI 修图结果先下载到 app 私有目录（File），再导入系统相册，便于用户在系统相册中查看。
+     *
+     * @param sourceFile 已存在的图片文件（jpg/png）
+     * @return 成功返回 content://... Uri 字符串；失败返回 null
+     */
+    suspend fun importImageFileToGallery(sourceFile: java.io.File): String? = withContext(Dispatchers.IO) {
+        try {
+            if (!sourceFile.exists() || sourceFile.length() <= 0) {
+                Log.e(TAG, "源文件不存在或为空：${sourceFile.absolutePath}")
+                return@withContext null
+            }
+
+            val contentResolver = context.contentResolver
+            val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
+            val displayName = "AI_EDIT_${timeStamp}.jpg"
+
+            val contentValues = ContentValues().apply {
+                put(MediaStore.Images.Media.DISPLAY_NAME, displayName)
+                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+                put(MediaStore.Images.Media.RELATIVE_PATH, "${Environment.DIRECTORY_PICTURES}/AiCamera")
+                put(MediaStore.Images.Media.IS_PENDING, 1)
+            }
+
+            val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+                ?: return@withContext null
+
+            contentResolver.openOutputStream(uri)?.use { out ->
+                sourceFile.inputStream().use { input ->
+                    input.copyTo(out)
+                }
+            } ?: run {
+                contentResolver.delete(uri, null, null)
+                return@withContext null
+            }
+
+            contentValues.put(MediaStore.Images.Media.IS_PENDING, 0)
+            contentResolver.update(uri, contentValues, null, null)
+
+            uri.toString()
+        } catch (e: Exception) {
+            Log.e(TAG, "导入系统相册失败", e)
+            null
         }
     }
 }
