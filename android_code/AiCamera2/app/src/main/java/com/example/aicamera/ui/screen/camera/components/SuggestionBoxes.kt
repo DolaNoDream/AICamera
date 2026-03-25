@@ -63,11 +63,14 @@ fun AiSuggestionStatusBox(
             val voiceText = if (recognizedText.isNotBlank()) recognizedText else stringResource(id = R.string.voice_empty_hint)
             val guideHint = if (guideText.isNotBlank()) guideText else stringResource(id = R.string.guide_empty_hint)
 
+            /*
             Text(
                 text = stringResource(id = R.string.voice_label_prefix, voiceText),
                 color = Color.White.copy(alpha = 0.85f),
                 style = MaterialTheme.typography.labelSmall
             )
+            */
+
             Text(
                 text = stringResource(id = R.string.guide_label_prefix, guideHint),
                 color = Color.White.copy(alpha = 0.85f),

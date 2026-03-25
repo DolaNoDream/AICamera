@@ -176,7 +176,7 @@ fun LeftHiddenMenu(
                                 }
                             }
                         }
-
+                        /*
                         if (showConfirmButton) {
                             Box(
                                 modifier = Modifier
@@ -200,7 +200,7 @@ fun LeftHiddenMenu(
                                     style = MaterialTheme.typography.labelSmall
                                 )
                             }
-                        }
+                        }*/
                     }
                 }
             }

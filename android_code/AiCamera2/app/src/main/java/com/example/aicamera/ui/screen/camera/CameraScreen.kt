@@ -22,8 +22,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,6 +47,7 @@ import com.example.aicamera.ui.screen.camera.components.LeftHiddenMenu
 import com.example.aicamera.ui.screen.camera.components.LoadingOverlay
 import com.example.aicamera.ui.screen.camera.components.SaveSuccessOverlay
 import com.example.aicamera.ui.screen.camera.components.TimeDisplay
+import com.example.aicamera.ui.screen.camera.components.VoiceMicAnimationOverlay
 import com.example.aicamera.ui.screen.camera.components.ZoomButton
 import com.example.aicamera.ui.uistate.camera.CameraMode
 import com.example.aicamera.ui.uistate.camera.CameraState
@@ -78,6 +81,9 @@ fun CameraScreen(
 
     val configuration = LocalConfiguration.current
     val density = LocalDensity.current
+
+    // 语音相关
+    var isVoiceActive by remember { mutableStateOf(false) }
 
     // 将 dp 转换为 px（像素）
     val screenWidthPx = with(density) { configuration.screenWidthDp.dp.roundToPx() }
@@ -122,6 +128,10 @@ fun CameraScreen(
                 .fillMaxWidth()
                 .fillMaxHeight(0.7f)
         )
+
+        // 语音动画层
+        VoiceMicAnimationOverlay(isVisible = isVoiceActive)
+
 
         // 轻微的遮罩，让整体更接近系统相机的“稳重”观感
         Box(
@@ -234,9 +244,16 @@ fun CameraScreen(
                 selectedMode = state.selectedMode,
                 modes = cameraModes,
                 onModeSelected = { viewModel.setSelectedMode(it) },
-                onVoiceStateChange = { isActive -> if (isActive) viewModel.startListening() else viewModel.stopListening() },
+                //onVoiceStateChange = { isVoiceActive -> if (isVoiceActive) viewModel.startListening() else viewModel.stopListening() },
                 modifier = Modifier.fillMaxWidth(),
                 onOpenGallery = {onNavigateToAlbum?.invoke()},
+                isVoiceActive = isVoiceActive,
+                onVoiceClick = { isVoiceActive = !isVoiceActive // 切换 UI 状态
+                    Log.d("CameraScreen状态检查", "VoiceActive 变更为: $isVoiceActive")
+                    if (isVoiceActive){
+                        viewModel.startListening()
+                    }else{ viewModel.stopListening()}
+                }
             )
         }
 
@@ -267,18 +284,18 @@ fun CameraScreen(
         }
 
         // ==========================================================
-        // --- 3. 添加 AI 悬浮窗组件 (放在 Box 内部的较后位置，确保在最上层) ---
+        // --- 添加 AI 悬浮窗组件 ---
         // ==========================================================
         AiFloatingWindow(
             // 绑定来自 ViewModel 的状态
             status = state.floatingWindowStatus,
             position = state.floatingWindowPosition,
-            voiceText = state.voiceToTextContent,
+            voiceText = state.voiceRecognitionResult,
             offset = state.floatingOffset,
             onDrag = { viewModel.updateFloatingOffset(it) },
             // 绑定点击事件到 ViewModel 的方法
             onIconClick = { viewModel.toggleFloatingWindowStatus() },
-            onButtonClick = { viewModel.onFloatingWindowButtonClick() },
+            onButtonClick ={ viewModel.requestPoseGuidance(lifecycleOwnerRef) },
             onDragEnd = {viewModel.onDragEnd(screenWidthPx ) },
 
             // 设置悬浮窗的位置
