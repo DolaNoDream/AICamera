@@ -1,5 +1,6 @@
 package com.example.aicamera.ui.screen.camera.components
 
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -39,7 +40,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Photo
+import androidx.compose.material.icons.filled.SettingsVoice
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -52,9 +55,11 @@ fun CameraControlsLayer(
     selectedMode: CameraMode,
     modes: List<CameraMode>,
     onModeSelected: (CameraMode) -> Unit,
-    onVoiceStateChange: (Boolean) -> Unit,
+    //onVoiceStateChange: (Boolean) -> Unit,  //星火语音激活函数
     modifier: Modifier = Modifier,
     onOpenGallery: () -> Unit?, //打开相册的回调
+    isVoiceActive: Boolean,     //语音激活参数
+    onVoiceClick: () -> Unit,   //语音点击事件
 ) {
     Column(
         modifier = modifier
@@ -101,7 +106,9 @@ fun CameraControlsLayer(
                 modifier = Modifier
                     .size(80.dp)
                     .padding(10.dp),
-                onVoiceStateChange = onVoiceStateChange
+                //onVoiceStateChange = onVoiceStateChange,
+                onClick = onVoiceClick,
+                isActive = isVoiceActive,
             )
 
             ShutterButton(
@@ -114,7 +121,7 @@ fun CameraControlsLayer(
             //相册按钮
             IconButton(
                 onClick = {onOpenGallery?.invoke()} ,
-                modifier = Modifier.size(48.dp), // 增大点击区域
+                modifier = Modifier.size(56.dp), // 增大点击区域
                 colors = IconButtonDefaults.iconButtonColors(
                     containerColor = Color.White.copy(alpha = 0.16f), // 参照您提供的旧样式
                     contentColor = Color.White
@@ -187,6 +194,39 @@ fun SwitchCameraButton(
 
 }
 
+// 修改语音按钮
+@Composable
+fun ClickToggleVoiceButton(
+    isActive: Boolean, // 状态由外部传入
+    onClick: () -> Unit, // 点击事件回调
+    modifier: Modifier = Modifier,
+    //onVoiceStateChange: (Boolean) -> Unit
+) {
+    Box(
+        modifier = modifier
+            .size(56.dp) // 建议统一尺寸
+            .background(
+                color = if (isActive) MaterialTheme.colorScheme.primary else Color.White.copy(alpha = 0.12f),
+                shape = CircleShape
+            )
+            .border(width = 1.dp, color = Color.White.copy(alpha = 0.18f), shape = CircleShape)
+            .clickable(onClick = {
+                onClick()
+                Log.d("语音状态显示","$isActive")
+            }),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            // 使用系统内置图标，切换 Mic 和波纹图标
+            imageVector = if (isActive) Icons.Default.SettingsVoice else Icons.Default.Mic,
+            contentDescription = "语音状态",
+            tint = Color.White,
+            modifier = Modifier.size(28.dp)
+        )
+    }
+}
+
+/*
 @Composable
 fun ClickToggleVoiceButton(
     modifier: Modifier = Modifier,
@@ -196,7 +236,7 @@ fun ClickToggleVoiceButton(
 
     Box(
         modifier = modifier
-            .size(64.dp)
+            .size(48.dp)
             .background(
                 color = if (isVoiceActive) MaterialTheme.colorScheme.primary.copy(alpha = 0.85f) else Color.White.copy(alpha = 0.12f),
                 shape = CircleShape
@@ -264,3 +304,4 @@ fun ClickToggleVoiceButton(
         }
     }
 }
+*/
