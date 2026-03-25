@@ -36,6 +36,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.remember
+import com.example.aicamera.ui.screen.animation.LoadingLottieOverlay
 
 @Composable
 fun LeftHiddenMenu(
@@ -122,11 +123,15 @@ fun LeftHiddenMenu(
 
                         when {
                             isLoading -> {
+
+                                //LoadingLottieOverlay(isLoading=isLoading)
+                                /*
                                 Text(
                                     text = stringResource(id = R.string.pose_guide_loading),
                                     color = Color.White.copy(alpha = 0.85f),
                                     style = MaterialTheme.typography.labelSmall
                                 )
+                                */
                             }
 
                             !errorMessage.isNullOrBlank() -> {

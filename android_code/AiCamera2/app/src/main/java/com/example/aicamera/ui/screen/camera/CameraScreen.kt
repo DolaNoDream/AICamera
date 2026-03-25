@@ -38,6 +38,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.LifecycleOwner
 import com.example.aicamera.data.camera.CameraController
+import com.example.aicamera.ui.screen.animation.LoadingLottieOverlay
+import com.example.aicamera.ui.screen.animation.VoiceActiveLottieOverlay
 import com.example.aicamera.ui.screen.camera.components.AiFloatingWindow //悬浮窗组件
 import com.example.aicamera.ui.screen.camera.components.AiSuggestionStatusBox
 import com.example.aicamera.ui.screen.camera.components.CameraControlsLayer
@@ -130,9 +132,10 @@ fun CameraScreen(
         )
 
         // 语音动画层
-        VoiceMicAnimationOverlay(isVisible = isVoiceActive)
+        //VoiceMicAnimationOverlay(isVisible = isVoiceActive)
+        VoiceActiveLottieOverlay(isVisible = isVoiceActive)
 
-
+        LoadingLottieOverlay(isLoading = state.poseLoading)
         // 轻微的遮罩，让整体更接近系统相机的“稳重”观感
         Box(
             modifier = Modifier
