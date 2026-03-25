@@ -1,2 +1,35 @@
+# ============================
+# Android 自动生成文件（必忽略）
+# ============================
+*.apk
+*.ap_
+*.zip
+*.rar
+*.tar
+*.gz
+
+# 构建目录
+build/
+app/build/
+captures/
+output.json
+
+# Android Studio 配置文件
 .idea/
-android_code\AiCamera2\local.properties
+*.iml
+*.iws
+*.ipr
+local.properties
+gradle.xml
+runConfigurations/
+
+# Gradle 缓存
+.gradle/
+.externalNativeBuild
+.cxx
+*.dex
+*.class
+
+# 日志、临时文件
+*.log
+.DS_Store
