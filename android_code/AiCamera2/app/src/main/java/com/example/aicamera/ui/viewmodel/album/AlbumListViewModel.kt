@@ -105,11 +105,11 @@ class AlbumListViewModel(application: Application) : AndroidViewModel(applicatio
      * - 写入 copywriting_albumphoto_relation（多张）
      * - 同步把文案写入选中照片的 photo.text（便于在照片详情直接看到）
      */
-    fun aiWriteForSelectedPhotos(requirement: CopywriterRequirement?, onDone: (Boolean, Long?) -> Unit) {
+    fun aiWriteForSelectedPhotos(requirement: CopywriterRequirement?, onDone: (Boolean, Long?, String?) -> Unit) {
         val ids = _uiState.value.selectedPhotoIds.toList()
         if (ids.isEmpty()) {
             setAiWriteStatus(isWriting = false, message = "请先选择照片")
-            onDone(false, null)
+            onDone(false, null, null)
             return
         }
 
@@ -120,7 +120,7 @@ class AlbumListViewModel(application: Application) : AndroidViewModel(applicatio
 
         if (uris.isEmpty()) {
             setAiWriteStatus(isWriting = false, message = "所选照片路径无效")
-            onDone(false, null)
+            onDone(false, null, null)
             return
         }
 
@@ -140,7 +140,7 @@ class AlbumListViewModel(application: Application) : AndroidViewModel(applicatio
                         viewModelScope.launch {
                             if (!result.success || result.content.isNullOrBlank()) {
                                 setAiWriteStatus(isWriting = false, message = result.errorMessage ?: "文案生成失败")
-                                onDone(false, null)
+                                onDone(false, null, null)
                                 return@launch
                             }
 
@@ -159,7 +159,7 @@ class AlbumListViewModel(application: Application) : AndroidViewModel(applicatio
                             }
 
                             setAiWriteStatus(isWriting = false, message = "文案已生成并保存", copywritingId = copywritingId)
-                            onDone(true, copywritingId)
+                            onDone(true, copywritingId, content)
                         }
                     }
                 }

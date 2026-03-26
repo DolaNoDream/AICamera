@@ -1,5 +1,9 @@
 package com.example.aicamera.ui.screen.album
 
+import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
@@ -9,6 +13,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,8 +33,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
@@ -44,16 +47,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import coil.compose.AsyncImage
-import com.example.aicamera.data.network.copywriter.CopywriterRequirement
+import com.example.aicamera.ui.screen.animation.LoadingLottieOverlay
 import com.example.aicamera.ui.viewmodel.album.AlbumListViewModel
 import kotlinx.coroutines.launch
 
@@ -81,183 +81,18 @@ fun AlbumListScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
-    val view = LocalView.current
-    val density = LocalDensity.current
-    val statusBarTopPaddingDp = remember(view, density) {
-        val insets = ViewCompat.getRootWindowInsets(view)
-        val px = insets?.getInsets(WindowInsetsCompat.Type.statusBars())?.top ?: 0
-        with(density) { px.toDp() }
-    }
 
     val showAiWriteDialog = remember { mutableStateOf(false) }
+    val showResultDialog = remember { mutableStateOf(false) } // 结果抽屉
+    val generatedText = remember { mutableStateOf("") } // 存储生成的文本
     val showDeleteDialog = remember { mutableStateOf(false) }
 
-    // requirement 输入（复用 PhotoDetail 的字段定义，仅放一个弹窗即可）
-    val writeType = remember { mutableStateOf("") }
-    val writeEmotion = remember { mutableStateOf("") }
-    val writeTheme = remember { mutableStateOf("") }
-    val writeStyle = remember { mutableStateOf("") }
-    val writeLength = remember { mutableStateOf("") }
-    val writeSpecial = remember { mutableStateOf("") }
-    val writeCustom = remember { mutableStateOf("") }
 
     LaunchedEffect(state.aiWriteMessage) {
         val msg = state.aiWriteMessage
         if (!msg.isNullOrBlank()) {
             snackbarHostState.showSnackbar(msg)
         }
-    }
-
-    //TODO
-    if (showAiWriteDialog.value) {
-        AlertDialog(
-            onDismissRequest = { if (!state.isAiWriting) showAiWriteDialog.value = false },
-            title = {
-                Text(
-                    text = "多图生成文案（已选 ${state.selectedPhotoIds.size} 张）",
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
-            },
-            text = {
-                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    OutlinedTextField(
-                        value = writeType.value,
-                        onValueChange = { writeType.value = it },
-                        singleLine = true,
-                        label = { Text("类型(type)") },
-                        enabled = !state.isAiWriting
-                    )
-                    OutlinedTextField(
-                        value = writeEmotion.value,
-                        onValueChange = { writeEmotion.value = it },
-                        singleLine = true,
-                        label = { Text("情感(emotion)") },
-                        enabled = !state.isAiWriting
-                    )
-                    OutlinedTextField(
-                        value = writeTheme.value,
-                        onValueChange = { writeTheme.value = it },
-                        singleLine = true,
-                        label = { Text("主题(theme)") },
-                        enabled = !state.isAiWriting
-                    )
-                    OutlinedTextField(
-                        value = writeStyle.value,
-                        onValueChange = { writeStyle.value = it },
-                        singleLine = true,
-                        label = { Text("风格(style)") },
-                        enabled = !state.isAiWriting
-                    )
-                    OutlinedTextField(
-                        value = writeLength.value,
-                        onValueChange = { writeLength.value = it },
-                        singleLine = true,
-                        label = { Text("长度(length)") },
-                        enabled = !state.isAiWriting
-                    )
-                    OutlinedTextField(
-                        value = writeSpecial.value,
-                        onValueChange = { writeSpecial.value = it },
-                        singleLine = true,
-                        label = { Text("特殊要求(special)") },
-                        enabled = !state.isAiWriting
-                    )
-                    OutlinedTextField(
-                        value = writeCustom.value,
-                        onValueChange = { writeCustom.value = it },
-                        singleLine = false,
-                        label = { Text("自定义(custom)") },
-                        enabled = !state.isAiWriting
-                    )
-                }
-            },
-            confirmButton = {
-                Button(
-                    enabled = !state.isAiWriting,
-                    onClick = {
-                        val requirement = CopywriterRequirement(
-                            type = writeType.value.trim().ifBlank { null },
-                            emotion = writeEmotion.value.trim().ifBlank { null },
-                            theme = writeTheme.value.trim().ifBlank { null },
-                            style = writeStyle.value.trim().ifBlank { null },
-                            length = writeLength.value.trim().ifBlank { null },
-                            special = writeSpecial.value.trim().ifBlank { null },
-                            custom = writeCustom.value.trim().ifBlank { null },
-                        )
-
-                        val effectiveReq = if (
-                            requirement.type.isNullOrBlank() &&
-                            requirement.emotion.isNullOrBlank() &&
-                            requirement.theme.isNullOrBlank() &&
-                            requirement.style.isNullOrBlank() &&
-                            requirement.length.isNullOrBlank() &&
-                            requirement.special.isNullOrBlank() &&
-                            requirement.custom.isNullOrBlank()
-                        ) null else requirement
-
-                        viewModel.aiWriteForSelectedPhotos(effectiveReq) { ok, _ ->
-                            scope.launch {
-                                if (ok) {
-                                    showAiWriteDialog.value = false
-                                    // 清空输入
-                                    writeType.value = ""
-                                    writeEmotion.value = ""
-                                    writeTheme.value = ""
-                                    writeStyle.value = ""
-                                    writeLength.value = ""
-                                    writeSpecial.value = ""
-                                    writeCustom.value = ""
-                                    // 生成成功后保留选择，方便用户继续；也可在这里 clear
-                                }
-                            }
-                        }
-                    }
-                ) {
-                    Text(text = if (state.isAiWriting) "生成中..." else "生成并保存")
-                }
-            },
-            dismissButton = {
-                OutlinedButton(
-                    enabled = !state.isAiWriting,
-                    onClick = { showAiWriteDialog.value = false }
-                ) {
-                    Text("取消")
-                }
-            }
-        )
-    }
-
-    if (showDeleteDialog.value) {
-        AlertDialog(
-            onDismissRequest = { if (!state.isAiWriting) showDeleteDialog.value = false },
-            title = { Text("确认删除") },
-            text = { Text("将删除已选 ${state.selectedPhotoIds.size} 张照片（仅删除本地数据库记录，关联表会自动清理）。是否继续？") },
-            confirmButton = {
-                TextButton(
-                    enabled = !state.isAiWriting,
-                    onClick = {
-                        viewModel.deleteSelectedPhotos { ok, _ ->
-                            scope.launch {
-                                if (ok) {
-                                    showDeleteDialog.value = false
-                                }
-                            }
-                        }
-                    }
-                ) {
-                    Text("删除")
-                }
-            },
-            dismissButton = {
-                TextButton(
-                    enabled = !state.isAiWriting,
-                    onClick = { showDeleteDialog.value = false }
-                ) {
-                    Text("取消")
-                }
-            }
-        )
     }
 
     Surface(
@@ -271,7 +106,7 @@ fun AlbumListScreen(
             )
 
             Column(modifier = Modifier.fillMaxSize()) {
-                Spacer(modifier = Modifier.height(statusBarTopPaddingDp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.05f))
 
                 //顶部返回+相册页标识
                 Row(
@@ -344,7 +179,7 @@ fun AlbumListScreen(
                         )
                     ) {
                         Text(
-                            text = "精修",
+                            text = "修图",
                             style = MaterialTheme.typography.labelLarge,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
@@ -373,11 +208,11 @@ fun AlbumListScreen(
 
 
                 when {
-                    state.isLoading -> {
+                    /*state.isLoading -> {
                         Box(modifier = Modifier.fillMaxSize()) {
                             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                         }
-                    }
+                    }*/
 
                     !state.errorMessage.isNullOrBlank() && state.photos.isEmpty() -> {
                         Box(modifier = Modifier.fillMaxSize()) {
@@ -485,12 +320,105 @@ fun AlbumListScreen(
                 }
             }
 
+            if (state.isAiWriting) {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = Color.Black.copy(alpha = 0.6f) // 半透明黑色背景
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Log.d("Animation","isAiWriting状态变化，但是动画未加载")
+                        LoadingLottieOverlay(isLoading = state.isAiWriting)
+                    }
+                }
+            }
+            // 使用 AnimatedVisibility 确保动画显示不受 Dialog 关闭的影响
+            AnimatedVisibility(
+                visible = state.isAiWriting,
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.Black.copy(alpha = 0.5f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    //  Lottie 组件
+                    LoadingLottieOverlay(isLoading = state.isAiWriting)
+                }
+            }
+
+
+            if (showAiWriteDialog.value) {
+                CopywriterRequirementSheet(
+                    onDismiss = { showAiWriteDialog.value = false },
+                    isProcessing = state.isAiWriting,
+                    onConfirm = { requirement ->
+                        showAiWriteDialog.value = false
+                        //state.isAiWriting = true
+                        viewModel.aiWriteForSelectedPhotos(requirement) { ok, id, result ->
+                            if (ok && result != null) {
+                                //  生成成功：存储文本，弹出结果抽屉
+                                generatedText.value = result.toString()
+                                showResultDialog.value = true
+                                Log.d("AiWriteResult","原型$result,字符串后${generatedText.value}")
+                                Log.d("isWriting","isAiWriting状态${state.isAiWriting}")
+                                // 4. 可选：成功后清空选择
+                                viewModel.clearSelection()
+                            }
+                        }
+                    }
+                )
+            }
+            // 结果卡片
+            if (showResultDialog.value) {
+                CopywriterResultSheet(
+                    generatedText = generatedText.value,
+                    onDismiss = { showResultDialog.value = false }
+                )
+            }
+
+            if (showDeleteDialog.value) {
+                AlertDialog(
+                    onDismissRequest = { if (!state.isAiWriting) showDeleteDialog.value = false },
+                    title = { Text("确认删除") },
+                    text = { Text("将删除已选 ${state.selectedPhotoIds.size} 张照片（仅删除本地数据库记录，关联表会自动清理）。是否继续？") },
+                    confirmButton = {
+                        TextButton(
+                            enabled = !state.isAiWriting,
+                            onClick = {
+                                viewModel.deleteSelectedPhotos { ok, _ ->
+                                    scope.launch {
+                                        if (ok) {
+                                            showDeleteDialog.value = false
+                                        }
+                                    }
+                                }
+                            }
+                        ) {
+                            Text("删除")
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(
+                            enabled = !state.isAiWriting,
+                            onClick = { showDeleteDialog.value = false }
+                        ) {
+                            Text("取消")
+                        }
+                    }
+                )
+            }
+
             // 右下角悬浮按钮（更显眼）：多图生成文案
             if (state.selectedPhotoIds.isNotEmpty()) {
                 Row(
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
-                        .padding(16.dp)
+                        .padding(8.dp)
                 ) {
                     //全选
                     Button(
@@ -525,15 +453,7 @@ fun AlbumListScreen(
                         onClick = { showAiWriteDialog.value = true },
                         modifier = Modifier.padding(4.dp)
                     ) {
-                        if (state.isAiWriting) {
-                            CircularProgressIndicator(
-                                modifier = Modifier
-                                    .size(16.dp)
-                                    .padding(end = 8.dp),
-                                strokeWidth = 2.dp
-                            )
-                        }
-                        Text("多图生成文案")
+                        Text("文案")
                     }
                 }
             }
