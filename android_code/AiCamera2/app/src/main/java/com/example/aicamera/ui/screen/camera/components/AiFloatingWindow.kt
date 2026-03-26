@@ -29,6 +29,7 @@ import com.example.aicamera.ui.uistate.camera.FloatingWindowStatus
 import com.example.aicamera.ui.uistate.camera.FloatingWindowPosition
 
 import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
+import androidx.compose.material.icons.filled.AllInclusive
 import androidx.compose.runtime.remember
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -92,7 +93,7 @@ fun AiFloatingWindow(
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                imageVector = Icons.Filled.Mic, // 麦克风图标
+                imageVector = Icons.Filled.AllInclusive, // 麦克风图标
                 contentDescription = "AI 语音",
                 tint = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier.size(24.dp)

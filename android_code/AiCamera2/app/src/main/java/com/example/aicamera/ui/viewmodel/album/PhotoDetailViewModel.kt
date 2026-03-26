@@ -151,11 +151,11 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
      * 1) 将 AiEditManager 下载到私有目录的图片导入系统相册（Pictures/AiCamera）
      * 2) 写入 Room（type=1 表示 P 图）
      */
-    fun aiEditCurrentPhoto(requirement: PictureRequirement, onDone: (Boolean) -> Unit) {
+    fun aiEditCurrentPhoto(requirement: PictureRequirement, onDone: (Boolean, String?) -> Unit) {
         val photo = _uiState.value.photo
         if (photo == null) {
             _uiState.value = _uiState.value.copy(aiEditMessage = "无可修图的照片")
-            onDone(false)
+            onDone(false, null)
             return
         }
 
@@ -166,7 +166,7 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
 
         if (!hasReq) {
             _uiState.value = _uiState.value.copy(aiEditMessage = "修图需求不能为空（至少填写一项）")
-            onDone(false)
+            onDone(false, null)
             return
         }
 
@@ -180,7 +180,7 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
 
             if (sourceFile == null || !sourceFile.exists()) {
                 setAiEditStatus(isEditing = false, message = "无法读取原图文件")
-                onDone(false)
+                onDone(false, null)
                 return@launch
             }
 
@@ -192,14 +192,14 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
                 viewModelScope.launch {
                     if (result == null || !result.isSuccess()) {
                         setAiEditStatus(isEditing = false, message = result?.getErrorMsg() ?: "修图失败")
-                        onDone(false)
+                        onDone(false, null)
                         return@launch
                     }
 
                     val savePath = result.getImageSavePath()
                     if (savePath.isNullOrBlank()) {
                         setAiEditStatus(isEditing = false, message = "修图成功但返回路径为空")
-                        onDone(false)
+                        onDone(false, null)
                         return@launch
                     }
 
@@ -207,7 +207,7 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
                     val galleryUri = fileManager.importImageFileToGallery(editedFile)
                     if (galleryUri.isNullOrBlank()) {
                         setAiEditStatus(isEditing = false, message = "修图成功，但保存到系统相册失败")
-                        onDone(false)
+                        onDone(false, null)
                         return@launch
                     }
 
@@ -229,7 +229,7 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
                     }
 
                     setAiEditStatus(isEditing = false, message = "AI修图成功")
-                    onDone(true)
+                    onDone(true, savePath)
                 }
             }
         }
@@ -246,11 +246,11 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
     /**
      * 对当前照片生成文案，并将返回结果写入该照片的 text 字段。
      */
-    fun aiWriteCurrentPhoto(requirement: CopywriterRequirement?, onDone: (Boolean) -> Unit) {
+    fun aiWriteCurrentPhoto(requirement: CopywriterRequirement?, onDone: (Boolean, String?) -> Unit) {
         val photo = _uiState.value.photo
         if (photo == null) {
             setAiWriteStatus(isWriting = false, message = "无可生成文案的照片")
-            onDone(false)
+            onDone(false, null)
             return
         }
 
@@ -262,7 +262,7 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
 
             if (uri == null) {
                 setAiWriteStatus(isWriting = false, message = "无效图片Uri")
-                onDone(false)
+                onDone(false, null)
                 return@launch
             }
 
@@ -282,7 +282,7 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
                                     isWriting = false,
                                     message = result.errorMessage ?: "文案生成失败"
                                 )
-                                onDone(false)
+                                onDone(false, null)
                                 return@launch
                             }
 
@@ -300,7 +300,7 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
 
                             if (updated <= 0) {
                                 setAiWriteStatus(isWriting = false, message = "文案生成成功，但写入照片失败")
-                                onDone(false)
+                                onDone(false, null)
                                 return@launch
                             }
 
@@ -321,7 +321,7 @@ class PhotoDetailViewModel(application: Application) : AndroidViewModel(applicat
                             _uiState.value = _uiState.value.copy(photo = refreshed)
 
                             setAiWriteStatus(isWriting = false, message = "文案已保存")
-                            onDone(true)
+                            onDone(true, content)
                         }
                     }
                 }
