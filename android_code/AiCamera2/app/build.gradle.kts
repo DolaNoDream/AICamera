@@ -89,6 +89,9 @@ dependencies {
     implementation(libs.camera.view)
     implementation(libs.androidx.compose.animation.core)
     implementation(libs.androidx.compose.remote.creation.compose)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.foundation)
+    implementation(libs.androidx.compose.runtime)
 
     testImplementation(libs.junit)
     testImplementation("org.robolectric:robolectric:4.12.1")
@@ -128,6 +131,9 @@ dependencies {
 
     // Images (for album thumbnails / detail)
     implementation("io.coil-kt:coil-compose:2.6.0")
+
+    // Littie Animation
+    implementation("com.airbnb.android:lottie-compose:6.4.0")
 }
 
 // Room schema 导出目录（建议配置，避免 Room 报错/警告）
