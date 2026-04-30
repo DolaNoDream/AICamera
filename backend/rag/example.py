@@ -19,7 +19,7 @@ from rag import RAGManager
 def log_time(start_time: float, step_name: str) -> float:
     """记录并打印步骤耗时"""
     elapsed = time.time() - start_time
-    print(f"  ✓ {step_name}: {elapsed:.4f} 秒")
+    print(f"  [OK] {step_name}: {elapsed:.4f} seconds")
     return elapsed
 
 
@@ -35,15 +35,19 @@ def main():
     backend_dir = os.path.dirname(current_dir)
     
     # 使用绝对路径定位JSON文件
-    json_path = os.path.join(backend_dir, "ragdata", "rag_knowledge_base_v3.json")
+    json_path = os.path.join(backend_dir, "ragdata", "rag_knowledge.json")
     store_path = os.path.join(current_dir, "vector_store")
     
     print("\n1. 初始化阶段")
     print("-" * 40)
     
-    # 初始化RAG管理器
+    # 初始化RAG管理器（使用Hugging Face轻量模型）
     start = time.time()
-    rag_manager = RAGManager(store_path=store_path)
+    rag_manager = RAGManager(
+        store_path=store_path,
+        use_modelscope=False,
+        model_name="all-MiniLM-L6-v2"
+    )
     rag_manager_init_time = log_time(start, "RAG管理器初始化")
     
     print("\n2. 向量库加载/构建阶段")

@@ -1,16 +1,37 @@
 import os
 from typing import List, Dict, Any, Optional
 
-from .vector_builder import VectorBuilder
-from .vector_matcher import VectorMatcher
-
 
 class RAGManager:
-    def __init__(self, store_path: str = "./vector_store"):
+    def __init__(self, store_path: str = "./vector_store", use_modelscope: bool = False, model_name: str = "all-MiniLM-L6-v2"):
         self.store_path = store_path
-        self.builder = VectorBuilder()
-        self.matcher = VectorMatcher()
+        self.use_modelscope = use_modelscope
+        self.model_name = model_name
+        
+        # 先加载共享模型
+        self._load_model()
+        
+        # 导入并创建builder和matcher，共享同一个模型
+        from .vector_builder import VectorBuilder
+        from .vector_matcher import VectorMatcher
+        
+        self.builder = VectorBuilder(model_name=model_name, use_modelscope=use_modelscope, model=self.model)
+        self.matcher = VectorMatcher(model_name=model_name, use_modelscope=use_modelscope, model=self.model)
+        
         self._ensure_store_path()
+
+    def _load_model(self):
+        """加载共享的嵌入模型"""
+        if self.use_modelscope:
+            from modelscope.pipelines import pipeline
+            self.model = pipeline("feature-extraction", model=self.model_name)
+        else:
+            from sentence_transformers import SentenceTransformer
+            hf_token = os.environ.get("HF_TOKEN")
+            if hf_token:
+                self.model = SentenceTransformer(self.model_name, token=hf_token)
+            else:
+                self.model = SentenceTransformer(self.model_name)
 
     def _ensure_store_path(self) -> None:
         """确保向量库存储路径存在"""
@@ -31,6 +52,9 @@ class RAGManager:
             self.builder.build_from_data(data, self.store_path)
         else:
             raise ValueError("必须提供json_path或data参数")
+        
+        # 构建完成后自动加载向量库
+        self.load_vector_store()
 
     def load_vector_store(self) -> bool:
         """加载向量库"""
