@@ -5,7 +5,7 @@ import random
 from typing import Optional, Dict
 import os
 from openai import OpenAI
-
+from BailianImageRAG import BailianImageRAG
 
 def encode_image_bytes(image_data: bytes) -> str:
     """将图片二进制数据编码为base64格式的data URL"""
@@ -35,9 +35,47 @@ def generate_pose_suggestions(
     调用通义千问VL大模型生成精细化姿势建议+构图指导+语音指导
     确保返回值是标准JSON字符串
     """
-    # 核心提示词（保持你之前的版本不变）
+    # 核心提示词
     user_intent_str = user_intent if user_intent else "无"
     meta_str = json.dumps(meta, ensure_ascii=False) if meta else "无"
+
+    # ================= 调用 RAG 模块获取知识 =================
+    rag_instruction = ""
+    try:
+        print("正在调用 RAG 模块进行知识检索...")
+        rag_tool = BailianImageRAG()  # 自动读取 .env 里的 KEY 和 APP_ID
+
+        # 将用户的图片和意图传给 RAG，获取 Top 3 匹配结果
+        rag_result = rag_tool.retrieve(image=image_data, query=user_intent_str, top_k=3)
+
+        if rag_result.get('success') and rag_result.get('results'):
+            print("RAG 检索成功，准备注入上下文")
+
+            # 将检索到的结果提取出来拼成字符串
+            templates = []
+            for i, item in enumerate(rag_result['results']):
+                pose_overall = item.get('pose_overall', '')
+                pose_details = json.dumps(item.get('pose_details', {}), ensure_ascii=False)
+                templates.append(f"【优质参考模板 {i + 1}】\n整体姿态：{pose_overall}\n骨架细节：{pose_details}")
+
+            rag_context_str = "\n\n".join(templates)
+
+            rag_instruction = f"""
+    === 顶级摄影师姿势模板库（RAG 增强上下文） ===
+    系统从海量高赞大片中为你检索出了最符合当前意图的【高级姿势骨架模板】如下：
+
+    {rag_context_str}
+
+    请你【强烈参考】上述模板的肢体结构！结合用户上传的实景图片的空间限制，将这些顶级模板改编为 3 个最适合当前场景的姿势建议。必须保留这些模板里的“高级网感”与肢体张力！
+                """
+        else:
+            print(f"RAG 检索未找到合适结果或警告: {rag_result.get('message')}，退回零样本生成模式。")
+
+    except Exception as e:
+        # 容错兜底：如果 RAG 报错了，捕获异常，绝不让主程序崩溃
+        print(f"RAG 模块调用异常，执行服务降级: {str(e)}")
+        rag_instruction = ""  # 清空 RAG 指令，大模型自己发挥
+    # =========================================================
 
     forbidden_rules = """
 === 严格禁止项（必须遵守，否则输出无效） ===
@@ -58,6 +96,8 @@ def generate_pose_suggestions(
 
     prompt = f"""
 任务：根据上传的图片场景、用户输入要求、相机参数，生成符合要求的姿势建议+构图指导+语音指导（用于AI相机场景，需实用、易操作且贴合场景）。
+
+{rag_instruction}
 
 {forbidden_rules}
 
@@ -132,7 +172,7 @@ def generate_pose_suggestions(
                     ],
                 }
             ],
-            temperature=0.95,
+            temperature=0.85,
             seed=seed,
             timeout=30
         )

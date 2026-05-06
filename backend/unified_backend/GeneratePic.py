@@ -7,6 +7,7 @@ import dashscope
 from dashscope import MultiModalConversation
 import base64
 import requests
+from pathlib import Path
 
 # ======================== 全局配置 ========================
 dashscope.base_http_api_url = 'https://dashscope.aliyuncs.com/api/v1'
@@ -29,7 +30,7 @@ def encode_file(file_path):
     except IOError as e:
         raise IOError(f"读取文件时出错: {file_path}, 错误: {str(e)}")
 
-
+'''
 # 修复：入参改为pose_list（列表），不再需要解析JSON字符串
 def get_highest_priority_pose(pose_list: List[Dict[str, Any]]) -> Dict[str, Any]:
     """ 从姿势建议列表中提取优先级最高的姿势
@@ -50,7 +51,7 @@ def get_highest_priority_pose(pose_list: List[Dict[str, Any]]) -> Dict[str, Any]
     except Exception as e:
         raise Exception(f"提取最高优先级姿势失败：{str(e)}")
 
-
+'''
 def generate_detailed_pose_description_cn(pose: Dict[str, Any]) -> str:
     """ 将姿势字典转换为非常详细的中文部位描述 """
     lines = []
@@ -81,6 +82,70 @@ def generate_detailed_pose_description_cn(pose: Dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def get_highest_priority_pose(pose_list: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """
+    接管大模型的裁判权：智能提取最佳姿势。
+    不再盲目迷信 priority=1，而是通过“动态张力”与“细节丰富度”进行二次重排。
+    """
+    try:
+        if not isinstance(pose_list, list):
+            raise TypeError(f"期望姿势列表，实际是{type(pose_list)}")
+        if not pose_list:
+            raise ValueError("姿势建议列表为空")
+
+        # 高级网感/动态张力特征词库（命中这些词，说明动作不呆板）
+        dynamic_keywords = [
+            "交叉", "侧身", "扭转", "倾斜", "弯曲", "抬起", "高举",
+            "延伸", "后仰", "前倾", "重心", "不对称", "折角", "托腮", "倚靠"
+        ]
+
+        def calculate_pose_score(pose: Dict[str, Any]) -> int:
+            score = 0
+            details = pose.get("details", {})
+
+            # 1. 细节丰富度得分（描述越细致，通常效果越好）
+            # 计算所有部位描述的总字数
+            desc_length = sum(len(str(v)) for v in details.values())
+            score += desc_length
+
+            # 2. 动态张力加分（核心网感检测）
+            # 将所有描述拼成一个长字符串，检测是否命中高级动作词汇
+            full_desc = "".join(str(v) for v in details.values())
+            for keyword in dynamic_keywords:
+                if keyword in full_desc:
+                    score += 30  # 命中一个高级词汇，加 30 分
+
+            # 3. 扣分项（惩罚呆板动作）
+            boring_keywords = ["双腿并拢", "平行", "自然", "直立", "正面","微微"]
+            for keyword in boring_keywords:
+                if keyword in full_desc:
+                    score -= 50  # 命中一个呆板词汇，重罚 50 分
+
+            # 4. 保留模型的基准建议权（作为微调）
+            # priority越小优先级越高，所以做个倒数映射：P=1加20分，P=2加10分，P=3不加分
+            priority = pose.get("priority", 3)
+            if priority == 1:
+                score += 20
+            elif priority == 2:
+                score += 10
+
+            # 为了方便调试，我们把得分打印出来（可注释掉）
+            print(f"[{pose.get('name')}] 原优先级: {priority}, 智能重算得分: {score}")
+            return score
+
+        # 按照我们自定义的得分进行降序排序（得分最高的排第一）
+        sorted_poses = sorted(pose_list, key=calculate_pose_score, reverse=True)
+
+        best_pose = sorted_poses[0]
+        print(f"🏆 最终选中画图的姿势是: 【{best_pose.get('name')}】")
+
+        return best_pose
+
+    except KeyError as e:
+        raise Exception(f"姿势缺少必要字段：{str(e)}")
+    except Exception as e:
+        raise Exception(f"提取最高优先级姿势失败：{str(e)}")
+
 # 修复：入参改为pose_list（列表），删除JSON解析逻辑
 def generate_pose_image_url(
         pose_list: List[Dict[str, Any]],  # 核心修改：接收列表而非JSON字符串
@@ -108,11 +173,17 @@ def generate_pose_image_url(
     pose_desc_cn = generate_detailed_pose_description_cn(highest_pose)
     print(f"正在生成姿势示意图（详细描述）:\n{pose_desc_cn}")
 
+
     # 替换为本地参考图的base64编码（确保文件路径正确）
     try:
-        reference_image_url = encode_file("D:\\学习资料\\软创\\example.png")
+        current_dir = Path(__file__).parent
+        file_path = current_dir / "example.png"
+
+        reference_image_url = encode_file(str(file_path))
+        #reference_image_url = encode_file("D:\\学习资料\\软创\\example.png")
     except Exception as e:
         raise Exception(f"读取参考图片失败：{str(e)}")
+
 
     # 3. 重构后的细化提示词
     prompt = f"""
@@ -147,6 +218,7 @@ def generate_pose_image_url(
     try:
         response = MultiModalConversation.call(
             api_key=api_key,
+            #model='wan2.7-image',
             model="qwen-image-edit-plus",
             messages=messages,
             stream=False,
